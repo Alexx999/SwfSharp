@@ -49,6 +49,7 @@
     <Compile Include="SwfHeader.cs" />
     <Compile Include="SwfRectStruct.cs" />
     <Compile Include="SwfTag.cs" />
+    <Compile Include="Utils\BitReader.cs" />
     <Compile Include="Utils\BitUtil.cs" />
   </ItemGroup>
   <ItemGroup>
