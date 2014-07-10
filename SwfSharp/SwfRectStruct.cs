@@ -9,28 +9,25 @@ namespace SwfSharp
 {
     public class SwfRectStruct
     {
-        private byte[] _origBytes;
-
         public int Xmin { get; set; }
         public int Xmax { get; set; }
         public int Ymin { get; set; }
         public int Ymax { get; set; }
 
-        public static SwfRectStruct FromStream(BinaryReader reader)
+        internal static SwfRectStruct FromStream(BitReader reader)
         {
             var result = new SwfRectStruct();
 
-            var firstByte = reader.PeekChar()|0xFF;
+            reader.Align();
 
-            var bitsPerField = firstByte >> 3;
+            var bitsPerField = reader.ReadBits(5);
 
-            int bitLen = bitsPerField * 4 + 5;
+            result.Xmin = reader.ReadBitsSigned(bitsPerField);
+            result.Xmax = reader.ReadBitsSigned(bitsPerField);
+            result.Ymin = reader.ReadBitsSigned(bitsPerField);
+            result.Ymax = reader.ReadBitsSigned(bitsPerField);
 
-            var byteCount = BitUtil.ByteCount(bitLen);
-
-            result._origBytes = reader.ReadBytes(byteCount);
-
-            var pos = 5;
+            reader.Align();
 
             return result;
         }

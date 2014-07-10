@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using SwfSharp.Utils;
 
 namespace SwfSharp
 {
@@ -12,23 +13,27 @@ namespace SwfSharp
         public SwfFileCompression Compression { get; set; }
         public uint FileSize { get; set; }
         public SwfRectStruct Rect { get; set; }
+        public float FrameRate { get; set; }
+        public ushort FrameCount { get; set; }
 
-        public void FromCompressedStream(BinaryReader reader)
+        internal void FromCompressedStream(BitReader reader)
         {
             Compression = ReadSignature(reader);
-            Version = reader.ReadByte();
-            FileSize = reader.ReadUInt32();
+            Version = reader.ReadUI8();
+            FileSize = reader.ReadUI32();
         }
 
-        public void FromStream(BinaryReader reader)
+        internal void FromStream(BitReader reader)
         {
             Rect = SwfRectStruct.FromStream(reader);
+            FrameRate = reader.ReadFixed8();
+            FrameCount = reader.ReadUI16();
         }
 
-        private static SwfFileCompression ReadSignature(BinaryReader reader)
+        private static SwfFileCompression ReadSignature(BitReader reader)
         {
-            var compressionMode = (SwfFileCompression)reader.ReadByte();
-            var magic = reader.ReadUInt16();
+            var compressionMode = (SwfFileCompression)reader.ReadUI8();
+            var magic = reader.ReadUI16();
 
             if (magic != 0x5357)
             {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using Ionic.Zlib;
+using SwfSharp.Utils;
 
 namespace SwfSharp
 {
@@ -31,10 +32,10 @@ namespace SwfSharp
 
         private void InitFromStream(Stream stream)
         {
-            var reader = new BinaryReader(stream);
+            var reader = new BitReader(stream);
             _header.FromCompressedStream(reader);
             stream = GetDecompressedStream(stream);
-            reader = new BinaryReader(stream);
+            reader = new BitReader(stream);
             _header.FromStream(reader);
         }
 
@@ -84,7 +85,7 @@ namespace SwfSharp
             {
                 zlib.CopyTo(result);
             }
-            
+            result.Position = 0;
             return result;
         }
 
