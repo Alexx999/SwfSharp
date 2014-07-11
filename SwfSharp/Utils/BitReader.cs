@@ -251,6 +251,30 @@ namespace SwfSharp.Utils
             return result;
         }
 
+        public int ReadString(out string result)
+        {
+            var ms = new MemoryStream();
+            byte b;
+            while ((b = ReadUI8()) != 0)
+            {
+                ms.WriteByte(b);
+            }
+            result = Encoding.UTF8.GetString(ms.GetBuffer(), 0, (int)ms.Position);
+            return (int) (ms.Position + 1);
+        }
+
+        public string ReadString()
+        {
+            string result;
+            ReadString(out result);
+            return result;
+        }
+
+        public string ReadString(int size)
+        {
+            return Encoding.UTF8.GetString(ReadBytes(size));
+        }
+
         public void Close()
         {
             Dispose(true);

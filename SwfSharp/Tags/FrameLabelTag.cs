@@ -18,15 +18,11 @@ namespace SwfSharp.Tags
 
         internal override void FromStream(BitReader reader)
         {
-            var ms = new MemoryStream(Size);
-            byte b;
-            while ((b = reader.ReadUI8()) != 0)
-            {
-                ms.WriteByte(b);
-            }
-            Name = Encoding.UTF8.GetString(ms.GetBuffer(), 0, (int) ms.Position);
+            string name;
+            var len = reader.ReadString(out name);
+            Name = name;
 
-            if (Size - ms.Position > 1)
+            if (Size > len)
             {
                 IsNamedAnchor = reader.ReadUI8() != 0;
             }

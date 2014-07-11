@@ -13,7 +13,7 @@ namespace SwfSharp.Tags
 
         internal override void FromStream(BitReader reader)
         {
-            Metadata = Encoding.UTF8.GetString(reader.ReadBytes(Size));
+            Metadata = reader.ReadString(Size);
         }
     }
 }
