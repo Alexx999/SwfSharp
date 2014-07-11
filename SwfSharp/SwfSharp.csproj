@@ -45,11 +45,13 @@
   <ItemGroup>
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShapeRecords\CurvedEdgeRecord.cs" />
     <Compile Include="ShapeRecords\EndShapeRecord.cs" />
     <Compile Include="ShapeRecords\NonEdgeFlags.cs" />
     <Compile Include="ShapeRecords\ShapeRecord.cs" />
     <Compile Include="ShapeRecords\ShapeRecordFactory.cs" />
     <Compile Include="ShapeRecords\ShapeRecordType.cs" />
+    <Compile Include="ShapeRecords\StraightEdgeRecord.cs" />
     <Compile Include="ShapeRecords\StyleChangeRecord.cs" />
     <Compile Include="Structs\FillStyleArray.cs" />
     <Compile Include="Structs\FillStyleStruct.cs" />

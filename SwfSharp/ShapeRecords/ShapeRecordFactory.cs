@@ -11,7 +11,7 @@ namespace SwfSharp.ShapeRecords
     class ShapeRecordFactory
     {
 
-        public static ShapeRecord ReadTag(byte numFillBits, byte numLineBits, TagType type, BitReader reader)
+        public static ShapeRecord ReadTag(ref byte numFillBits, ref byte numLineBits, TagType type, BitReader reader)
         {
             var isEdgeRecord = reader.ReadBoolBit();
             if (!isEdgeRecord)
@@ -25,7 +25,7 @@ namespace SwfSharp.ShapeRecords
                 }
                 else
                 {
-                    return StyleChangeRecord.CreateFromStream(nonEdgeFlags, numFillBits, numLineBits, type, reader);
+                    return StyleChangeRecord.CreateFromStream(nonEdgeFlags, ref numFillBits, ref numLineBits, type, reader);
                 }
             }
             else

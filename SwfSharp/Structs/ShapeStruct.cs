@@ -10,8 +10,21 @@ namespace SwfSharp.Structs
 {
     public class ShapeStruct
     {
-        public byte NumFillBits { get; set; }
-        public byte NumLineBits { get; set; }
+        private byte _numFillBits;
+        private byte _numLineBits;
+
+        public byte NumFillBits
+        {
+            get { return _numFillBits; }
+            set { _numFillBits = value; }
+        }
+
+        public byte NumLineBits
+        {
+            get { return _numLineBits; }
+            set { _numLineBits = value; }
+        }
+
         public IList<ShapeRecord> ShapeRecords { get; set; }
 
         internal virtual void FromStream(BitReader reader, TagType type)
@@ -22,7 +35,7 @@ namespace SwfSharp.Structs
             ShapeRecord record;
             do
             {
-                record = ShapeRecordFactory.ReadTag(NumFillBits, NumLineBits, type, reader);
+                record = ShapeRecordFactory.ReadTag(ref _numFillBits, ref _numLineBits, type, reader);
                 ShapeRecords.Add(record);
             } while (record.RecordType != ShapeRecordType.EndShape);
         }

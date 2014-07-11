@@ -20,7 +20,7 @@ namespace SwfSharp.ShapeRecords
             Flags = nonEdgeFlags;
         }
 
-        internal void FromStream(BitReader reader, byte numFillBits, byte numLineBits, TagType type)
+        internal void FromStream(BitReader reader, ref byte numFillBits, ref byte numLineBits, TagType type)
         {
             if (Flags.StateMoveTo)
             {
@@ -44,16 +44,16 @@ namespace SwfSharp.ShapeRecords
             {
                 FillStyles = FillStyleArray.CreateFromStream(reader, type);
                 LineStyles = LineStyleArray.CreateFromStream(reader, type);
-                var newNumFillBits = reader.ReadBits(4);
-                var newNumLineBits = reader.ReadBits(4);
+                numFillBits = (byte) reader.ReadBits(4);
+                numLineBits = (byte) reader.ReadBits(4);
             }
         }
 
-        internal static StyleChangeRecord CreateFromStream(NonEdgeFlags flags, byte numFillBits, byte numLineBits, TagType type, BitReader reader)
+        internal static StyleChangeRecord CreateFromStream(NonEdgeFlags flags, ref byte numFillBits, ref byte numLineBits, TagType type, BitReader reader)
         {
             var result = new StyleChangeRecord(flags);
 
-            result.FromStream(reader, numFillBits, numLineBits, type);
+            result.FromStream(reader, ref numFillBits, ref numLineBits, type);
 
             return result;
         }
