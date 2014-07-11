@@ -13,6 +13,9 @@ namespace SwfSharp.Utils
         private bool _keepOpen;
         private uint _bitPos;
         private uint _tempBuf;
+#if DEBUG
+        private long _tagLimit;
+#endif
 
         public BitReader(Stream stream) : this(stream, false)
         {
@@ -237,6 +240,18 @@ namespace SwfSharp.Utils
                 reader.Dispose();
             }
             GC.SuppressFinalize(this);
+        }
+
+        [Conditional("DEBUG")]
+        public void BeginReadTag(int size)
+        {
+            _tagLimit = _reader.BaseStream.Position + size;
+        }
+
+        [Conditional("DEBUG")]
+        public void EndReadTag()
+        {
+            Debug.Assert(_tagLimit == _reader.BaseStream.Position);
         }
     }
 }

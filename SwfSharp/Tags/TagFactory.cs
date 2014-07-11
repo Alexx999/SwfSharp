@@ -22,7 +22,9 @@ namespace SwfSharp.Tags
                 size = reader.ReadSI32();
             }
             var tag = GetTag(type, size);
+            reader.BeginReadTag(size);
             tag.FromStream(reader);
+            reader.EndReadTag();
             return tag;
         }
 
