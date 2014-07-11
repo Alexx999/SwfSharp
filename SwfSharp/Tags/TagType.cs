@@ -34,6 +34,7 @@
         DefineBitsLossless2 = 36,
         DefineEditText = 37,
         DefineSprite = 39,
+        ProductInfo = 41,
         FrameLabel = 43,
         SoundStreamHead2 = 45,
         DefineMorphShape = 46,
