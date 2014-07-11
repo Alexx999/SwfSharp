@@ -75,6 +75,7 @@
     <Compile Include="Structs\RgbStruct.cs" />
     <Compile Include="Structs\CXformWithAlphaStruct.cs" />
     <Compile Include="Structs\ClipActionsStruct.cs" />
+    <Compile Include="Tags\DefineBinaryDataTag.cs" />
     <Compile Include="Tags\DefineShape2Tag.cs" />
     <Compile Include="Tags\DefineShape3Tag.cs" />
     <Compile Include="Tags\DefineShapeTag.cs" />

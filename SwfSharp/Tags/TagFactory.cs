@@ -110,6 +110,10 @@ namespace SwfSharp.Tags
                 {
                     return new DoABCTag(type, size);
                 }
+                case TagType.DefineBinaryData:
+                {
+                    return new DefineBinaryDataTag(type, size);
+                }
                 case TagType.EnableTelemetry:
                 {
                     return  new EnableTelemetryTag(type, size);
