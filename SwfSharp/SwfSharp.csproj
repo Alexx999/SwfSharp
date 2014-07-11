@@ -50,6 +50,7 @@
     <Compile Include="SwfRectStruct.cs" />
     <Compile Include="Tags\EndTag.cs" />
     <Compile Include="Tags\FileAttributesTag.cs" />
+    <Compile Include="Tags\MetadataTag.cs" />
     <Compile Include="Tags\SwfTag.cs" />
     <Compile Include="Tags\TagFactory.cs" />
     <Compile Include="Tags\TagType.cs" />

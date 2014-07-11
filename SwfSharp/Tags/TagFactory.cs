@@ -39,6 +39,10 @@ namespace SwfSharp.Tags
                 {
                     return new FileAttributesTag(type, size);
                 }
+                case TagType.Metadata:
+                {
+                    return new MetadataTag(type, size);
+                }
                 default:
                 {
                     return new UnknownTag(type, size);
