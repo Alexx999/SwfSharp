@@ -70,6 +70,14 @@ namespace SwfSharp.Tags
                 {
                     return new FrameLabelTag(type, size);
                 }
+                case TagType.EnableDebugger:
+                {
+                    return new EnableDebuggerTag(type, size);
+                }
+                case TagType.EnableDebugger2:
+                {
+                    return new EnableDebugger2Tag(type, size);
+                }
                 case TagType.ScriptLimits:
                 {
                     return new ScriptLimitsTag(type, size);

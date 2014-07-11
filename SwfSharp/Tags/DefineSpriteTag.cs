@@ -6,7 +6,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
-    class DefineSpriteTag : SwfTag
+    public class DefineSpriteTag : SwfTag
     {
         public ushort SpriteID { get; set; }
         public ushort FrameCount { get; set; }
