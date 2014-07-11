@@ -80,6 +80,7 @@
     <Compile Include="Tags\DefineShapeTag.cs" />
     <Compile Include="Tags\DefineSpriteTag.cs" />
     <Compile Include="Tags\DoABCTag.cs" />
+    <Compile Include="Tags\DoActionTag.cs" />
     <Compile Include="Tags\EnableDebugger2Tag.cs" />
     <Compile Include="Tags\EnableDebuggerTag.cs" />
     <Compile Include="Tags\EnableTelemetryTag.cs" />

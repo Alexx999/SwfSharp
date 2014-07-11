@@ -54,6 +54,10 @@ namespace SwfSharp.Tags
                 {
                     return new SetBackgroundColorTag(type, size);
                 }
+                case TagType.DoAction:
+                {
+                    return new DoActionTag(type, size);
+                }
                 case TagType.DefineShape2:
                 {
                     return new DefineShape2Tag(type, size);
