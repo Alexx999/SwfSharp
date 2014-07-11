@@ -54,6 +54,7 @@
     <Compile Include="Tags\EnableTelemetryTag.cs" />
     <Compile Include="Tags\EndTag.cs" />
     <Compile Include="Tags\FileAttributesTag.cs" />
+    <Compile Include="Tags\FrameLabelTag.cs" />
     <Compile Include="Tags\MetadataTag.cs" />
     <Compile Include="Tags\ProductInfoTag.cs" />
     <Compile Include="Tags\ScriptLimitsTag.cs" />

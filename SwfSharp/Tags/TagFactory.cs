@@ -45,6 +45,10 @@ namespace SwfSharp.Tags
                 {
                     return new ProductInfoTag(type, size);
                 }
+                case TagType.FrameLabel:
+                {
+                    return new FrameLabelTag(type, size);
+                }
                 case TagType.ScriptLimits:
                 {
                     return new ScriptLimitsTag(type, size);
