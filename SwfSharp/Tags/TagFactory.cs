@@ -57,6 +57,10 @@ namespace SwfSharp.Tags
                 {
                     return new MetadataTag(type, size);
                 }
+                case TagType.EnableTelemetry:
+                {
+                    return  new EnableTelemetryTag(type, size);
+                }
                 default:
                 {
                     return new UnknownTag(type, size);

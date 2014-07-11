@@ -51,6 +51,7 @@
     <Compile Include="Structs\SwfRgbaStruct.cs" />
     <Compile Include="Structs\SwfArgbStruct.cs" />
     <Compile Include="Structs\SwfRgbStruct.cs" />
+    <Compile Include="Tags\EnableTelemetryTag.cs" />
     <Compile Include="Tags\EndTag.cs" />
     <Compile Include="Tags\FileAttributesTag.cs" />
     <Compile Include="Tags\MetadataTag.cs" />
