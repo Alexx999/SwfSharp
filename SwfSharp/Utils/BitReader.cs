@@ -179,6 +179,10 @@ namespace SwfSharp.Utils
 
             var result = _tempBuf >> shift;
             _tempBuf &= mask;
+            if (shift == 0)
+            {
+                _tempBuf = 0;
+            }
             _bitPos -= length;
 
             return result;
@@ -197,6 +201,21 @@ namespace SwfSharp.Utils
 
             var sign = (ReadBits(1) == 1) ? -1 : 1;
             return (int)ReadBits(length - 1)*sign;
+        }
+
+        public byte[] ReadBytes(int size)
+        {
+            if (_bitPos == 0)
+            {
+                return _reader.ReadBytes(size);
+            }
+
+            var result = new byte[size];
+            for (int i = 0; i < size; i++)
+            {
+                result[i] = ReadUI8();
+            }
+            return result;
         }
 
         public void Close()

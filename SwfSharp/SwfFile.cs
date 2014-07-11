@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using Ionic.Zlib;
+using SwfSharp.Tags;
 using SwfSharp.Utils;
 
 namespace SwfSharp
@@ -37,11 +38,11 @@ namespace SwfSharp
             stream = GetDecompressedStream(stream);
             reader = new BitReader(stream);
             _header.FromStream(reader);
+            TagFactory.ReadTag(reader);
         }
 
         private Stream GetDecompressedStream(Stream stream)
         {
-
             switch (_header.Compression)
             {
                 case SwfFileCompression.None:

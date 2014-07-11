@@ -48,7 +48,12 @@
     <Compile Include="SwfFile.cs" />
     <Compile Include="SwfHeader.cs" />
     <Compile Include="SwfRectStruct.cs" />
-    <Compile Include="SwfTag.cs" />
+    <Compile Include="Tags\EndTag.cs" />
+    <Compile Include="Tags\FileAttributesTag.cs" />
+    <Compile Include="Tags\SwfTag.cs" />
+    <Compile Include="Tags\TagFactory.cs" />
+    <Compile Include="Tags\TagType.cs" />
+    <Compile Include="Tags\UnknownTag.cs" />
     <Compile Include="Utils\BitReader.cs" />
     <Compile Include="Utils\BitUtil.cs" />
   </ItemGroup>
@@ -61,6 +66,7 @@
       <Name>LzmaAlone</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
