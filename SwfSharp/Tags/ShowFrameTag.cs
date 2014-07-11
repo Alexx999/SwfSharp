@@ -6,7 +6,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
-    class ShowFrameTag : SwfTag
+    public class ShowFrameTag : SwfTag
     {
         public ShowFrameTag(TagType tagType, int size) : base(tagType, size)
         {

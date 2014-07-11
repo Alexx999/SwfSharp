@@ -6,7 +6,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
-    class DoABCTag : SwfTag
+    public class DoABCTag : SwfTag
     {
         public uint Flags { get; set; }
         public string Name { get; set; }

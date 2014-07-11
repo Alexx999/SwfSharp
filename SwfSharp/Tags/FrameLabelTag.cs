@@ -7,7 +7,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
-    class FrameLabelTag : SwfTag
+    public class FrameLabelTag : SwfTag
     {
         public string Name { get; set; }
         public bool IsNamedAnchor { get; set; }

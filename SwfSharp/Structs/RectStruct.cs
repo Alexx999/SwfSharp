@@ -2,21 +2,12 @@
 
 namespace SwfSharp.Structs
 {
-    public class SwfRectStruct
+    public class RectStruct
     {
         public int Xmin { get; set; }
         public int Xmax { get; set; }
         public int Ymin { get; set; }
         public int Ymax { get; set; }
-
-        internal static SwfRectStruct CreateFromStream(BitReader reader)
-        {
-            var result = new SwfRectStruct();
-
-            result.FromStream(reader);
-
-            return result;
-        }
 
         private void FromStream(BitReader reader)
         {
@@ -30,6 +21,15 @@ namespace SwfSharp.Structs
             Ymax = reader.ReadBitsSigned(bitsPerField);
 
             reader.Align();
+        }
+
+        internal static RectStruct CreateFromStream(BitReader reader)
+        {
+            var result = new RectStruct();
+
+            result.FromStream(reader);
+
+            return result;
         }
     }
 }

@@ -231,9 +231,16 @@ namespace SwfSharp.Utils
             {
                 throw new ArgumentOutOfRangeException("length", "Cannot read more than 32 bits at a time");
             }
+            var signBit = ReadBits(1);
+            var bits = ReadBits(length - 1);
+            var mask = (int)(uint.MaxValue << (int)(length - 1)) * signBit;
+            var value = (int)(mask | bits);
+            return value;
+        }
 
-            var sign = (ReadBits(1) == 1) ? -1 : 1;
-            return (int)ReadBits(length - 1)*sign;
+        public float ReadFB(uint length)
+        {
+            return ReadBitsSigned(length) / 65536.0f;
         }
 
         public byte[] ReadBytes(int size)
@@ -306,6 +313,7 @@ namespace SwfSharp.Utils
         public void EndReadTag()
         {
             Debug.Assert(_tagLimit == _reader.BaseStream.Position);
+            _reader.BaseStream.Position = _tagLimit;
         }
     }
 }

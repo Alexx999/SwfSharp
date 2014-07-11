@@ -3,7 +3,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
-    class MetadataTag : SwfTag
+    public class MetadataTag : SwfTag
     {
         public string Metadata { get; set; }
 

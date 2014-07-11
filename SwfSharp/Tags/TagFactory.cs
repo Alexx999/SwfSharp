@@ -41,9 +41,21 @@ namespace SwfSharp.Tags
                 {
                     return new ShowFrameTag(type, size);
                 }
+                case TagType.DefineShape:
+                {
+                    return new DefineShapeTag(type, size);
+                }
                 case TagType.SetBackgroundColor:
                 {
                     return new SetBackgroundColorTag(type, size);
+                }
+                case TagType.DefineShape2:
+                {
+                    return new DefineShape2Tag(type, size);
+                }
+                case TagType.DefineShape3:
+                {
+                    return new DefineShape3Tag(type, size);
                 }
                 case TagType.ProductInfo:
                 {

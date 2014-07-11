@@ -6,7 +6,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
-    class UnknownTag : SwfTag
+    public class UnknownTag : SwfTag
     {
         private byte[] _origBytes;
 

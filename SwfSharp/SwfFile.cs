@@ -40,6 +40,7 @@ namespace SwfSharp
             _header.FromStream(reader);
             while (stream.Position < stream.Length)
             {
+                reader.Align();
                 var tag = TagFactory.ReadTag(reader);
                 Tags.Add(tag);
             }

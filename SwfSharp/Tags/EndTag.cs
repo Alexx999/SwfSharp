@@ -6,7 +6,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
-    class EndTag : SwfTag
+    public class EndTag : SwfTag
     {
         public EndTag(TagType tagType, int size) : base(tagType, size)
         {

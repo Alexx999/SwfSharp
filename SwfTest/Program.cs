@@ -14,6 +14,8 @@ namespace SwfTest
         {
             var swf = SwfFile.FromStream(File.OpenRead("TestLZMA.swf"));
             var swf2 = SwfFile.FromStream(File.OpenRead("TestZLIB.swf"));
+            var swf3 = SwfFile.FromStream(File.OpenRead("expressInstall.swf"));
+            var swf4 = SwfFile.FromStream(File.OpenRead("Economics.swf"));
         }
     }
 }

@@ -6,7 +6,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
-    class SymbolClassTag : SwfTag
+    public class SymbolClassTag : SwfTag
     {
         public IList<Symbol> Symbols { get; set; } 
 

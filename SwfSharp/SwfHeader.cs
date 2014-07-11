@@ -13,7 +13,7 @@ namespace SwfSharp
         public byte Version { get; set; }
         public SwfFileCompression Compression { get; set; }
         public uint FileSize { get; set; }
-        public SwfRectStruct Rect { get; set; }
+        public RectStruct Rect { get; set; }
         public float FrameRate { get; set; }
         public ushort FrameCount { get; set; }
 
@@ -26,7 +26,7 @@ namespace SwfSharp
 
         internal void FromStream(BitReader reader)
         {
-            Rect = SwfRectStruct.CreateFromStream(reader);
+            Rect = RectStruct.CreateFromStream(reader);
             FrameRate = reader.ReadFixed8();
             FrameCount = reader.ReadUI16();
         }

@@ -6,7 +6,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
-    class ScriptLimitsTag : SwfTag
+    public class ScriptLimitsTag : SwfTag
     {
         public ushort MaxRecursionDepth { get; set; }
         public ushort ScriptTimeoutSeconds { get; set; }

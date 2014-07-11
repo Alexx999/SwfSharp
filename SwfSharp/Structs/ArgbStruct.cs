@@ -2,22 +2,12 @@
 
 namespace SwfSharp.Structs
 {
-    class SwfArgbStruct
+    class ArgbStruct
     {
         public byte A { get; set; }
         public byte R { get; set; }
         public byte G { get; set; }
         public byte B { get; set; }
-
-
-        internal static SwfArgbStruct CreateFromStream(BitReader reader)
-        {
-            var result = new SwfArgbStruct();
-
-            result.FromStream(reader);
-
-            return result;
-        }
 
         private void FromStream(BitReader reader)
         {
@@ -25,6 +15,15 @@ namespace SwfSharp.Structs
             R = reader.ReadUI8();
             G = reader.ReadUI8();
             B = reader.ReadUI8();
+        }
+
+        internal static ArgbStruct CreateFromStream(BitReader reader)
+        {
+            var result = new ArgbStruct();
+
+            result.FromStream(reader);
+
+            return result;
         }
     }
 }
