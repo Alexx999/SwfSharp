@@ -7,7 +7,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
-    class PlaceObjectTag : SwfTag
+    public class PlaceObjectTag : SwfTag
     {
         public ushort CharacterId { get; set; }
         public ushort Depth { get; set; }

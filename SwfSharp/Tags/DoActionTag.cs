@@ -5,7 +5,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
-    class DoActionTag : SwfTag
+    public class DoActionTag : SwfTag
     {
         public IList<ActionRecordStruct> Actions { get; set; } 
 
