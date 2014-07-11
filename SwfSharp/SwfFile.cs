@@ -38,12 +38,11 @@ namespace SwfSharp
             stream = GetDecompressedStream(stream);
             reader = new BitReader(stream);
             _header.FromStream(reader);
-            SwfTag tag;
-            do
+            while (stream.Position < stream.Length)
             {
-                tag = TagFactory.ReadTag(reader);
+                var tag = TagFactory.ReadTag(reader);
                 Tags.Add(tag);
-            } while (tag.TagType != TagType.End);
+            }
         }
 
         private Stream GetDecompressedStream(Stream stream)
