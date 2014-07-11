@@ -41,6 +41,10 @@ namespace SwfSharp.Tags
                 {
                     return new SetBackgroundColorTag(type, size);
                 }
+                case TagType.ProductInfo:
+                {
+                    return new ProductInfoTag(type, size);
+                }
                 case TagType.FileAttributes:
                 {
                     return new FileAttributesTag(type, size);

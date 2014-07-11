@@ -154,6 +154,36 @@ namespace SwfSharp.Utils
             return ReadBitsSigned(32);
         }
 
+        public ulong ReadAlignedUI64()
+        {
+            Align();
+            return ReadUI64();
+        }
+
+        public long ReadAlignedSI64()
+        {
+            Align();
+            return ReadSI64();
+        }
+
+        public ulong ReadUI64()
+        {
+            if (_bitPos == 0)
+            {
+                return _reader.ReadUInt64();
+            }
+            return ReadBits(64);
+        }
+
+        public long ReadSI64()
+        {
+            if (_bitPos == 0)
+            {
+                return _reader.ReadInt64();
+            }
+            return ReadBitsSigned(64);
+        }
+
         public float ReadFixed8()
         {
             return ReadSI16() / 256.0f;
