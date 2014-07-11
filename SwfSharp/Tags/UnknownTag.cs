@@ -10,9 +10,13 @@ namespace SwfSharp.Tags
     {
         private byte[] _origBytes;
 
-        internal override void FromStream(BitReader reader, int size)
+        public UnknownTag(TagType type, int size) : base(type, size)
         {
-            _origBytes = reader.ReadBytes(size);
+        }
+
+        internal override void FromStream(BitReader reader)
+        {
+            _origBytes = reader.ReadBytes(Size);
         }
     }
 }

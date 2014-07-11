@@ -8,13 +8,17 @@ namespace SwfSharp.Tags
 {
     class FileAttributesTag : SwfTag
     {
+        public FileAttributesTag(TagType tagType, int size) : base(tagType, size)
+        {
+        }
+
         public bool UseDirectBlit { get; set; }
         public bool UseGPU { get; set; }
         public bool HasMetadata { get; set; }
         public bool ActionScript3 { get; set; }
         public bool UseNetwork { get; set; }
 
-        internal override void FromStream(BitReader reader, int size)
+        internal override void FromStream(BitReader reader)
         {
             reader.ReadBoolBit();
             UseDirectBlit = reader.ReadBoolBit();

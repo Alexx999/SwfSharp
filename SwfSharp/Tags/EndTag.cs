@@ -8,7 +8,11 @@ namespace SwfSharp.Tags
 {
     class EndTag : SwfTag
     {
-        internal override void FromStream(BitReader reader, int size)
+        public EndTag(TagType tagType, int size) : base(tagType, size)
+        {
+        }
+
+        internal override void FromStream(BitReader reader)
         {
         }
     }
