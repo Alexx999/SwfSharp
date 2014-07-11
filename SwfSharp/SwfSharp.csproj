@@ -60,6 +60,7 @@
     <Compile Include="Tags\ScriptLimitsTag.cs" />
     <Compile Include="Tags\SetBackgroundColorTag.cs" />
     <Compile Include="Tags\SwfTag.cs" />
+    <Compile Include="Tags\SymbolClassTag.cs" />
     <Compile Include="Tags\TagFactory.cs" />
     <Compile Include="Tags\TagType.cs" />
     <Compile Include="Tags\UnknownTag.cs" />

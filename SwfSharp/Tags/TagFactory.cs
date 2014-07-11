@@ -57,6 +57,10 @@ namespace SwfSharp.Tags
                 {
                     return new FileAttributesTag(type, size);
                 }
+                case TagType.SymbolClass:
+                {
+                    return new SymbolClassTag(type, size);
+                }
                 case TagType.Metadata:
                 {
                     return new MetadataTag(type, size);
