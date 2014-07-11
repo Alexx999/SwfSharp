@@ -24,20 +24,19 @@ namespace SwfSharp.Structs
             if (HasScale)
             {
                 var scaleBits = reader.ReadBits(5);
-                ScaleX = reader.ReadBits(scaleBits);
-                ScaleY = reader.ReadBits(scaleBits);
+                ScaleX = reader.ReadFBits(scaleBits);
+                ScaleY = reader.ReadFBits(scaleBits);
             }
             HasRotate = reader.ReadBoolBit();
             if (HasRotate)
             {
                 var rotateBits = reader.ReadBits(5);
-                RotateSkew0 = reader.ReadBits(rotateBits);
-                RotateSkew1 = reader.ReadBits(rotateBits);
+                RotateSkew0 = reader.ReadFBits(rotateBits);
+                RotateSkew1 = reader.ReadFBits(rotateBits);
             }
             var translateBits = reader.ReadBits(5);
-            TranslateX = reader.ReadBits(translateBits);
-            TranslateY = reader.ReadBits(translateBits);
-            reader.Align();
+            TranslateX = reader.ReadBitsSigned(translateBits);
+            TranslateY = reader.ReadBitsSigned(translateBits);
         }
 
         internal static MatrixStruct CreateFromStream(BitReader reader)

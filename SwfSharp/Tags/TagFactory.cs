@@ -50,6 +50,18 @@ namespace SwfSharp.Tags
                 {
                     return new PlaceObjectTag(type, size);
                 }
+                case TagType.RemoveObject:
+                {
+                    return new RemoveObjectTag(type, size);
+                }
+                case TagType.DefineBits:
+                {
+                    return new DefineBitsTag(type, size);
+                }
+                case TagType.JPEGTables:
+                {
+                    return new JPEGTablesTag(type, size);
+                }
                 case TagType.SetBackgroundColor:
                 {
                     return new SetBackgroundColorTag(type, size);
@@ -57,6 +69,10 @@ namespace SwfSharp.Tags
                 case TagType.DoAction:
                 {
                     return new DoActionTag(type, size);
+                }
+                case TagType.DefineBitsJPEG2:
+                {
+                    return new DefineBitsJPEG2Tag(type, size);
                 }
                 case TagType.DefineShape2:
                 {
@@ -66,9 +82,17 @@ namespace SwfSharp.Tags
                 {
                     return new PlaceObject2Tag(type, size);
                 }
+                case TagType.RemoveObject2:
+                {
+                    return new RemoveObject2Tag(type, size);
+                }
                 case TagType.DefineShape3:
                 {
                     return new DefineShape3Tag(type, size);
+                }
+                case TagType.DefineBitsJPEG3:
+                {
+                    return new DefineBitsJPEG3Tag(type, size);
                 }
                 case TagType.DefineSprite:
                 {

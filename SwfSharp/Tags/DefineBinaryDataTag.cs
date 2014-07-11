@@ -6,7 +6,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
-    class DefineBinaryDataTag : SwfTag
+    public class DefineBinaryDataTag : SwfTag
     {
         public ushort Tag { get; set; }
         public byte[] Data { get; set; }

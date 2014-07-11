@@ -241,7 +241,7 @@ namespace SwfSharp.Utils
             return value;
         }
 
-        public float ReadFB(uint length)
+        public float ReadFBits(uint length)
         {
             return ReadBitsSigned(length) / 65536.0f;
         }
@@ -275,6 +275,7 @@ namespace SwfSharp.Utils
 
         public string ReadString()
         {
+            Align();
             string result;
             ReadString(out result);
             return result;
@@ -282,6 +283,7 @@ namespace SwfSharp.Utils
 
         public string ReadString(int size)
         {
+            Align();
             return Encoding.UTF8.GetString(ReadBytes(size));
         }
 

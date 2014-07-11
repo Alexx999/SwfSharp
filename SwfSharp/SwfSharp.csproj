@@ -76,6 +76,9 @@
     <Compile Include="Structs\CXformWithAlphaStruct.cs" />
     <Compile Include="Structs\ClipActionsStruct.cs" />
     <Compile Include="Tags\DefineBinaryDataTag.cs" />
+    <Compile Include="Tags\DefineBitsJPEG2Tag.cs" />
+    <Compile Include="Tags\DefineBitsJPEG3Tag.cs" />
+    <Compile Include="Tags\DefineBitsTag.cs" />
     <Compile Include="Tags\DefineShape2Tag.cs" />
     <Compile Include="Tags\DefineShape3Tag.cs" />
     <Compile Include="Tags\DefineShapeTag.cs" />
@@ -88,10 +91,13 @@
     <Compile Include="Tags\EndTag.cs" />
     <Compile Include="Tags\FileAttributesTag.cs" />
     <Compile Include="Tags\FrameLabelTag.cs" />
+    <Compile Include="Tags\JPEGTablesTag.cs" />
     <Compile Include="Tags\MetadataTag.cs" />
     <Compile Include="Tags\PlaceObject2Tag.cs" />
     <Compile Include="Tags\PlaceObjectTag.cs" />
     <Compile Include="Tags\ProductInfoTag.cs" />
+    <Compile Include="Tags\RemoveObject2Tag.cs" />
+    <Compile Include="Tags\RemoveObjectTag.cs" />
     <Compile Include="Tags\ScriptLimitsTag.cs" />
     <Compile Include="Tags\SetBackgroundColorTag.cs" />
     <Compile Include="Tags\ShowFrameTag.cs" />
