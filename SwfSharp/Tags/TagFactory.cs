@@ -35,6 +35,10 @@ namespace SwfSharp.Tags
                 {
                     return new EndTag(type, size);
                 }
+                case TagType.SetBackgroundColor:
+                {
+                    return new SetBackgroundColorTag(type, size);
+                }
                 case TagType.FileAttributes:
                 {
                     return new FileAttributesTag(type, size);

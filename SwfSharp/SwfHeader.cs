@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using SwfSharp.Structs;
 using SwfSharp.Utils;
 
 namespace SwfSharp
@@ -25,7 +26,7 @@ namespace SwfSharp
 
         internal void FromStream(BitReader reader)
         {
-            Rect = SwfRectStruct.FromStream(reader);
+            Rect = SwfRectStruct.CreateFromStream(reader);
             FrameRate = reader.ReadFixed8();
             FrameCount = reader.ReadUI16();
         }

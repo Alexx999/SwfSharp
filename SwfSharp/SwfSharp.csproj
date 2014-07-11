@@ -47,10 +47,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SwfFile.cs" />
     <Compile Include="SwfHeader.cs" />
-    <Compile Include="SwfRectStruct.cs" />
+    <Compile Include="Structs\SwfRectStruct.cs" />
+    <Compile Include="Structs\SwfRgbaStruct.cs" />
+    <Compile Include="Structs\SwfArgbStruct.cs" />
+    <Compile Include="Structs\SwfRgbStruct.cs" />
     <Compile Include="Tags\EndTag.cs" />
     <Compile Include="Tags\FileAttributesTag.cs" />
     <Compile Include="Tags\MetadataTag.cs" />
+    <Compile Include="Tags\SetBackgroundColorTag.cs" />
     <Compile Include="Tags\SwfTag.cs" />
     <Compile Include="Tags\TagFactory.cs" />
     <Compile Include="Tags\TagType.cs" />
