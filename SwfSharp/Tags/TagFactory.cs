@@ -46,6 +46,10 @@ namespace SwfSharp.Tags
                 {
                     return new DefineShapeTag(type, size);
                 }
+                case TagType.PlaceObject:
+                {
+                    return new PlaceObjectTag(type, size);
+                }
                 case TagType.SetBackgroundColor:
                 {
                     return new SetBackgroundColorTag(type, size);

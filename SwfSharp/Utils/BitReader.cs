@@ -13,9 +13,7 @@ namespace SwfSharp.Utils
         private bool _keepOpen;
         private uint _bitPos;
         private uint _tempBuf;
-#if DEBUG
-        private long _tagLimit;
-#endif
+        private long _tagEndPos;
 
         public BitReader(Stream stream) : this(stream, false)
         {
@@ -29,6 +27,11 @@ namespace SwfSharp.Utils
             }
             _reader = new BinaryReader(stream);
             _keepOpen = keepOpen;
+        }
+
+        public long TagEndPos
+        {
+            get { return _tagEndPos; }
         }
 
         public void Align()
@@ -303,17 +306,20 @@ namespace SwfSharp.Utils
             GC.SuppressFinalize(this);
         }
 
-        [Conditional("DEBUG")]
         public void BeginReadTag(int size)
         {
-            _tagLimit = _reader.BaseStream.Position + size;
+            _tagEndPos = _reader.BaseStream.Position + size;
         }
 
-        [Conditional("DEBUG")]
         public void EndReadTag()
         {
-            Debug.Assert(_tagLimit == _reader.BaseStream.Position);
-            _reader.BaseStream.Position = _tagLimit;
+            Debug.Assert(AtTagEnd());
+            _reader.BaseStream.Position = TagEndPos;
+        }
+
+        public bool AtTagEnd()
+        {
+            return TagEndPos == _reader.BaseStream.Position;
         }
     }
 }
