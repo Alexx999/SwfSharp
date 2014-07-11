@@ -72,6 +72,7 @@
     <Compile Include="Tags\DefineShape2Tag.cs" />
     <Compile Include="Tags\DefineShape3Tag.cs" />
     <Compile Include="Tags\DefineShapeTag.cs" />
+    <Compile Include="Tags\DefineSpriteTag.cs" />
     <Compile Include="Tags\DoABCTag.cs" />
     <Compile Include="Tags\EnableTelemetryTag.cs" />
     <Compile Include="Tags\EndTag.cs" />

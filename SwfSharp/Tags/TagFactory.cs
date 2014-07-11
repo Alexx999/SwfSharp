@@ -14,6 +14,7 @@ namespace SwfSharp.Tags
         [NotNull]
         public static SwfTag ReadTag([NotNull]BitReader reader)
         {
+            reader.Align();
             var tagCodeAndLength = reader.ReadUI16();
             var type = (TagType)(tagCodeAndLength >> 6);
             var size = tagCodeAndLength & SizeMask;
@@ -56,6 +57,10 @@ namespace SwfSharp.Tags
                 case TagType.DefineShape3:
                 {
                     return new DefineShape3Tag(type, size);
+                }
+                case TagType.DefineSprite:
+                {
+                    return new DefineSpriteTag(type, size);
                 }
                 case TagType.ProductInfo:
                 {
