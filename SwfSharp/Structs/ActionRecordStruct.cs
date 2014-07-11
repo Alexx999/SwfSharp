@@ -18,8 +18,8 @@ namespace SwfSharp.Structs
             Size = 1;
             ActionCode = reader.ReadUI8();
             if (ActionCode < 0x80) return;
-            Size = Length + 3;
             Length = reader.ReadUI16();
+            Size = Length + 3;
             Data = reader.ReadBytes(Length);
         }
 

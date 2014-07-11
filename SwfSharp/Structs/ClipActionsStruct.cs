@@ -15,10 +15,13 @@ namespace SwfSharp.Structs
             reader.ReadUI16();
             AllEventFlags = ClipEventFlagsStruct.CreateFromStream(reader, swfVersion);
             var endFlagSize = (swfVersion >= 6) ? 4 : 2;
+            ClipActionRecords = new List<ClipActionRecordStruct>();
             var bytes = reader.ReadBytes(endFlagSize);
-            if (bytes.Any(b => b != 0))
+            while (bytes.Any(b => b != 0))
             {
                 reader.Seek(-endFlagSize, SeekOrigin.Current);
+                ClipActionRecords.Add(ClipActionRecordStruct.CreateFromStream(reader, swfVersion));
+                bytes = reader.ReadBytes(endFlagSize);
             }
 
         }

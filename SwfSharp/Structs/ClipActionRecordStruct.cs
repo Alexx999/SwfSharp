@@ -28,6 +28,7 @@ namespace SwfSharp.Structs
             while (actualSize < ActionRecordSize)
             {
                 var record = ActionRecordStruct.CreateFromStream(reader);
+                Actions.Add(record);
                 actualSize += record.Size;
             }
         }
