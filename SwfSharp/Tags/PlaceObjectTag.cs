@@ -18,7 +18,7 @@ namespace SwfSharp.Tags
         {
         }
 
-        internal override void FromStream(BitReader reader)
+        internal override void FromStream(BitReader reader, byte swfVersion)
         {
             CharacterId = reader.ReadUI16();
             Depth = reader.ReadUI16();

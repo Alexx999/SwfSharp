@@ -19,7 +19,7 @@ namespace SwfSharp.Tags
         {
         }
 
-        internal override void FromStream(BitReader reader)
+        internal override void FromStream(BitReader reader, byte swfVersion)
         {
             Product = (ProductInfoProduct) reader.ReadSI32();
             Edition = (ProductInfoEdition) reader.ReadSI32();

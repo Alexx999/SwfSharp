@@ -15,7 +15,7 @@ namespace SwfSharp.Tags
         {
         }
 
-        internal override void FromStream(BitReader reader)
+        internal override void FromStream(BitReader reader, byte swfVersion)
         {
             MaxRecursionDepth = reader.ReadUI16();
             ScriptTimeoutSeconds = reader.ReadUI16();

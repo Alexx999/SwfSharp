@@ -12,7 +12,7 @@ namespace SwfSharp.Tags
         {
         }
 
-        internal override void FromStream(BitReader reader)
+        internal override void FromStream(BitReader reader, byte swfVersion)
         {
         }
     }

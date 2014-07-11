@@ -2,7 +2,7 @@
 
 namespace SwfSharp.Structs
 {
-    class ArgbStruct
+    public class ArgbStruct
     {
         public byte A { get; set; }
         public byte R { get; set; }

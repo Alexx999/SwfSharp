@@ -12,7 +12,7 @@ namespace SwfSharp.Tags
         private const ushort SizeMask = 0xFFFF >> 10;
 
         [NotNull]
-        public static SwfTag ReadTag([NotNull]BitReader reader)
+        public static SwfTag ReadTag([NotNull]BitReader reader, byte swfVersion)
         {
             reader.Align();
             var tagCodeAndLength = reader.ReadUI16();
@@ -24,7 +24,7 @@ namespace SwfSharp.Tags
             }
             var tag = GetTag(type, size);
             reader.BeginReadTag(size);
-            tag.FromStream(reader);
+            tag.FromStream(reader, swfVersion);
             reader.EndReadTag();
             return tag;
         }
@@ -57,6 +57,10 @@ namespace SwfSharp.Tags
                 case TagType.DefineShape2:
                 {
                     return new DefineShape2Tag(type, size);
+                }
+                case TagType.PlaceObject2:
+                {
+                    return new PlaceObject2Tag(type, size);
                 }
                 case TagType.DefineShape3:
                 {

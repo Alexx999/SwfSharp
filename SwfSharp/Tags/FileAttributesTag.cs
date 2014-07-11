@@ -18,7 +18,7 @@ namespace SwfSharp.Tags
         public bool ActionScript3 { get; set; }
         public bool UseNetwork { get; set; }
 
-        internal override void FromStream(BitReader reader)
+        internal override void FromStream(BitReader reader, byte swfVersion)
         {
             reader.ReadBoolBit();
             UseDirectBlit = reader.ReadBoolBit();

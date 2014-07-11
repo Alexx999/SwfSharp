@@ -53,6 +53,9 @@
     <Compile Include="ShapeRecords\ShapeRecordType.cs" />
     <Compile Include="ShapeRecords\StraightEdgeRecord.cs" />
     <Compile Include="ShapeRecords\StyleChangeRecord.cs" />
+    <Compile Include="Structs\ActionRecordStruct.cs" />
+    <Compile Include="Structs\ClipActionRecordStruct.cs" />
+    <Compile Include="Structs\ClipEventFlagsStruct.cs" />
     <Compile Include="Structs\CXformStruct.cs" />
     <Compile Include="Structs\FillStyleArray.cs" />
     <Compile Include="Structs\FillStyleStruct.cs" />
@@ -70,6 +73,8 @@
     <Compile Include="Structs\RgbaStruct.cs" />
     <Compile Include="Structs\ArgbStruct.cs" />
     <Compile Include="Structs\RgbStruct.cs" />
+    <Compile Include="Structs\CXformWithAlphaStruct.cs" />
+    <Compile Include="Structs\ClipActionsStruct.cs" />
     <Compile Include="Tags\DefineShape2Tag.cs" />
     <Compile Include="Tags\DefineShape3Tag.cs" />
     <Compile Include="Tags\DefineShapeTag.cs" />
@@ -82,6 +87,7 @@
     <Compile Include="Tags\FileAttributesTag.cs" />
     <Compile Include="Tags\FrameLabelTag.cs" />
     <Compile Include="Tags\MetadataTag.cs" />
+    <Compile Include="Tags\PlaceObject2Tag.cs" />
     <Compile Include="Tags\PlaceObjectTag.cs" />
     <Compile Include="Tags\ProductInfoTag.cs" />
     <Compile Include="Tags\ScriptLimitsTag.cs" />

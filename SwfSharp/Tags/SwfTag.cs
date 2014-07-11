@@ -13,7 +13,6 @@ namespace SwfSharp.Tags
         public TagType TagType { get; set; }
 
         protected int Size { get; set; }
-
-        internal abstract void FromStream(BitReader reader);
+        internal abstract void FromStream(BitReader reader, byte swfVersion);
     }
 }

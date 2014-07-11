@@ -321,5 +321,14 @@ namespace SwfSharp.Utils
         {
             return TagEndPos == _reader.BaseStream.Position;
         }
+
+        public void Seek(long offset, SeekOrigin origin)
+        {
+            _reader.BaseStream.Seek(offset, origin);
+            if (_bitPos != 0)
+            {
+                throw new NotSupportedException("BitPos must be 0 when seeking");
+            }
+        }
     }
 }

@@ -16,7 +16,7 @@ namespace SwfSharp.Tags
         {
         }
 
-        internal override void FromStream(BitReader reader)
+        internal override void FromStream(BitReader reader, byte swfVersion)
         {
             SpriteID = reader.ReadUI16();
             FrameCount = reader.ReadUI16();
@@ -24,7 +24,7 @@ namespace SwfSharp.Tags
             SwfTag tag;
             do
             {
-                tag = TagFactory.ReadTag(reader);
+                tag = TagFactory.ReadTag(reader, swfVersion);
                 ControlTags.Add(tag);
             } while (tag.TagType != TagType.End);
         }
