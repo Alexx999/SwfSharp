@@ -37,6 +37,10 @@ namespace SwfSharp.Tags
                 {
                     return new EndTag(type, size);
                 }
+                case TagType.ShowFrame:
+                {
+                    return new ShowFrameTag(type, size);
+                }
                 case TagType.SetBackgroundColor:
                 {
                     return new SetBackgroundColorTag(type, size);
@@ -64,6 +68,10 @@ namespace SwfSharp.Tags
                 case TagType.Metadata:
                 {
                     return new MetadataTag(type, size);
+                }
+                case TagType.DoABC:
+                {
+                    return new DoABCTag(type, size);
                 }
                 case TagType.EnableTelemetry:
                 {

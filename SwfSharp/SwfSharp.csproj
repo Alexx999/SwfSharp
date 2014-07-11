@@ -51,6 +51,7 @@
     <Compile Include="Structs\SwfRgbaStruct.cs" />
     <Compile Include="Structs\SwfArgbStruct.cs" />
     <Compile Include="Structs\SwfRgbStruct.cs" />
+    <Compile Include="Tags\DoABCTag.cs" />
     <Compile Include="Tags\EnableTelemetryTag.cs" />
     <Compile Include="Tags\EndTag.cs" />
     <Compile Include="Tags\FileAttributesTag.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="Tags\ProductInfoTag.cs" />
     <Compile Include="Tags\ScriptLimitsTag.cs" />
     <Compile Include="Tags\SetBackgroundColorTag.cs" />
+    <Compile Include="Tags\ShowFrameTag.cs" />
     <Compile Include="Tags\SwfTag.cs" />
     <Compile Include="Tags\SymbolClassTag.cs" />
     <Compile Include="Tags\TagFactory.cs" />
