@@ -55,6 +55,7 @@
     <Compile Include="Tags\FileAttributesTag.cs" />
     <Compile Include="Tags\MetadataTag.cs" />
     <Compile Include="Tags\ProductInfoTag.cs" />
+    <Compile Include="Tags\ScriptLimitsTag.cs" />
     <Compile Include="Tags\SetBackgroundColorTag.cs" />
     <Compile Include="Tags\SwfTag.cs" />
     <Compile Include="Tags\TagFactory.cs" />
