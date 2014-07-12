@@ -46,6 +46,7 @@ namespace SwfSharp.ShapeRecords
             {
                 FillStyles = FillStyleArray.CreateFromStream(reader, type);
                 LineStyles = LineStyleArray.CreateFromStream(reader, type);
+                reader.Align();
                 numFillBits = (byte) reader.ReadBits(4);
                 numLineBits = (byte) reader.ReadBits(4);
             }

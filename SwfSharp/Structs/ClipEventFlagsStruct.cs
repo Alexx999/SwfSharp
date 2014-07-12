@@ -51,7 +51,7 @@ namespace SwfSharp.Structs
             ClipEventConstruct = reader.ReadBoolBit();
             ClipEventKeyPress = reader.ReadBoolBit();
             ClipEventDragOut = reader.ReadBoolBit();
-            reader.ReadUI8();
+            reader.ReadBits(8);
         }
 
         internal static ClipEventFlagsStruct CreateFromStream(BitReader reader, byte swfVersion)

@@ -12,6 +12,7 @@ namespace SwfSharp.Structs
 
         internal virtual void FromStream(BitReader reader, TagType type)
         {
+            reader.Align();
             SpreadMode = (Spread) reader.ReadBits(2);
             InterpolationMode = (Interpolation)reader.ReadBits(2);
             var numGradients = reader.ReadBits(4);
