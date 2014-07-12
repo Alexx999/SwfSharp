@@ -16,8 +16,11 @@ namespace SwfSharp.Tags
         public ushort BitmapWidth { get; set; }
         public ushort BitmapHeight { get; set; }
         public byte BitmapColorTableSize { get; set; }
+        public byte[] ZlibBitmapData { get; set; }
+        /*
         public ColorMapDataStruct ColorMapData { get; set; }
         public BitmapDataStruct BitmapData { get; set; }
+         */
 
         public DefineBitsLosslessTag(TagType tagType, int size) : base(tagType, size)
         {
@@ -33,7 +36,9 @@ namespace SwfSharp.Tags
             {
                 BitmapColorTableSize = reader.ReadUI8();
             }
-            var memoryStream = new MemoryStream(reader.ReadBytes((int) reader.GetTagRemaining()));
+            ZlibBitmapData = reader.ReadBytes((int)reader.GetTagRemaining());
+            /*
+            var memoryStream = new MemoryStream(ZlibBitmapData);
             MemoryStream unpackStream;
             using (var zlib = new ZlibStream(memoryStream, CompressionMode.Decompress, false))
             {
@@ -49,7 +54,7 @@ namespace SwfSharp.Tags
             else
             {
                 BitmapData = BitmapDataStruct.CreateFromStream(bitReader, BitmapFormat, BitmapWidth, BitmapHeight);
-            }
+            }*/
         }
 
         public enum BitmapFormatType : byte
