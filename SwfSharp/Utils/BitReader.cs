@@ -321,7 +321,12 @@ namespace SwfSharp.Utils
 
         public bool AtTagEnd()
         {
-            return TagEndPos == _reader.BaseStream.Position;
+            return _tagEndPos == _reader.BaseStream.Position;
+        }
+
+        public long GetTagRemaining()
+        {
+            return _tagEndPos - _reader.BaseStream.Position;
         }
 
         public void Seek(long offset, SeekOrigin origin)

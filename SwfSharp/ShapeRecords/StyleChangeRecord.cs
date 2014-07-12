@@ -38,7 +38,7 @@ namespace SwfSharp.ShapeRecords
             }
             if (Flags.StateLineStyle)
             {
-                LineStyle = reader.ReadBits(numFillBits);
+                LineStyle = reader.ReadBits(numLineBits);
             }
             if (Flags.StateNewStyles)
             {

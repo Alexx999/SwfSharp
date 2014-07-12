@@ -37,6 +37,7 @@ namespace SwfSharp.Structs
             var translateBits = reader.ReadBits(5);
             TranslateX = reader.ReadBitsSigned(translateBits);
             TranslateY = reader.ReadBitsSigned(translateBits);
+            reader.Align();
         }
 
         internal static MatrixStruct CreateFromStream(BitReader reader)

@@ -70,6 +70,10 @@ namespace SwfSharp.Tags
                 {
                     return new DoActionTag(type, size);
                 }
+                case TagType.DefineBitsLossless:
+                {
+                    return new DefineBitsLosslessTag(type, size);
+                }
                 case TagType.DefineBitsJPEG2:
                 {
                     return new DefineBitsJPEG2Tag(type, size);
@@ -94,6 +98,10 @@ namespace SwfSharp.Tags
                 {
                     return new DefineBitsJPEG3Tag(type, size);
                 }
+                case TagType.DefineBitsLossless2:
+                {
+                    return new DefineBitsLossless2Tag(type, size);
+                }
                 case TagType.DefineSprite:
                 {
                     return new DefineSpriteTag(type, size);
@@ -105,6 +113,10 @@ namespace SwfSharp.Tags
                 case TagType.FrameLabel:
                 {
                     return new FrameLabelTag(type, size);
+                }
+                case TagType.ExportAssets:
+                {
+                    return new ExportAssetsTag(type, size);
                 }
                 case TagType.EnableDebugger:
                 {

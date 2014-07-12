@@ -54,8 +54,12 @@
     <Compile Include="ShapeRecords\StraightEdgeRecord.cs" />
     <Compile Include="ShapeRecords\StyleChangeRecord.cs" />
     <Compile Include="Structs\ActionRecordStruct.cs" />
+    <Compile Include="Structs\AlphaBitmapDataStruct.cs" />
     <Compile Include="Structs\ClipActionRecordStruct.cs" />
     <Compile Include="Structs\ClipEventFlagsStruct.cs" />
+    <Compile Include="Structs\BitmapDataStruct.cs" />
+    <Compile Include="Structs\AlphaColorMapDataStruct.cs" />
+    <Compile Include="Structs\ColorMapDataStruct.cs" />
     <Compile Include="Structs\CXformStruct.cs" />
     <Compile Include="Structs\FillStyleArray.cs" />
     <Compile Include="Structs\FillStyleStruct.cs" />
@@ -78,6 +82,8 @@
     <Compile Include="Tags\DefineBinaryDataTag.cs" />
     <Compile Include="Tags\DefineBitsJPEG2Tag.cs" />
     <Compile Include="Tags\DefineBitsJPEG3Tag.cs" />
+    <Compile Include="Tags\DefineBitsLossless2Tag.cs" />
+    <Compile Include="Tags\DefineBitsLosslessTag.cs" />
     <Compile Include="Tags\DefineBitsTag.cs" />
     <Compile Include="Tags\DefineShape2Tag.cs" />
     <Compile Include="Tags\DefineShape3Tag.cs" />
@@ -89,6 +95,7 @@
     <Compile Include="Tags\EnableDebuggerTag.cs" />
     <Compile Include="Tags\EnableTelemetryTag.cs" />
     <Compile Include="Tags\EndTag.cs" />
+    <Compile Include="Tags\ExportAssetsTag.cs" />
     <Compile Include="Tags\FileAttributesTag.cs" />
     <Compile Include="Tags\FrameLabelTag.cs" />
     <Compile Include="Tags\JPEGTablesTag.cs" />

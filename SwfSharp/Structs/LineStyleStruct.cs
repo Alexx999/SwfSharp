@@ -17,11 +17,11 @@ namespace SwfSharp.Structs
             Width = reader.ReadUI16();
             if (type < TagType.DefineShape3)
             {
-                RgbaStruct.CreateFromRgbStream(reader);
+                Color = RgbaStruct.CreateFromRgbStream(reader);
             }
             else
             {
-                RgbaStruct.CreateFromStream(reader);
+                Color = RgbaStruct.CreateFromStream(reader);
             }
         }
 
