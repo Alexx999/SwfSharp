@@ -85,6 +85,7 @@
     <Compile Include="Tags\DefineBitsLossless2Tag.cs" />
     <Compile Include="Tags\DefineBitsLosslessTag.cs" />
     <Compile Include="Tags\DefineBitsTag.cs" />
+    <Compile Include="Tags\DefineFontInfoTag.cs" />
     <Compile Include="Tags\DefineFontTag.cs" />
     <Compile Include="Tags\DefineShape2Tag.cs" />
     <Compile Include="Tags\DefineShape3Tag.cs" />

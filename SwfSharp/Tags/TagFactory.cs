@@ -74,6 +74,10 @@ namespace SwfSharp.Tags
                 {
                     return new DoActionTag(type, size);
                 }
+                case TagType.DefineFontInfo:
+                {
+                    return new DefineFontInfoTag(type, size);
+                }
                 case TagType.SoundStreamHead:
                 {
                     return new SoundStreamHeadTag(type, size);
