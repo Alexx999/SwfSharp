@@ -29,6 +29,7 @@ namespace SwfSharp.Structs
 
         internal virtual void FromStream(BitReader reader, TagType type)
         {
+            reader.Align();
             NumFillBits = (byte)reader.ReadBits(4);
             NumLineBits = (byte)reader.ReadBits(4);
             ShapeRecords = new List<ShapeRecord>();
