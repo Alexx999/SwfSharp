@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,15 +13,11 @@ namespace SwfTest
     {
         static void Main(string[] args)
         {
-            var swf1 = SwfFile.FromStream(File.OpenRead("TestLZMA.swf"));
-            var swf2 = SwfFile.FromStream(File.OpenRead("TestZLIB.swf"));
-            var swf3 = SwfFile.FromStream(File.OpenRead("expressInstall.swf"));
-            var swf4 = SwfFile.FromStream(File.OpenRead("Economics.swf"));
-            var swf5 = SwfFile.FromStream(File.OpenRead("relog.swf"));
-            //var swf6 = SwfFile.FromStream(File.OpenRead("blend.swf"));
-            var swf7 = SwfFile.FromStream(File.OpenRead("23272_kidspoof.swf"));
-            var swf8 = SwfFile.FromStream(File.OpenRead("11940_AYB_1_.swf"));
-            var swf9 = SwfFile.FromStream(File.OpenRead("10603_sperm.swf"));
+            var files = Directory.GetFiles("./", "*.swf");
+
+            var swfs = new ConcurrentDictionary<string, SwfFile>();
+
+            files.AsParallel().ForAll(f => swfs.AddOrUpdate(f, SwfFile.FromFile(f), (s, file) => file));
         }
     }
 }
