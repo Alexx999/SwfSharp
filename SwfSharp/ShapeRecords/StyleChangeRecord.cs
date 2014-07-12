@@ -40,7 +40,9 @@ namespace SwfSharp.ShapeRecords
             {
                 LineStyle = reader.ReadBits(numLineBits);
             }
-            if (Flags.StateNewStyles)
+            var canHaveNewStyles = type == TagType.DefineShape2 || type == TagType.DefineShape3 ||
+                                type == TagType.DefineShape4;
+            if (canHaveNewStyles && Flags.StateNewStyles)
             {
                 FillStyles = FillStyleArray.CreateFromStream(reader, type);
                 LineStyles = LineStyleArray.CreateFromStream(reader, type);

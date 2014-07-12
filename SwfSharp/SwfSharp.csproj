@@ -85,12 +85,14 @@
     <Compile Include="Tags\DefineBitsLossless2Tag.cs" />
     <Compile Include="Tags\DefineBitsLosslessTag.cs" />
     <Compile Include="Tags\DefineBitsTag.cs" />
+    <Compile Include="Tags\DefineFontTag.cs" />
     <Compile Include="Tags\DefineShape2Tag.cs" />
     <Compile Include="Tags\DefineShape3Tag.cs" />
     <Compile Include="Tags\DefineShapeTag.cs" />
     <Compile Include="Tags\DefineSpriteTag.cs" />
     <Compile Include="Tags\DoABCTag.cs" />
     <Compile Include="Tags\DoActionTag.cs" />
+    <Compile Include="Tags\DoInitActionTag.cs" />
     <Compile Include="Tags\EnableDebugger2Tag.cs" />
     <Compile Include="Tags\EnableDebuggerTag.cs" />
     <Compile Include="Tags\EnableTelemetryTag.cs" />
@@ -108,6 +110,8 @@
     <Compile Include="Tags\ScriptLimitsTag.cs" />
     <Compile Include="Tags\SetBackgroundColorTag.cs" />
     <Compile Include="Tags\ShowFrameTag.cs" />
+    <Compile Include="Tags\SoundStreamHead2Tag.cs" />
+    <Compile Include="Tags\SoundStreamHeadTag.cs" />
     <Compile Include="Tags\SwfTag.cs" />
     <Compile Include="Tags\SymbolClassTag.cs" />
     <Compile Include="Tags\TagFactory.cs" />

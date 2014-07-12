@@ -66,9 +66,17 @@ namespace SwfSharp.Tags
                 {
                     return new SetBackgroundColorTag(type, size);
                 }
+                case TagType.DefineFont:
+                {
+                    return new DefineFontTag(type, size);
+                }
                 case TagType.DoAction:
                 {
                     return new DoActionTag(type, size);
+                }
+                case TagType.SoundStreamHead:
+                {
+                    return new SoundStreamHeadTag(type, size);
                 }
                 case TagType.DefineBitsLossless:
                 {
@@ -114,6 +122,10 @@ namespace SwfSharp.Tags
                 {
                     return new FrameLabelTag(type, size);
                 }
+                case TagType.SoundStreamHead2:
+                {
+                    return new SoundStreamHead2Tag(type, size);
+                }
                 case TagType.ExportAssets:
                 {
                     return new ExportAssetsTag(type, size);
@@ -121,6 +133,10 @@ namespace SwfSharp.Tags
                 case TagType.EnableDebugger:
                 {
                     return new EnableDebuggerTag(type, size);
+                }
+                case TagType.DoInitAction:
+                {
+                    return new DoInitActionTag(type, size);
                 }
                 case TagType.EnableDebugger2:
                 {
