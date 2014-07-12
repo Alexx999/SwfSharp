@@ -70,6 +70,10 @@ namespace SwfSharp.Tags
                 {
                     return new DefineFontTag(type, size);
                 }
+                case TagType.DefineText:
+                {
+                    return new DefineTextTag(type, size);
+                }
                 case TagType.DoAction:
                 {
                     return new DoActionTag(type, size);
@@ -77,6 +81,14 @@ namespace SwfSharp.Tags
                 case TagType.DefineFontInfo:
                 {
                     return new DefineFontInfoTag(type, size);
+                }
+                case TagType.DefineSound:
+                {
+                    return new DefineSoundTag(type, size);
+                }
+                case TagType.StartSound:
+                {
+                    return new StartSoundTag(type, size);
                 }
                 case TagType.SoundStreamHead:
                 {
@@ -94,6 +106,10 @@ namespace SwfSharp.Tags
                 {
                     return new DefineShape2Tag(type, size);
                 }
+                case TagType.Protect:
+                {
+                    return new ProtectTag(type, size);
+                }
                 case TagType.PlaceObject2:
                 {
                     return new PlaceObject2Tag(type, size);
@@ -105,6 +121,10 @@ namespace SwfSharp.Tags
                 case TagType.DefineShape3:
                 {
                     return new DefineShape3Tag(type, size);
+                }
+                case TagType.DefineText2:
+                {
+                    return new DefineText2Tag(type, size);
                 }
                 case TagType.DefineBitsJPEG3:
                 {
@@ -142,6 +162,10 @@ namespace SwfSharp.Tags
                 {
                     return new DoInitActionTag(type, size);
                 }
+                case TagType.DefineFontInfo2:
+                {
+                    return new DefineFontInfo2Tag(type, size);
+                }
                 case TagType.EnableDebugger2:
                 {
                     return new EnableDebugger2Tag(type, size);
@@ -169,6 +193,10 @@ namespace SwfSharp.Tags
                 case TagType.DefineBinaryData:
                 {
                     return new DefineBinaryDataTag(type, size);
+                }
+                case TagType.StartSound2:
+                {
+                    return new StartSound2Tag(type, size);
                 }
                 case TagType.EnableTelemetry:
                 {

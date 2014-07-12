@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SwfSharp.Sounds;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
@@ -39,30 +40,5 @@ namespace SwfSharp.Tags
             }
         }
 
-        public enum SampleSize
-        {
-            Size8Bits = 0,
-            Size16Bits = 1
-        }
-
-        public enum SampleRate
-        {
-            Rate5KHz = 0,
-            Rate11KHz = 1,
-            Rate22KHz = 2,
-            Rate44KHz = 3,
-        }
-
-        public enum SoundType
-        {
-            Mono = 0,
-            Stereo = 1
-        }
-
-        public enum SoundFormat
-        {
-            ADPCM = 1,
-            MP3 = 2
-        }
     }
 }

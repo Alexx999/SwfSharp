@@ -7,7 +7,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
-    class DefineFontTag : SwfTag
+    public class DefineFontTag : SwfTag
     {
         public ushort FontID { get; set; }
         public IList<ushort> OffsetTable { get; set; }

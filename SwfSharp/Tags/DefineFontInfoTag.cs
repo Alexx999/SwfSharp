@@ -6,7 +6,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
-    class DefineFontInfoTag : SwfTag
+    public class DefineFontInfoTag : SwfTag
     {
         public ushort FontID { get; set; }
         public string FontName { get; set; }
@@ -36,6 +36,11 @@ namespace SwfSharp.Tags
             FontFlagsBold = reader.ReadBoolBit();
             FontFlagsWideCodes = reader.ReadBoolBit();
             var charSize = FontFlagsWideCodes ? 2 : 1;
+            ReadCodeTable(reader, charSize);
+        }
+
+        internal virtual void ReadCodeTable(BitReader reader, int charSize)
+        {
             var nGlyphs = (int)reader.GetTagRemaining() / charSize;
             CodeTable = new List<ushort>(nGlyphs);
             if (FontFlagsWideCodes)
