@@ -45,146 +45,64 @@ namespace SwfSharp.Utils
             return ReadBits(1) != 0;
         }
 
-        public byte ReadAlignedUI8()
-        {
-            Align();
-            return ReadUI8();
-        }
-
-        public sbyte ReadAlignedSI8()
-        {
-            Align();
-            return ReadSI8();
-        }
-
         public byte ReadUI8()
         {
-            if (_bitPos == 0)
-            {
-                return _reader.ReadByte();
-            }
-            return (byte) ReadBits(16);
+            Align();
+            return _reader.ReadByte();
         }
 
         public sbyte ReadSI8()
         {
-            if (_bitPos == 0)
-            {
-                return _reader.ReadSByte();
-            }
-            return (sbyte) ReadBits(16);
-        }
-
-        public ushort ReadAlignedUI16()
-        {
             Align();
-            return ReadUI16();
-        }
-
-        public short ReadAlignedSI16()
-        {
-            Align();
-            return ReadSI16();
+            return _reader.ReadSByte();
         }
 
         public ushort ReadUI16()
         {
-            if (_bitPos == 0)
-            {
-                return _reader.ReadUInt16();
-            }
-            return (ushort) ReadBits(16);
+            Align();
+            return _reader.ReadUInt16();
         }
 
         public short ReadSI16()
         {
-            if (_bitPos == 0)
-            {
-                return _reader.ReadInt16();
-            }
-            return (short) ReadBits(16);
-        }
-
-        public uint ReadAlignedUI24()
-        {
             Align();
-            return ReadUI24();
-        }
-
-        public int ReadAlignedSI24()
-        {
-            Align();
-            return ReadSI24();
+            return _reader.ReadInt16();
         }
 
         public uint ReadUI24()
         {
+            Align();
             return ReadBits(24);
         }
 
         public int ReadSI24()
         {
+            Align();
             return ReadBitsSigned(24);
-        }
-
-        public uint ReadAlignedUI32()
-        {
-            Align();
-            return ReadUI32();
-        }
-
-        public int ReadAlignedSI32()
-        {
-            Align();
-            return ReadSI32();
         }
 
         public uint ReadUI32()
         {
-            if (_bitPos == 0)
-            {
-                return _reader.ReadUInt32();
-            }
-            return ReadBits(32);
+            Align();
+            return _reader.ReadUInt32();
         }
 
         public int ReadSI32()
         {
-            if (_bitPos == 0)
-            {
-                return _reader.ReadInt32();
-            }
-            return ReadBitsSigned(32);
-        }
-
-        public ulong ReadAlignedUI64()
-        {
             Align();
-            return ReadUI64();
-        }
-
-        public long ReadAlignedSI64()
-        {
-            Align();
-            return ReadSI64();
+            return _reader.ReadInt32();
         }
 
         public ulong ReadUI64()
         {
-            if (_bitPos == 0)
-            {
-                return _reader.ReadUInt64();
-            }
-            return ReadBits(64);
+            Align();
+            return _reader.ReadUInt64();
         }
 
         public long ReadSI64()
         {
-            if (_bitPos == 0)
-            {
-                return _reader.ReadInt64();
-            }
-            return ReadBitsSigned(64);
+            Align();
+            return _reader.ReadInt64();
         }
 
         public float ReadFixed8()
@@ -336,6 +254,11 @@ namespace SwfSharp.Utils
             {
                 throw new NotSupportedException("BitPos must be 0 when seeking");
             }
+        }
+
+        public long Position
+        {
+            get { return _reader.BaseStream.Position; }
         }
     }
 }
