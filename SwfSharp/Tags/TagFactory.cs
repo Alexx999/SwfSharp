@@ -94,6 +94,10 @@ namespace SwfSharp.Tags
                 {
                     return new SoundStreamHeadTag(type, size);
                 }
+                case TagType.SoundStreamBlock:
+                {
+                    return new SoundStreamBlockTag(type, size);
+                }
                 case TagType.DefineBitsLossless:
                 {
                     return new DefineBitsLosslessTag(type, size);
@@ -189,6 +193,10 @@ namespace SwfSharp.Tags
                 case TagType.DoABC:
                 {
                     return new DoABCTag(type, size);
+                }
+                case TagType.DefineShape4:
+                {
+                    return new DefineShape4Tag(type, size);
                 }
                 case TagType.DefineBinaryData:
                 {

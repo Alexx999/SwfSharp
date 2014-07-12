@@ -13,9 +13,8 @@ namespace SwfSharp.Structs
 
         private void FromStream(BitReader reader, TagType type)
         {
-            reader.Align();
             int len = reader.ReadUI8();
-            if (len == byte.MaxValue)
+            if (len == byte.MaxValue && type > TagType.DefineShape)
             {
                 len = reader.ReadUI16();
             }
@@ -23,7 +22,10 @@ namespace SwfSharp.Structs
 
             for (int i = 0; i < len; i++)
             {
-                LineStyles.Add(LineStyleStruct.CreateFromStream(reader, type));
+                var style = type == TagType.DefineShape4 
+                    ? LineStyle2Struct.CreateFromStream(reader, type) 
+                    : LineStyleStruct.CreateFromStream(reader, type);
+                LineStyles.Add(style);
             }
         }
 

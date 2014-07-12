@@ -68,6 +68,7 @@
     <Compile Include="Structs\GradientStruct.cs" />
     <Compile Include="Structs\GradRecordStruct.cs" />
     <Compile Include="Structs\LineStyleArray.cs" />
+    <Compile Include="Structs\LineStyle2Struct.cs" />
     <Compile Include="Structs\LineStyleStruct.cs" />
     <Compile Include="Structs\MatrixStruct.cs" />
     <Compile Include="Structs\ShapeStruct.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="Tags\DefineFontTag.cs" />
     <Compile Include="Tags\DefineShape2Tag.cs" />
     <Compile Include="Tags\DefineShape3Tag.cs" />
+    <Compile Include="Tags\DefineShape4Tag.cs" />
     <Compile Include="Tags\DefineShapeTag.cs" />
     <Compile Include="Tags\DefineSoundTag.cs" />
     <Compile Include="Tags\DefineSpriteTag.cs" />
@@ -123,6 +125,7 @@
     <Compile Include="Tags\SetBackgroundColorTag.cs" />
     <Compile Include="Tags\ShowFrameTag.cs" />
     <Compile Include="Sounds\SoundFormat.cs" />
+    <Compile Include="Tags\SoundStreamBlockTag.cs" />
     <Compile Include="Tags\SoundStreamHead2Tag.cs" />
     <Compile Include="Tags\SoundStreamHeadTag.cs" />
     <Compile Include="Sounds\SoundType.cs" />
