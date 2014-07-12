@@ -29,6 +29,11 @@ namespace SwfSharp.Structs
             FromStream(reader);
         }
 
+        public override string ToString()
+        {
+            return string.Format("#{0:X}{1:X}{2:X}", R, G, B);
+        }
+
         internal static RgbStruct CreateFromStream(BitReader reader)
         {
             var result = new RgbStruct();

@@ -18,6 +18,11 @@ namespace SwfSharp.Structs
             A = byte.MaxValue;
         }
 
+        public override string ToString()
+        {
+            return string.Format("#{0:X}{1:X}{2:X}{3:X}", R, G, B, A);
+        }
+
         internal new static RgbaStruct CreateFromStream(BitReader reader)
         {
             var result = new RgbaStruct();

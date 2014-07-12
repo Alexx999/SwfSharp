@@ -17,6 +17,11 @@ namespace SwfSharp.Structs
             B = reader.ReadUI8();
         }
 
+        public override string ToString()
+        {
+            return string.Format("#{0:X}{1:X}{2:X}{3:X}", A, R, G, B);
+        }
+
         internal static ArgbStruct CreateFromStream(BitReader reader)
         {
             var result = new ArgbStruct();
