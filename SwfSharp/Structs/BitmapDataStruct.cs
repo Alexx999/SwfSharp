@@ -26,6 +26,7 @@ namespace SwfSharp.Structs
                 creator = RgbStruct.CreateFromRGB24Stream;
                 structSize = 4;
             }
+            BitmapPixelData = new List<RgbStruct>(width*height);
             for (int i = 0; i < height; i++)
             {
                 for (int j = 0; j < width; j++)
