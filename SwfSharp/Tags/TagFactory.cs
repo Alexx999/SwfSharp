@@ -246,6 +246,10 @@ namespace SwfSharp.Tags
                 {
                     return new DefineMorphShape2Tag(type, size);
                 }
+                case TagType.DefineSceneAndFrameLabelData:
+                {
+                    return new DefineSceneAndFrameLabelDataTag(type, size);
+                }
                 case TagType.DefineBinaryData:
                 {
                     return new DefineBinaryDataTag(type, size);

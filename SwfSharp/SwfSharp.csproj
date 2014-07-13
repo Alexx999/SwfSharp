@@ -136,6 +136,7 @@
     <Compile Include="Tags\DefineFontTag.cs" />
     <Compile Include="Tags\DefineMorphShape2Tag.cs" />
     <Compile Include="Tags\DefineMorphShapeTag.cs" />
+    <Compile Include="Tags\DefineSceneAndFrameLabelDataTag.cs" />
     <Compile Include="Tags\DefineShape2Tag.cs" />
     <Compile Include="Tags\DefineShape3Tag.cs" />
     <Compile Include="Tags\DefineShape4Tag.cs" />

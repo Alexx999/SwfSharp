@@ -189,16 +189,37 @@ namespace SwfSharp.Utils
 
         public byte[] ReadBytes(int size)
         {
-            if (_bitPos == 0)
-            {
-                return _reader.ReadBytes(size);
-            }
+            Align();
+            return _reader.ReadBytes(size);
+        }
 
-            var result = new byte[size];
-            for (int i = 0; i < size; i++)
+        public uint ReadEncodedU32()
+        {
+            uint result = ReadUI8();
+            if ((result & 0x00000080) == 0)
             {
-                result[i] = ReadUI8();
+                return result;
             }
+            result &= 0x0000007f;
+            result |= (uint)(ReadUI8() << 7);
+            if ((result & 0x00004000) == 0)
+            {
+                return result;
+            }
+            result &= 0x00003fff;
+            result |= (uint)(ReadUI8() << 14);
+            if ((result & 0x00200000) == 0)
+            {
+                return result;
+            }
+            result &= 0x001fffff;
+            result |= (uint)(ReadUI8() << 21);
+            if ((result & 0x10000000) == 0)
+            {
+                return result;
+            }
+            result &= 0x0fffffff;
+            result |= (uint)(ReadUI8() << 28);
             return result;
         }
 
