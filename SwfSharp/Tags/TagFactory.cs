@@ -94,6 +94,10 @@ namespace SwfSharp.Tags
                 {
                     return new StartSoundTag(type, size);
                 }
+                case TagType.DefineButtonSound:
+                {
+                    return new DefineButtonSoundTag(type, size);
+                }
                 case TagType.SoundStreamHead:
                 {
                     return new SoundStreamHeadTag(type, size);
@@ -166,6 +170,10 @@ namespace SwfSharp.Tags
                 {
                     return new SoundStreamHead2Tag(type, size);
                 }
+                case TagType.DefineMorphShape:
+                {
+                    return new DefineMorphShapeTag(type, size);
+                }
                 case TagType.DefineFont2:
                 {
                     return new DefineFont2Tag(type, size);
@@ -217,6 +225,10 @@ namespace SwfSharp.Tags
                 case TagType.DefineShape4:
                 {
                     return new DefineShape4Tag(type, size);
+                }
+                case TagType.DefineMorphShape2:
+                {
+                    return new DefineMorphShape2Tag(type, size);
                 }
                 case TagType.DefineBinaryData:
                 {
