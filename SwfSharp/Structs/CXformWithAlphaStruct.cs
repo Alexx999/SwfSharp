@@ -2,17 +2,9 @@
 
 namespace SwfSharp.Structs
 {
-    public class CXformWithAlphaStruct
+    public class CXformWithAlphaStruct : CXformStruct
     {
-        public bool HasAddTerms { get; set; }
-        public bool HasMultTerms { get; set; }
-        public int RedMultTerm { get; set; }
-        public int GreenMultTerm { get; set; }
-        public int BlueMultTerm { get; set; }
         public int AlphaMultTerm { get; set; }
-        public int RedAddTerm { get; set; }
-        public int GreenAddTerm { get; set; }
-        public int BlueAddTerm { get; set; }
         public int AlphaAddTerm { get; set; }
 
         private void FromStream(BitReader reader)
@@ -40,7 +32,7 @@ namespace SwfSharp.Structs
             }
         }
 
-        internal static CXformWithAlphaStruct CreateFromStream(BitReader reader)
+        internal new static CXformWithAlphaStruct CreateFromStream(BitReader reader)
         {
             var result = new CXformWithAlphaStruct();
 
