@@ -36,6 +36,10 @@ namespace SwfSharp.Structs
             {
                 OutPoint = reader.ReadUI32();
             }
+            if (HasLoops)
+            {
+                LoopCount = reader.ReadUI16();
+            }
             if (HasEnvelope)
             {
                 var envPoints = reader.ReadUI8();
