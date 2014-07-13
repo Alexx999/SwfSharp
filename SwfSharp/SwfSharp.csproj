@@ -102,6 +102,8 @@
     <Compile Include="Structs\SoundInfoStruct.cs" />
     <Compile Include="Structs\SpreadMode.cs" />
     <Compile Include="Structs\TextRecordStruct.cs" />
+    <Compile Include="Structs\ZoneDataStruct.cs" />
+    <Compile Include="Structs\ZoneRecordStruct.cs" />
     <Compile Include="SwfFile.cs" />
     <Compile Include="SwfHeader.cs" />
     <Compile Include="Structs\RectStruct.cs" />
@@ -110,6 +112,8 @@
     <Compile Include="Structs\RgbStruct.cs" />
     <Compile Include="Structs\CXformWithAlphaStruct.cs" />
     <Compile Include="Structs\ClipActionsStruct.cs" />
+    <Compile Include="Structs\CSMTableHint.cs" />
+    <Compile Include="Tags\CSMTextSettingsTag.cs" />
     <Compile Include="Tags\DefineBinaryDataTag.cs" />
     <Compile Include="Tags\DefineBitsJPEG2Tag.cs" />
     <Compile Include="Tags\DefineBitsJPEG3Tag.cs" />
@@ -122,8 +126,12 @@
     <Compile Include="Tags\DefineEditTextTag.cs" />
     <Compile Include="Tags\DefineFont2Tag.cs" />
     <Compile Include="Tags\DefineFont3Tag.cs" />
+    <Compile Include="Tags\DefineFontAlignZonesTag.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Tags\DefineFontInfo2Tag.cs" />
     <Compile Include="Tags\DefineFontInfoTag.cs" />
+    <Compile Include="Tags\DefineFontNameTag.cs" />
     <Compile Include="Tags\DefineFontTag.cs" />
     <Compile Include="Tags\DefineMorphShape2Tag.cs" />
     <Compile Include="Tags\DefineMorphShapeTag.cs" />

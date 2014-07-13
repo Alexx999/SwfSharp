@@ -206,6 +206,14 @@ namespace SwfSharp.Tags
                 {
                     return new FileAttributesTag(type, size);
                 }
+                case TagType.DefineFontAlignZones:
+                {
+                    return new DefineFontAlignZonesTag(type, size);
+                }
+                case TagType.CSMTextSetting:
+                {
+                    return new CSMTextSettingsTag(type, size);
+                }
                 case TagType.DefineFont3:
                 {
                     return new DefineFont3Tag(type, size);
@@ -233,6 +241,10 @@ namespace SwfSharp.Tags
                 case TagType.DefineBinaryData:
                 {
                     return new DefineBinaryDataTag(type, size);
+                }
+                case TagType.DefineFontName:
+                {
+                    return new DefineFontNameTag(type, size);
                 }
                 case TagType.StartSound2:
                 {
