@@ -46,6 +46,7 @@
         DefineVideoStream = 60,
         VideoFrame = 61,
         DefineFontInfo2 = 62,
+        DebugID = 63,
         EnableDebugger2 = 64,
         ScriptLimits = 65,
         SetTabIndex = 66,
