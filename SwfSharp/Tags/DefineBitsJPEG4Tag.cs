@@ -6,11 +6,11 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
-    public class DefineBitsJPEG3Tag : DefineBitsJPEG2Tag
+    class DefineBitsJPEG4Tag : DefineBitsJPEG3Tag
     {
-        public byte[] BitmapAlphaData { get; set; }
+        public float DeblockParam { get; set; }
 
-        public DefineBitsJPEG3Tag(TagType tagType, int size) : base(tagType, size)
+        public DefineBitsJPEG4Tag(TagType tagType, int size) : base(tagType, size)
         {
         }
 
@@ -18,6 +18,7 @@ namespace SwfSharp.Tags
         {
             CharacterID = reader.ReadUI16();
             var dataSize = (int)reader.ReadUI32();
+            DeblockParam = reader.ReadFixed8();
             ImageData = reader.ReadBytes(dataSize);
             BitmapAlphaData = reader.ReadBytes(Size - (dataSize + 6));
         }

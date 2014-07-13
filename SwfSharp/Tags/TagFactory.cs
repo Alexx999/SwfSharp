@@ -118,6 +118,10 @@ namespace SwfSharp.Tags
                 {
                     return new DefineShape2Tag(type, size);
                 }
+                case TagType.DefineButtonCxform:
+                {
+                    return new DefineButtonCxformTag(type, size);
+                }
                 case TagType.Protect:
                 {
                     return new ProtectTag(type, size);
@@ -182,6 +186,10 @@ namespace SwfSharp.Tags
                 {
                     return new ExportAssetsTag(type, size);
                 }
+                case TagType.ImportAssets:
+                {
+                    return new ImportAssetsTag(type, size);
+                }
                 case TagType.EnableDebugger:
                 {
                     return new EnableDebuggerTag(type, size);
@@ -189,6 +197,14 @@ namespace SwfSharp.Tags
                 case TagType.DoInitAction:
                 {
                     return new DoInitActionTag(type, size);
+                }
+                case TagType.DefineVideoStream:
+                {
+                    return new DefineVideoStreamTag(type, size);
+                }
+                case TagType.VideoFrame:
+                {
+                    return new VideoFrameTag(type, size);
                 }
                 case TagType.DefineFontInfo2:
                 {
@@ -206,6 +222,10 @@ namespace SwfSharp.Tags
                 {
                     return new ScriptLimitsTag(type, size);
                 }
+                case TagType.SetTabIndex:
+                {
+                    return new SetTabIndexTab(type, size);
+                }
                 case TagType.FileAttributes:
                 {
                     return new FileAttributesTag(type, size);
@@ -213,6 +233,10 @@ namespace SwfSharp.Tags
                 case TagType.PlaceObject3:
                 {
                     return new PlaceObject3Tag(type, size);
+                }
+                case TagType.ImportAssets2:
+                {
+                    return new ImportAssets2Tag(type, size);
                 }
                 case TagType.DefineFontAlignZones:
                 {
@@ -233,6 +257,10 @@ namespace SwfSharp.Tags
                 case TagType.Metadata:
                 {
                     return new MetadataTag(type, size);
+                }
+                case TagType.DefineScalingGrid:
+                {
+                    return new DefineScalingGridTag(type, size);
                 }
                 case TagType.DoABC:
                 {
@@ -261,6 +289,14 @@ namespace SwfSharp.Tags
                 case TagType.StartSound2:
                 {
                     return new StartSound2Tag(type, size);
+                }
+                case TagType.DefineBitsJPEG4:
+                {
+                    return new DefineBitsJPEG4Tag(type, size);
+                }
+                case TagType.DefineFont4:
+                {
+                    return new DefineFont4Tag(type, size);
                 }
                 case TagType.EnableTelemetry:
                 {

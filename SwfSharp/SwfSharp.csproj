@@ -118,15 +118,18 @@
     <Compile Include="Tags\DefineBinaryDataTag.cs" />
     <Compile Include="Tags\DefineBitsJPEG2Tag.cs" />
     <Compile Include="Tags\DefineBitsJPEG3Tag.cs" />
+    <Compile Include="Tags\DefineBitsJPEG4Tag.cs" />
     <Compile Include="Tags\DefineBitsLossless2Tag.cs" />
     <Compile Include="Tags\DefineBitsLosslessTag.cs" />
     <Compile Include="Tags\DefineBitsTag.cs" />
     <Compile Include="Tags\DefineButton2Tag.cs" />
+    <Compile Include="Tags\DefineButtonCxformTag.cs" />
     <Compile Include="Tags\DefineButtonSoundTag.cs" />
     <Compile Include="Tags\DefineButtonTag.cs" />
     <Compile Include="Tags\DefineEditTextTag.cs" />
     <Compile Include="Tags\DefineFont2Tag.cs" />
     <Compile Include="Tags\DefineFont3Tag.cs" />
+    <Compile Include="Tags\DefineFont4Tag.cs" />
     <Compile Include="Tags\DefineFontAlignZonesTag.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -136,6 +139,7 @@
     <Compile Include="Tags\DefineFontTag.cs" />
     <Compile Include="Tags\DefineMorphShape2Tag.cs" />
     <Compile Include="Tags\DefineMorphShapeTag.cs" />
+    <Compile Include="Tags\DefineScalingGridTag.cs" />
     <Compile Include="Tags\DefineSceneAndFrameLabelDataTag.cs" />
     <Compile Include="Tags\DefineShape2Tag.cs" />
     <Compile Include="Tags\DefineShape3Tag.cs" />
@@ -145,6 +149,7 @@
     <Compile Include="Tags\DefineSpriteTag.cs" />
     <Compile Include="Tags\DefineText2Tag.cs" />
     <Compile Include="Tags\DefineTextTag.cs" />
+    <Compile Include="Tags\DefineVideoStreamTag.cs" />
     <Compile Include="Tags\DoABCTag.cs" />
     <Compile Include="Tags\DoActionTag.cs" />
     <Compile Include="Tags\DoInitActionTag.cs" />
@@ -155,6 +160,8 @@
     <Compile Include="Tags\ExportAssetsTag.cs" />
     <Compile Include="Tags\FileAttributesTag.cs" />
     <Compile Include="Tags\FrameLabelTag.cs" />
+    <Compile Include="Tags\ImportAssets2Tag.cs" />
+    <Compile Include="Tags\ImportAssetsTag.cs" />
     <Compile Include="Tags\JPEGTablesTag.cs" />
     <Compile Include="Tags\MetadataTag.cs" />
     <Compile Include="Tags\PlaceObject2Tag.cs" />
@@ -168,6 +175,7 @@
     <Compile Include="Sounds\SampleSize.cs" />
     <Compile Include="Tags\ScriptLimitsTag.cs" />
     <Compile Include="Tags\SetBackgroundColorTag.cs" />
+    <Compile Include="Tags\SetTabIndexTab.cs" />
     <Compile Include="Tags\ShowFrameTag.cs" />
     <Compile Include="Sounds\SoundFormat.cs" />
     <Compile Include="Tags\SoundStreamBlockTag.cs" />
@@ -181,6 +189,7 @@
     <Compile Include="Tags\TagFactory.cs" />
     <Compile Include="Tags\TagType.cs" />
     <Compile Include="Tags\UnknownTag.cs" />
+    <Compile Include="Tags\VideoFrameTag.cs" />
     <Compile Include="Utils\BitReader.cs" />
   </ItemGroup>
   <ItemGroup>
