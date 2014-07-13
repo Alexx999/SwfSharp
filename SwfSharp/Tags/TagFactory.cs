@@ -138,6 +138,10 @@ namespace SwfSharp.Tags
                 {
                     return new DefineBitsLossless2Tag(type, size);
                 }
+                case TagType.DefineEditText:
+                {
+                    return new DefineEditTextTag(type, size);
+                }
                 case TagType.DefineSprite:
                 {
                     return new DefineSpriteTag(type, size);

@@ -91,6 +91,7 @@
     <Compile Include="Tags\DefineBitsLossless2Tag.cs" />
     <Compile Include="Tags\DefineBitsLosslessTag.cs" />
     <Compile Include="Tags\DefineBitsTag.cs" />
+    <Compile Include="Tags\DefineEditTextTag.cs" />
     <Compile Include="Tags\DefineFont2Tag.cs" />
     <Compile Include="Tags\DefineFont3Tag.cs" />
     <Compile Include="Tags\DefineFontInfo2Tag.cs" />
@@ -140,7 +141,6 @@
     <Compile Include="Tags\TagType.cs" />
     <Compile Include="Tags\UnknownTag.cs" />
     <Compile Include="Utils\BitReader.cs" />
-    <Compile Include="Utils\BitUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
