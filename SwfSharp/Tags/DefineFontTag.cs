@@ -11,9 +11,10 @@ namespace SwfSharp.Tags
     {
         public ushort FontID { get; set; }
         public IList<ushort> OffsetTable { get; set; }
-        public IList<ShapeStruct> GlyphShapeTable { get; set; } 
+        public IList<ShapeStruct> GlyphShapeTable { get; set; }
 
-        public DefineFontTag(TagType tagType, int size) : base(tagType, size)
+        public DefineFontTag(int size)
+            : base(TagType.DefineFont, size)
         {
         }
 

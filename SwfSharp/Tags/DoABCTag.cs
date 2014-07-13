@@ -12,7 +12,8 @@ namespace SwfSharp.Tags
         public string Name { get; set; }
         public byte[] ABCData { get; set; }
 
-        public DoABCTag(TagType tagType, int size) : base(tagType, size)
+        public DoABCTag(int size)
+            : base(TagType.DoABC, size)
         {
         }
 

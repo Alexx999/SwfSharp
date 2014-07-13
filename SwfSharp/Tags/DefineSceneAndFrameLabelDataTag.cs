@@ -11,7 +11,8 @@ namespace SwfSharp.Tags
         public IList<SceneData> Scenes { get; set; }
         public IList<FrameData> Frames { get; set; }
 
-        public DefineSceneAndFrameLabelDataTag(TagType tagType, int size) : base(tagType, size)
+        public DefineSceneAndFrameLabelDataTag(int size)
+            : base(TagType.DefineSceneAndFrameLabelData, size)
         {
         }
 

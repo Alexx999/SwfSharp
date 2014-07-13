@@ -14,7 +14,8 @@ namespace SwfSharp.Tags
         public float Thickness { get; set; }
         public float Sharpness { get; set; }
 
-        public CSMTextSettingsTag(TagType tagType, int size) : base(tagType, size)
+        public CSMTextSettingsTag(int size)
+            : base(TagType.CSMTextSetting, size)
         {
         }
 

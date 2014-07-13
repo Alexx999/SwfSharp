@@ -18,7 +18,13 @@ namespace SwfSharp.Tags
         public ShapeStruct StartEdges { get; set; }
         public ShapeStruct EndEdges { get; set; }
 
-        public DefineMorphShapeTag(TagType tagType, int size) : base(tagType, size)
+        public DefineMorphShapeTag(int size)
+            : base(TagType.DefineMorphShape, size)
+        {
+        }
+
+        protected DefineMorphShapeTag(TagType tagType, int size)
+            : base(tagType, size)
         {
         }
 

@@ -10,7 +10,8 @@ namespace SwfSharp.Tags
     {
         public byte LanguageCode { get; set; }
 
-        public DefineFontInfo2Tag(TagType tagType, int size) : base(tagType, size)
+        public DefineFontInfo2Tag(int size)
+            : base(TagType.DefineFontInfo2, size)
         {
         }
 

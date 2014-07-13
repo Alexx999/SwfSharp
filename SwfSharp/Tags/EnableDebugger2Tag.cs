@@ -8,7 +8,8 @@ namespace SwfSharp.Tags
 {
     public class EnableDebugger2Tag : EnableDebuggerTag
     {
-        public EnableDebugger2Tag(TagType tagType, int size) : base(tagType, size)
+        public EnableDebugger2Tag(int size)
+            : base(TagType.EnableDebugger2, size)
         {
         }
 

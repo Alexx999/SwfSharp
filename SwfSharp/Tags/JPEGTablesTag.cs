@@ -10,7 +10,8 @@ namespace SwfSharp.Tags
     {
         public byte[] JPEGData { get; set; }
 
-        public JPEGTablesTag(TagType tagType, int size) : base(tagType, size)
+        public JPEGTablesTag(int size)
+            : base(TagType.JPEGTables, size)
         {
         }
 

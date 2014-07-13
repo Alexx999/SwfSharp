@@ -15,7 +15,8 @@ namespace SwfSharp.Tags
         public string FontName { get; set; }
         public byte[] FontData { get; set; }
 
-        public DefineFont4Tag(TagType tagType, int size) : base(tagType, size)
+        public DefineFont4Tag(int size)
+            : base(TagType.DefineFont4, size)
         {
         }
 

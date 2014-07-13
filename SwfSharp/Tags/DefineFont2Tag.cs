@@ -29,9 +29,15 @@ namespace SwfSharp.Tags
         public IList<short> FontAdvanceTable { get; set; }
         public IList<RectStruct> FontBoundsTable { get; set; }
         public ushort KerningCount { get; set; }
-        public IList<KerningRecordStruct> FontKerningTable { get; set; } 
+        public IList<KerningRecordStruct> FontKerningTable { get; set; }
 
-        public DefineFont2Tag(TagType tagType, int size) : base(tagType, size)
+        public DefineFont2Tag(int size)
+            : base(TagType.DefineFont2, size)
+        {
+        }
+
+        protected DefineFont2Tag(TagType tagType, int size)
+            : base(tagType, size)
         {
         }
 

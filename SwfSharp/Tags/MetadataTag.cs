@@ -7,7 +7,8 @@ namespace SwfSharp.Tags
     {
         public string Metadata { get; set; }
 
-        public MetadataTag(TagType tagType, int size) : base(tagType, size)
+        public MetadataTag(int size)
+            : base(TagType.Metadata, size)
         {
         }
 

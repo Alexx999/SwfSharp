@@ -12,7 +12,8 @@ namespace SwfSharp.Tags
         public ushort SoundId { get; set; }
         public SoundInfoStruct SoundInfo { get; set; }
 
-        public StartSoundTag(TagType tagType, int size) : base(tagType, size)
+        public StartSoundTag(int size)
+            : base(TagType.StartSound, size)
         {
         }
 

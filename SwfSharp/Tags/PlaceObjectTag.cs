@@ -14,7 +14,8 @@ namespace SwfSharp.Tags
         public MatrixStruct Matrix { get; set; }
         public CXformStruct ColorTransform { get; set; }
 
-        public PlaceObjectTag(TagType tagType, int size) : base(tagType, size)
+        public PlaceObjectTag(int size)
+            : base(TagType.PlaceObject, size)
         {
         }
 

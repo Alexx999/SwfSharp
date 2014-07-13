@@ -11,7 +11,8 @@ namespace SwfSharp.Tags
         public ushort Depth { get; set; }
         public ushort TabIndex { get; set; }
 
-        public SetTabIndexTab(TagType tagType, int size) : base(tagType, size)
+        public SetTabIndexTab(int size)
+            : base(TagType.SetTabIndex, size)
         {
         }
 

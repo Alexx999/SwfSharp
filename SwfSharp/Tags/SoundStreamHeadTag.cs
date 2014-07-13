@@ -19,7 +19,13 @@ namespace SwfSharp.Tags
         public ushort StreamSoundSampleCount { get; set; }
         public short LatencySeek { get; set; }
 
-        public SoundStreamHeadTag(TagType tagType, int size) : base(tagType, size)
+        public SoundStreamHeadTag(int size)
+            : base(TagType.SoundStreamHead, size)
+        {
+        }
+
+        protected SoundStreamHeadTag(TagType tagType, int size)
+            : base(tagType, size)
         {
         }
 

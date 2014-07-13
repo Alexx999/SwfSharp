@@ -9,8 +9,14 @@ namespace SwfSharp.Tags
     public class DefineBitsJPEG3Tag : DefineBitsJPEG2Tag
     {
         public byte[] BitmapAlphaData { get; set; }
+        
+        public DefineBitsJPEG3Tag(int size)
+            : base(TagType.DefineBitsJPEG3, size)
+        {
+        }
 
-        public DefineBitsJPEG3Tag(TagType tagType, int size) : base(tagType, size)
+        protected DefineBitsJPEG3Tag(TagType tagType, int size)
+            : base(tagType, size)
         {
         }
 

@@ -40,7 +40,8 @@ namespace SwfSharp.Tags
         public string VariableName { get; set; }
         public string InitialText { get; set; }
 
-        public DefineEditTextTag(TagType tagType, int size) : base(tagType, size)
+        public DefineEditTextTag(int size)
+            : base(TagType.DefineEditText, size)
         {
         }
 

@@ -7,7 +7,8 @@ namespace SwfSharp.Tags
     {
         public IList<ExportRecord> Records { get; set; }
 
-        public ExportAssetsTag(TagType tagType, int size) : base(tagType, size)
+        public ExportAssetsTag(int size)
+            : base(TagType.ExportAssets, size)
         {
         }
 

@@ -12,9 +12,10 @@ namespace SwfSharp.Tags
     {
         public ushort ButtonId { get; set; }
         public IList<ButtonRecordStruct> Characters { get; set; }
-        public IList<ActionRecordStruct> Actions { get; set; } 
+        public IList<ActionRecordStruct> Actions { get; set; }
 
-        public DefineButtonTag(TagType tagType, int size) : base(tagType, size)
+        public DefineButtonTag(int size)
+            : base(TagType.DefineButton, size)
         {
         }
 

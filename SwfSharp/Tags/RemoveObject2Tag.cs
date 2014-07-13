@@ -10,7 +10,13 @@ namespace SwfSharp.Tags
     {
         public ushort Depth { get; set; }
 
-        public RemoveObject2Tag(TagType tagType, int size) : base(tagType, size)
+        public RemoveObject2Tag(int size)
+            : base(TagType.RemoveObject2, size)
+        {
+        }
+
+        protected RemoveObject2Tag(TagType tagType, int size)
+            : base(tagType, size)
         {
         }
 

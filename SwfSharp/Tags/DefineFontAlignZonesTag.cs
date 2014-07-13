@@ -11,9 +11,10 @@ namespace SwfSharp.Tags
     {
         public ushort FontID { get; set; }
         public CSMTableHint CSMTableHint { get; set; }
-        public IList<ZoneRecordStruct> ZoneTable { get; set; } 
+        public IList<ZoneRecordStruct> ZoneTable { get; set; }
 
-        public DefineFontAlignZonesTag(TagType tagType, int size) : base(tagType, size)
+        public DefineFontAlignZonesTag(int size)
+            : base(TagType.DefineFontAlignZones, size)
         {
         }
 

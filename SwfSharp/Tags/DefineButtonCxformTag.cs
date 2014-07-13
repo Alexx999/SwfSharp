@@ -12,7 +12,8 @@ namespace SwfSharp.Tags
         public ushort ButtonId { get; set; }
         public CXformStruct ButtonColorTransform { get; set; }
 
-        public DefineButtonCxformTag(TagType tagType, int size) : base(tagType, size)
+        public DefineButtonCxformTag(int size)
+            : base(TagType.DefineButtonCxform, size)
         {
         }
 

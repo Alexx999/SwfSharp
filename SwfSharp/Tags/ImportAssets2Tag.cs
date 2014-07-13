@@ -8,7 +8,8 @@ namespace SwfSharp.Tags
 {
     class ImportAssets2Tag : ImportAssetsTag
     {
-        public ImportAssets2Tag(TagType tagType, int size) : base(tagType, size)
+        public ImportAssets2Tag(int size)
+            : base(TagType.ImportAssets2, size)
         {
         }
 

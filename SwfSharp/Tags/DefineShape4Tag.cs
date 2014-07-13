@@ -14,7 +14,8 @@ namespace SwfSharp.Tags
         public bool UsesNonScalingStrokes { get; set; }
         public bool UsesScalingStrokes { get; set; }
 
-        public DefineShape4Tag(TagType tagType, int size) : base(tagType, size)
+        public DefineShape4Tag(int size)
+            : base(TagType.DefineShape4, size)
         {
         }
 

@@ -15,7 +15,8 @@ namespace SwfSharp.Tags
         public IList<ButtonRecordStruct> Characters { get; set; }
         public IList<ButtonCondActionStruct> Actions { get; set; }
 
-        public DefineButton2Tag(TagType tagType, int size) : base(tagType, size)
+        public DefineButton2Tag(int size)
+            : base(TagType.DefineButton2, size)
         {
         }
 

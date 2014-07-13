@@ -8,7 +8,8 @@ namespace SwfSharp.Tags
 {
     public class EndTag : SwfTag
     {
-        public EndTag(TagType tagType, int size) : base(tagType, size)
+        public EndTag(int size)
+            : base(TagType.End, size)
         {
         }
 

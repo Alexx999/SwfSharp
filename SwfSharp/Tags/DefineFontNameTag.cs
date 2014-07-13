@@ -12,7 +12,8 @@ namespace SwfSharp.Tags
         public string FontName { get; set; }
         public string FontCopyright { get; set; }
 
-        public DefineFontNameTag(TagType tagType, int size) : base(tagType, size)
+        public DefineFontNameTag(int size)
+            : base(TagType.DefineFontName, size)
         {
         }
 

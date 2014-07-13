@@ -12,7 +12,8 @@ namespace SwfSharp.Tags
         public ushort FrameNum { get; set; }
         public byte[] VideoData { get; set; }
 
-        public VideoFrameTag(TagType tagType, int size) : base(tagType, size)
+        public VideoFrameTag(int size)
+            : base(TagType.VideoFrame, size)
         {
         }
 

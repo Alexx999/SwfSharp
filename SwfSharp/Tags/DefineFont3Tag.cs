@@ -7,7 +7,8 @@ namespace SwfSharp.Tags
 {
     public class DefineFont3Tag : DefineFont2Tag
     {
-        public DefineFont3Tag(TagType tagType, int size) : base(tagType, size)
+        public DefineFont3Tag(int size)
+            : base(TagType.DefineFont3, size)
         {
         }
     }

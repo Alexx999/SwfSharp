@@ -15,7 +15,8 @@ namespace SwfSharp.Tags
         public long Build { get; set; }
         public long CompileDate { get; set; }
 
-        public ProductInfoTag(TagType tagType, int size) : base(tagType, size)
+        public ProductInfoTag(int size)
+            : base(TagType.ProductInfo, size)
         {
         }
 

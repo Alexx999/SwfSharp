@@ -19,7 +19,13 @@ namespace SwfSharp.Tags
         public IList<ushort> CodeTable { get; set; }
 
 
-        public DefineFontInfoTag(TagType tagType, int size) : base(tagType, size)
+        public DefineFontInfoTag(int size)
+            : base(TagType.DefineFontInfo, size)
+        {
+        }
+
+        protected DefineFontInfoTag(TagType tagType, int size)
+            : base(tagType, size)
         {
         }
 

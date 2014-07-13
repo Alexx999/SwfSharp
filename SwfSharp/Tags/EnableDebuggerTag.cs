@@ -10,7 +10,13 @@ namespace SwfSharp.Tags
     {
         public string Password { get; set; }
 
-        public EnableDebuggerTag(TagType tagType, int size) : base(tagType, size)
+        public EnableDebuggerTag(int size)
+            : base(TagType.EnableDebugger, size)
+        {
+        }
+
+        protected EnableDebuggerTag(TagType tagType, int size)
+            : base(tagType, size)
         {
         }
 
