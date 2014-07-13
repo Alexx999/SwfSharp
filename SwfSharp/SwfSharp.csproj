@@ -156,6 +156,7 @@
     <Compile Include="Tags\JPEGTablesTag.cs" />
     <Compile Include="Tags\MetadataTag.cs" />
     <Compile Include="Tags\PlaceObject2Tag.cs" />
+    <Compile Include="Tags\PlaceObject3Tag.cs" />
     <Compile Include="Tags\PlaceObjectTag.cs" />
     <Compile Include="Tags\ProductInfoTag.cs" />
     <Compile Include="Tags\ProtectTag.cs" />

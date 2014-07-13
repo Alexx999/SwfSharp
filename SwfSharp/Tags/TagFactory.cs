@@ -206,6 +206,10 @@ namespace SwfSharp.Tags
                 {
                     return new FileAttributesTag(type, size);
                 }
+                case TagType.PlaceObject3:
+                {
+                    return new PlaceObject3Tag(type, size);
+                }
                 case TagType.DefineFontAlignZones:
                 {
                     return new DefineFontAlignZonesTag(type, size);
