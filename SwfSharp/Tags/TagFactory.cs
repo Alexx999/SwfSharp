@@ -58,6 +58,10 @@ namespace SwfSharp.Tags
                 {
                     return new DefineBitsTag(type, size);
                 }
+                case TagType.DefineButton:
+                {
+                    return new DefineButtonTag(type, size);
+                }
                 case TagType.JPEGTables:
                 {
                     return new JPEGTablesTag(type, size);
@@ -129,6 +133,10 @@ namespace SwfSharp.Tags
                 case TagType.DefineText2:
                 {
                     return new DefineText2Tag(type, size);
+                }
+                case TagType.DefineButton2:
+                {
+                    return new DefineButton2Tag(type, size);
                 }
                 case TagType.DefineBitsJPEG3:
                 {

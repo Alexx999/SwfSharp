@@ -1,0 +1,32 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using SwfSharp.Utils;
+
+namespace SwfSharp.Filters
+{
+    public class BlurFilter
+    {
+        public float BlurX { get; set; }
+        public float BlurY { get; set; }
+        public byte Passes { get; set; }
+
+        private void FromStream(BitReader reader)
+        {
+            BlurX = reader.ReadFixed();
+            BlurY = reader.ReadFixed();
+            Passes = (byte)reader.ReadBits(5);
+            reader.ReadBits(3);
+        }
+
+        internal static BlurFilter CreateFromStream(BitReader reader)
+        {
+            var result = new BlurFilter();
+
+            result.FromStream(reader);
+
+            return result;
+        }
+    }
+}

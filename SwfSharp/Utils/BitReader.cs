@@ -105,9 +105,32 @@ namespace SwfSharp.Utils
             return _reader.ReadInt64();
         }
 
+        public float ReadFloat16()
+        {
+            Align();
+            return Half.ToHalf(_reader.ReadUInt16());
+        }
+
+        public float ReadFloat()
+        {
+            Align();
+            return _reader.ReadSingle();
+        }
+
+        public double ReadDouble()
+        {
+            Align();
+            return _reader.ReadDouble();
+        }
+
         public float ReadFixed8()
         {
             return ReadSI16() / 256.0f;
+        }
+
+        public float ReadFixed()
+        {
+            return ReadSI32() / 65536.0f;
         }
 
         public uint ReadBits(uint length)
