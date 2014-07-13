@@ -194,6 +194,10 @@ namespace SwfSharp.Tags
                 {
                     return new DefineFontInfo2Tag(type, size);
                 }
+                case TagType.DebugID:
+                {
+                    return new DebugIDTag(type, size);
+                }
                 case TagType.EnableDebugger2:
                 {
                     return new EnableDebugger2Tag(type, size);

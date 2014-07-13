@@ -114,6 +114,7 @@
     <Compile Include="Structs\ClipActionsStruct.cs" />
     <Compile Include="Structs\CSMTableHint.cs" />
     <Compile Include="Tags\CSMTextSettingsTag.cs" />
+    <Compile Include="Tags\DebugIDTag.cs" />
     <Compile Include="Tags\DefineBinaryDataTag.cs" />
     <Compile Include="Tags\DefineBitsJPEG2Tag.cs" />
     <Compile Include="Tags\DefineBitsJPEG3Tag.cs" />
