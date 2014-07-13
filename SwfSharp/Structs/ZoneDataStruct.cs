@@ -6,7 +6,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
 {
-    class ZoneDataStruct
+    public class ZoneDataStruct
     {
         public float AlignmentCoordinate { get; set; }
         public float Range { get; set; }

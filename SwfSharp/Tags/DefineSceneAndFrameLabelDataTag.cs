@@ -6,7 +6,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
-    class DefineSceneAndFrameLabelDataTag : SwfTag
+    public class DefineSceneAndFrameLabelDataTag : SwfTag
     {
         public IList<SceneData> Scenes { get; set; }
         public IList<FrameData> Frames { get; set; }

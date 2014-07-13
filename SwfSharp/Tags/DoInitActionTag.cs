@@ -5,7 +5,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
-    class DoInitActionTag : DoActionTag
+    public class DoInitActionTag : DoActionTag
     {
         public ushort SpriteID { get; set; }
 

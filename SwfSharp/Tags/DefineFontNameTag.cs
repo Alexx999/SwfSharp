@@ -6,7 +6,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
-    class DefineFontNameTag : SwfTag
+    public class DefineFontNameTag : SwfTag
     {
         public ushort FontID { get; set; }
         public string FontName { get; set; }

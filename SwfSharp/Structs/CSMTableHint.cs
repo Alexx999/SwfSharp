@@ -1,6 +1,6 @@
 ﻿namespace SwfSharp.Structs
 {
-    enum CSMTableHint
+    public enum CSMTableHint
     {
         Thin = 0,
         Medium = 1,

@@ -7,7 +7,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
 {
-    class ButtonCondActionStruct
+    public class ButtonCondActionStruct
     {
         public ushort CondActionSize { get; set; }
         public bool CondIdleToOverDown { get; set; }

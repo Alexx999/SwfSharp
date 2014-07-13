@@ -7,7 +7,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
-    class DefineButtonSoundTag : SwfTag
+    public class DefineButtonSoundTag : SwfTag
     {
         public ushort ButtonId { get; set; }
         public ushort ButtonSoundChar0 { get; set; }

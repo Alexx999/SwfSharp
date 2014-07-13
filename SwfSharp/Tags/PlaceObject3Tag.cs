@@ -7,7 +7,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
-    class PlaceObject3Tag : PlaceObject2Tag
+    public class PlaceObject3Tag : PlaceObject2Tag
     {
         public bool PlaceFlagOpaqueBackground { get; set; }
         public bool PlaceFlagHasVisible { get; set; }

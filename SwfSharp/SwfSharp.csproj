@@ -51,7 +51,6 @@
     <Compile Include="Filters\GlowFilter.cs" />
     <Compile Include="Filters\GradientBevelFilter.cs" />
     <Compile Include="Filters\GradientGlowFilter.cs" />
-    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShapeRecords\CurvedEdgeRecord.cs" />
     <Compile Include="ShapeRecords\EndShapeRecord.cs" />

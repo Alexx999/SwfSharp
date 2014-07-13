@@ -6,7 +6,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
 {
-    class MorphLineStyleStruct
+    public class MorphLineStyleStruct
     {
         public ushort StartWidth { get; set; }
         public ushort EndWidth { get; set; }

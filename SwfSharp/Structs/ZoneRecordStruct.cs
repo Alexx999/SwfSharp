@@ -6,7 +6,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
 {
-    class ZoneRecordStruct
+    public class ZoneRecordStruct
     {
         public IList<ZoneDataStruct> ZoneData { get; set; }
         public bool ZoneMaskY { get; set; }

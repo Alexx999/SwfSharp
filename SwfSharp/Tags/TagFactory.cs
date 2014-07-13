@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SwfSharp.Annotations;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
@@ -11,8 +10,7 @@ namespace SwfSharp.Tags
     {
         private const ushort SizeMask = 0xFFFF >> 10;
 
-        [NotNull]
-        public static SwfTag ReadTag([NotNull]BitReader reader, byte swfVersion)
+        public static SwfTag ReadTag(BitReader reader, byte swfVersion)
         {
             reader.Align();
             var tagCodeAndLength = reader.ReadUI16();
@@ -29,7 +27,6 @@ namespace SwfSharp.Tags
             return tag;
         }
 
-        [NotNull]
         private static SwfTag GetTag(TagType type, int size)
         {
             switch (type)

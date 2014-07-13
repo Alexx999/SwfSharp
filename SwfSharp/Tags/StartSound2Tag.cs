@@ -7,7 +7,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
-    class StartSound2Tag : SwfTag
+    public class StartSound2Tag : SwfTag
     {
         public string SoundClassName { get; set; }
         public SoundInfoStruct SoundInfo { get; set; }

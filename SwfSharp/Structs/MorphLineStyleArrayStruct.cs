@@ -7,7 +7,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
 {
-    class MorphLineStyleArrayStruct
+    public class MorphLineStyleArrayStruct
     {
         public IList<MorphLineStyleStruct> LineStyles { get; set; }
 

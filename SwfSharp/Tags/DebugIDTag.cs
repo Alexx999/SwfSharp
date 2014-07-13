@@ -6,7 +6,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
-    class DebugIDTag : SwfTag
+    public class DebugIDTag : SwfTag
     {
         public byte[] Uuid { get; set; }
 

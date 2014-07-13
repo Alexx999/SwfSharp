@@ -2,7 +2,7 @@
 
 namespace SwfSharp.Structs
 {
-    internal class MorphGradRecordStruct
+    public class MorphGradRecordStruct
     {
         public byte StartRatio { get; set; }
         public RgbaStruct StartColor { get; set; }

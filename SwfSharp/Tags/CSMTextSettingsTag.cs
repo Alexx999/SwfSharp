@@ -6,7 +6,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
-    class CSMTextSettingsTag : SwfTag
+    public class CSMTextSettingsTag : SwfTag
     {
         public ushort TextID { get; set; }
         public TextRenderType  UseFlashType { get; set; }

@@ -8,7 +8,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
-    class DefineButton2Tag : SwfTag
+    public class DefineButton2Tag : SwfTag
     {
         public ushort ButtonId { get; set; }
         public bool TrackAsMenu { get; set; }

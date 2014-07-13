@@ -6,7 +6,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
-    class VideoFrameTag : SwfTag
+    public class VideoFrameTag : SwfTag
     {
         public ushort StreamID { get; set; }
         public ushort FrameNum { get; set; }

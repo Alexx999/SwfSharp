@@ -7,7 +7,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
-    class DefineEditTextTag : SwfTag
+    public class DefineEditTextTag : SwfTag
     {
         public ushort CharacterID { get; set; }
         public RectStruct Bounds { get; set; }

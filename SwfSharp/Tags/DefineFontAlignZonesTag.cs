@@ -7,7 +7,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
-    class DefineFontAlignZonesTag : SwfTag
+    public class DefineFontAlignZonesTag : SwfTag
     {
         public ushort FontID { get; set; }
         public CSMTableHint CSMTableHint { get; set; }

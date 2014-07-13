@@ -6,7 +6,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
-    class SoundStreamBlockTag : SwfTag
+    public class SoundStreamBlockTag : SwfTag
     {
         public byte[] StreamSoundData { get; set; }
 

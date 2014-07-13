@@ -6,7 +6,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
-    class ImportAssetsTag : SwfTag
+    public class ImportAssetsTag : SwfTag
     {
         public string URL { get; set; }
         public IList<ImportRecord> Records { get; set; }

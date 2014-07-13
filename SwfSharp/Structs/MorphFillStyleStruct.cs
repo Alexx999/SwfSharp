@@ -6,7 +6,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
 {
-    class MorphFillStyleStruct
+    public class MorphFillStyleStruct
     {
         public FillStyle FillStyleType { get; set; }
         public RgbaStruct StartColor { get; set; }

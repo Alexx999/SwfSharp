@@ -7,7 +7,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
-    class DefineScalingGridTag : SwfTag
+    public class DefineScalingGridTag : SwfTag
     {
         public ushort CharacterId { get; set; }
         public RectStruct Splitter { get; set; }

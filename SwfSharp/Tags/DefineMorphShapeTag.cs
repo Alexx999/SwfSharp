@@ -7,7 +7,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
-    class DefineMorphShapeTag : SwfTag
+    public class DefineMorphShapeTag : SwfTag
     {
         public ushort CharacterId { get; set; }
         public RectStruct StartBounds { get; set; }

@@ -6,7 +6,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
-    class ImportAssets2Tag : ImportAssetsTag
+    public class ImportAssets2Tag : ImportAssetsTag
     {
         public ImportAssets2Tag(int size)
             : base(TagType.ImportAssets2, size)

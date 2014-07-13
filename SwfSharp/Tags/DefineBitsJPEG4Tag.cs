@@ -6,7 +6,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
-    class DefineBitsJPEG4Tag : DefineBitsJPEG3Tag
+    public class DefineBitsJPEG4Tag : DefineBitsJPEG3Tag
     {
         public float DeblockParam { get; set; }
 

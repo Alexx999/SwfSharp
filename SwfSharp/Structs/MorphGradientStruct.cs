@@ -3,7 +3,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
 {
-    class MorphGradientStruct
+    public class MorphGradientStruct
     {
         public IList<MorphGradRecordStruct> GradientRecords { get; set; }
 

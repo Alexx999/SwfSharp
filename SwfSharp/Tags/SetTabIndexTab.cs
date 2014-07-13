@@ -6,7 +6,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
-    class SetTabIndexTab : SwfTag
+    public class SetTabIndexTab : SwfTag
     {
         public ushort Depth { get; set; }
         public ushort TabIndex { get; set; }

@@ -7,7 +7,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
-    class DefineButtonCxformTag : SwfTag
+    public class DefineButtonCxformTag : SwfTag
     {
         public ushort ButtonId { get; set; }
         public CXformStruct ButtonColorTransform { get; set; }
