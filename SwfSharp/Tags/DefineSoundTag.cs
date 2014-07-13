@@ -29,7 +29,7 @@ namespace SwfSharp.Tags
             SoundSize = (SampleSize) reader.ReadBits(1);
             SoundType = (SoundType) reader.ReadBits(1);
             SoundSampleCount = reader.ReadUI32();
-            SoundData = reader.ReadBytes((int) reader.GetTagRemaining());
+            SoundData = reader.ReadBytes((int) reader.TagBytesRemaining);
         }
     }
 }

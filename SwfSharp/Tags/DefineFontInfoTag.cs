@@ -26,8 +26,7 @@ namespace SwfSharp.Tags
         internal override void FromStream(BitReader reader, byte swfVersion)
         {
             FontID = reader.ReadUI16();
-            var fontNameLen = reader.ReadUI8();
-            FontName = reader.ReadString(fontNameLen);
+            FontName = reader.ReadSizeString();
             reader.ReadBits(2);
             FontFlagsSmallText = reader.ReadBoolBit();
             FontFlagsShiftJIS = reader.ReadBoolBit();
@@ -41,7 +40,7 @@ namespace SwfSharp.Tags
 
         internal virtual void ReadCodeTable(BitReader reader, int charSize)
         {
-            var nGlyphs = (int)reader.GetTagRemaining() / charSize;
+            var nGlyphs = (int)reader.TagBytesRemaining / charSize;
             CodeTable = new List<ushort>(nGlyphs);
             if (FontFlagsWideCodes)
             {

@@ -154,6 +154,10 @@ namespace SwfSharp.Tags
                 {
                     return new SoundStreamHead2Tag(type, size);
                 }
+                case TagType.DefineFont2:
+                {
+                    return new DefineFont2Tag(type, size);
+                }
                 case TagType.ExportAssets:
                 {
                     return new ExportAssetsTag(type, size);
@@ -181,6 +185,10 @@ namespace SwfSharp.Tags
                 case TagType.FileAttributes:
                 {
                     return new FileAttributesTag(type, size);
+                }
+                case TagType.DefineFont3:
+                {
+                    return new DefineFont3Tag(type, size);
                 }
                 case TagType.SymbolClass:
                 {

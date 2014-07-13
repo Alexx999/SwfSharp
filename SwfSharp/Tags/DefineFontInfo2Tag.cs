@@ -17,7 +17,7 @@ namespace SwfSharp.Tags
         internal override void ReadCodeTable(BitReader reader, int charSize)
         {
             LanguageCode = reader.ReadUI8();
-            var nGlyphs = (int)reader.GetTagRemaining() / 2;
+            var nGlyphs = (int)reader.TagBytesRemaining / 2;
             CodeTable = new List<ushort>(nGlyphs);
             for (int i = 0; i < nGlyphs; i++)
             {

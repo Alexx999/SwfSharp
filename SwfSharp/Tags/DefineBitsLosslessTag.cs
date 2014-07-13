@@ -36,7 +36,7 @@ namespace SwfSharp.Tags
             {
                 BitmapColorTableSize = reader.ReadUI8();
             }
-            ZlibBitmapData = reader.ReadBytes((int)reader.GetTagRemaining());
+            ZlibBitmapData = reader.ReadBytes((int)reader.TagBytesRemaining);
             /*
             var memoryStream = new MemoryStream(ZlibBitmapData);
             MemoryStream unpackStream;

@@ -19,8 +19,6 @@ namespace SwfSharp.Structs
             Xmax = reader.ReadBitsSigned(bitsPerField);
             Ymin = reader.ReadBitsSigned(bitsPerField);
             Ymax = reader.ReadBitsSigned(bitsPerField);
-
-            reader.Align();
         }
 
         internal static RectStruct CreateFromStream(BitReader reader)

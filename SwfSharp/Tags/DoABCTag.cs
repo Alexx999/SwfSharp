@@ -19,10 +19,8 @@ namespace SwfSharp.Tags
         internal override void FromStream(BitReader reader, byte swfVersion)
         {
             Flags = reader.ReadUI32();
-            string name;
-            var len = reader.ReadString(out name);
-            Name = name;
-            ABCData = reader.ReadBytes(Size - (len + 4));
+            Name = reader.ReadString();
+            ABCData = reader.ReadBytes((int) reader.TagBytesRemaining);
         }
     }
 }

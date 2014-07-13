@@ -179,7 +179,7 @@ namespace SwfSharp.Utils
             return result;
         }
 
-        public int ReadString(out string result)
+        public string ReadString()
         {
             var ms = new MemoryStream();
             byte b;
@@ -187,22 +187,19 @@ namespace SwfSharp.Utils
             {
                 ms.WriteByte(b);
             }
-            result = Encoding.UTF8.GetString(ms.GetBuffer(), 0, (int)ms.Position);
-            return (int) (ms.Position + 1);
-        }
-
-        public string ReadString()
-        {
-            Align();
-            string result;
-            ReadString(out result);
-            return result;
+            return Encoding.UTF8.GetString(ms.GetBuffer(), 0, (int)ms.Position);
         }
 
         public string ReadString(int size)
         {
             Align();
-            return Encoding.UTF8.GetString(ReadBytes(size));
+            return Encoding.UTF8.GetString(ReadBytes(size), 0, size - 1);
+        }
+
+        public string ReadSizeString()
+        {
+            var size = ReadUI8();
+            return ReadString(size);
         }
 
         public void Close()
@@ -242,9 +239,12 @@ namespace SwfSharp.Utils
             return _tagEndPos == _reader.BaseStream.Position;
         }
 
-        public long GetTagRemaining()
+        public long TagBytesRemaining
         {
-            return _tagEndPos - _reader.BaseStream.Position;
+            get
+            {
+                return _tagEndPos - _reader.BaseStream.Position;
+            }
         }
 
         public void Seek(long offset, SeekOrigin origin)
