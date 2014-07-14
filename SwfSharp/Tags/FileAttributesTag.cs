@@ -17,6 +17,8 @@ namespace SwfSharp.Tags
         public bool UseGPU { get; set; }
         public bool HasMetadata { get; set; }
         public bool ActionScript3 { get; set; }
+        public bool SuppressCrossDomainCaching { get; set; }
+        public bool SwfRelativeUrls { get; set; }
         public bool UseNetwork { get; set; }
 
         internal override void FromStream(BitReader reader, byte swfVersion)
@@ -26,7 +28,8 @@ namespace SwfSharp.Tags
             UseGPU = reader.ReadBoolBit();
             HasMetadata = reader.ReadBoolBit();
             ActionScript3 = reader.ReadBoolBit();
-            reader.ReadBits(2);
+            SuppressCrossDomainCaching = reader.ReadBoolBit();
+            SwfRelativeUrls = reader.ReadBoolBit();
             UseNetwork = reader.ReadBoolBit();
             reader.ReadUI24();
         }
@@ -38,7 +41,8 @@ namespace SwfSharp.Tags
             writer.WriteBoolBit(UseGPU);
             writer.WriteBoolBit(HasMetadata);
             writer.WriteBoolBit(ActionScript3);
-            writer.WriteBits(2, 0);
+            writer.WriteBoolBit(SuppressCrossDomainCaching);
+            writer.WriteBoolBit(SwfRelativeUrls);
             writer.WriteBoolBit(UseNetwork);
             writer.WriteUI24(0);
         }
