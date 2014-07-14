@@ -14,8 +14,8 @@ namespace SwfSharp.Structs
         public bool HasRotate { get; set; }
         public float RotateSkew0 { get; set; }
         public float RotateSkew1 { get; set; }
-        public float TranslateX { get; set; }
-        public float TranslateY { get; set; }
+        public int TranslateX { get; set; }
+        public int TranslateY { get; set; }
 
         private void FromStream(BitReader reader)
         {
@@ -46,6 +46,22 @@ namespace SwfSharp.Structs
             result.FromStream(reader);
 
             return result;
+        }
+
+        internal void ToStream(BitWriter writer)
+        {
+            writer.Align();
+            writer.WriteBoolBit(HasScale);
+            if (HasScale)
+            {
+                writer.WriteBitSizeAndData(5, new[] { ScaleX, ScaleY });
+            }
+            writer.WriteBoolBit(HasRotate);
+            if (HasRotate)
+            {
+                writer.WriteBitSizeAndData(5, new[] { RotateSkew0, RotateSkew1 });
+            }
+            writer.WriteBitSizeAndData(5, new[] { TranslateX, TranslateY });
         }
     }
 }

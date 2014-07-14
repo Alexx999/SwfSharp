@@ -31,5 +31,10 @@ namespace SwfSharp.Structs
 
             return result;
         }
+
+        internal virtual void ToStream(BitWriter writer, TagType type)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

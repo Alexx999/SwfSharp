@@ -27,5 +27,20 @@ namespace SwfSharp.Structs
 
             return result;
         }
+
+        internal void ToStream(BitWriter writer, bool wide)
+        {
+            if (wide)
+            {
+                writer.WriteUI16(FontKerningCode1);
+                writer.WriteUI16(FontKerningCode2);
+            }
+            else
+            {
+                writer.WriteUI8((byte) FontKerningCode1);
+                writer.WriteUI8((byte) FontKerningCode2);
+            }
+            writer.WriteSI16(FontKerningAdjustment);
+        }
     }
 }

@@ -12,19 +12,37 @@ namespace SwfSharp.Utils
         private bool _keepOpen;
         private uint _bitPos = 32;
         private uint _tempBuf;
+        private Encoding _swf5Encoding;
 
-        public BitWriter(Stream stream) : this(stream, false)
+        public BitWriter(Stream stream)
+            : this(stream, Encoding.GetEncoding("ISO-8859-1"), false)
         {
         }
 
         public BitWriter(Stream stream, bool keepOpen)
+            : this(stream, Encoding.GetEncoding("ISO-8859-1"), keepOpen)
+        {
+        }
+
+        public BitWriter(Stream stream, Encoding swf5Encoding)
+            : this(stream, swf5Encoding, false)
+        {
+        }
+
+        public BitWriter(Stream stream, Encoding swf5Encoding, bool keepOpen)
         {
             if (stream == null)
             {
                 throw new ArgumentNullException("stream");
             }
+            if (swf5Encoding == null)
+            {
+                throw new ArgumentNullException("swf5Encoding");
+            }
+
             _writer = new BinaryWriter(stream);
             _keepOpen = keepOpen;
+            _swf5Encoding = swf5Encoding;
         }
 
         public void Align()
@@ -89,22 +107,22 @@ namespace SwfSharp.Utils
 
         public static uint MinBitsPerField(IEnumerable<int> values)
         {
-            return values.Max(v => GetBitsForField(v));
+            return values.Max(v => GetBitsForValue(v));
         }
 
         public static uint MinBitsPerField(IEnumerable<uint> values)
         {
-            return values.Max(v => GetBitsForField(v));
+            return values.Max(v => GetBitsForValue(v));
         }
 
-        private static uint GetBitsForField(int value)
+        public static uint GetBitsForValue(int value)
         {
             if (value == 0) return 0;
 
             return value > 0 ? GetBitsForFieldPos((uint) value) + 1 : GetBitsForFieldNeg(value) + 1;
         }
 
-        private static uint GetBitsForField(uint value)
+        public static uint GetBitsForValue(uint value)
         {
             if (value == 0) return 0;
             return GetBitsForFieldPos(value);
@@ -153,9 +171,9 @@ namespace SwfSharp.Utils
             WriteBits(numBits, (uint)data);
         }
 
-        public void WriteFixed8(float frameRate)
+        public void WriteFixed8(float data)
         {
-            var value = frameRate*256.0;
+            var value = data*256.0;
             WriteUI16((ushort) value);
         }
 
@@ -181,11 +199,13 @@ namespace SwfSharp.Utils
 
         public void WriteBytes(byte[] data)
         {
+            Align();
             _writer.Write(data);
         }
 
         public void WriteBytes(byte[] data, int index, int count)
         {
+            Align();
             _writer.Write(data, index, count);
         }
 
@@ -207,11 +227,16 @@ namespace SwfSharp.Utils
             WriteBits(24, data);
         }
 
-        public void WriteStringBytes(string data, byte swfVersion)
+        private void WriteStringBytes(string data, byte swfVersion)
         {
-            WriteBytes(swfVersion > 5 
-                ? Encoding.UTF8.GetBytes(data) 
-                : Encoding.GetEncoding("ISO-8859-1").GetBytes(data));
+            WriteBytes(GetStringBytes(data, swfVersion));
+        }
+
+        private byte[] GetStringBytes(string data, byte swfVersion)
+        {
+            return swfVersion > 5
+                ? Encoding.UTF8.GetBytes(data)
+                : _swf5Encoding.GetBytes(data);
         }
 
         public void WriteString(string name, byte swfVersion)
@@ -233,6 +258,79 @@ namespace SwfSharp.Utils
         }
 
         public void WriteSI64(long data)
+        {
+            Align();
+            _writer.Write(data);
+        }
+
+        public void WriteExtendableCount(int count)
+        {
+            if (count >= byte.MaxValue)
+            {
+                WriteUI8(byte.MaxValue);
+                WriteUI16((ushort) count);
+            }
+            else
+            {
+                WriteUI8((byte) count);
+            }
+        }
+
+        private static uint GetFixed(float data)
+        {
+            var value = data * 65536.0;
+            return (uint) value;
+        }
+
+        public void WriteBitSizeAndData(uint sizeBits, float[] data)
+        {
+            var values = new uint[data.Length];
+            for (int i = 0; i < data.Length; i++)
+            {
+                values[i] = GetFixed(data[i]);
+            }
+            var bitsPerValue = MinBitsPerField(values);
+            WriteBits(sizeBits, bitsPerValue);
+            for (int i = 0; i < values.Length; i++)
+            {
+                WriteBits(bitsPerValue, values[i]);
+            }
+        }
+
+        public void WriteBitSizeAndData(uint sizeBits, uint[] data)
+        {
+            var bitsPerValue = MinBitsPerField(data);
+            WriteBits(sizeBits, bitsPerValue);
+            for (int i = 0; i < data.Length; i++)
+            {
+                WriteBits(bitsPerValue, data[i]);
+            }
+        }
+
+        public void WriteBitSizeAndData(uint sizeBits, int[] data)
+        {
+            WriteBitSizeAndDataWithOffset(sizeBits, 0, data);
+        }
+
+        public void WriteBitSizeAndDataWithOffset(uint sizeBits, int offset, int[] data)
+        {
+            var bitsPerValue = MinBitsPerField(data);
+            WriteBits(sizeBits, (uint) (bitsPerValue - offset));
+            for (int i = 0; i < data.Length; i++)
+            {
+                WriteBitsSigned(bitsPerValue, data[i]);
+            }
+        }
+
+        public void WriteSizeString(string data, byte swfVersion)
+        {
+            var bytes = GetStringBytes(data, swfVersion);
+            WriteUI8((byte) (bytes.Length + 1));
+            WriteBytes(bytes);
+            WriteUI8(0);
+        }
+
+        public void WriteSI16(short data)
         {
             Align();
             _writer.Write(data);

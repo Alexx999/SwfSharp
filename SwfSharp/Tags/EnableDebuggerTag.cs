@@ -11,13 +11,14 @@ namespace SwfSharp.Tags
         public string Password { get; set; }
 
         public EnableDebuggerTag(int size)
-            : base(TagType.EnableDebugger, size)
+            : this(TagType.EnableDebugger, size)
         {
         }
 
         protected EnableDebuggerTag(TagType tagType, int size)
             : base(tagType, size)
         {
+            Password = "";
         }
 
         internal override void FromStream(BitReader reader, byte swfVersion)
@@ -27,7 +28,7 @@ namespace SwfSharp.Tags
 
         internal override void ToStream(BitWriter writer, byte swfVersion)
         {
-            throw new NotImplementedException();
+            writer.WriteString(Password, swfVersion);
         }
     }
 }

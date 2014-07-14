@@ -33,7 +33,11 @@ namespace SwfSharp.Tags
 
         internal override void ToStream(BitWriter writer, byte swfVersion)
         {
-            throw new System.NotImplementedException();
+            foreach (var action in Actions)
+            {
+                action.ToStream(writer);
+            }
+            writer.WriteUI8(0);
         }
     }
 }

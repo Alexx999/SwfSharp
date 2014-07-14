@@ -25,7 +25,12 @@ namespace SwfSharp.Tags
 
         internal override void ToStream(BitWriter writer, byte swfVersion)
         {
-            throw new System.NotImplementedException();
+            writer.WriteUI16((ushort)Records.Count);
+            foreach (var record in Records)
+            {
+                writer.WriteUI16(record.Tag);
+                writer.WriteString(record.Name, swfVersion);
+            }
         }
 
         public class ExportRecord

@@ -34,5 +34,10 @@ namespace SwfSharp.Structs
 
             return result;
         }
+
+        internal void ToStream(BitWriter writer, byte swfVersion)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

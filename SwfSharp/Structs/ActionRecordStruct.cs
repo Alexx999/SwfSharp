@@ -9,18 +9,14 @@ namespace SwfSharp.Structs
     public class ActionRecordStruct
     {
         public byte ActionCode { get; set; }
-        public ushort Length { get; set; }
         public byte[] Data { get; set; }
-        public int Size { get; set; }
 
         private void FromStream(BitReader reader)
         {
-            Size = 1;
             ActionCode = reader.ReadUI8();
             if (ActionCode < 0x80) return;
-            Length = reader.ReadUI16();
-            Size = Length + 3;
-            Data = reader.ReadBytes(Length);
+            var length = reader.ReadUI16();
+            Data = reader.ReadBytes(length);
         }
 
         internal static ActionRecordStruct CreateFromStream(BitReader reader)
@@ -30,6 +26,14 @@ namespace SwfSharp.Structs
             result.FromStream(reader);
 
             return result;
+        }
+
+        internal void ToStream(BitWriter writer)
+        {
+            writer.WriteUI8(ActionCode);
+            if (ActionCode < 0x80) return;
+            writer.WriteUI16((ushort) Data.Length);
+            writer.WriteBytes(Data);
         }
     }
 }

@@ -21,38 +21,59 @@ namespace SwfSharp.Structs
         {
             FillStyleType = (FillStyle)reader.ReadUI8();
 
-            if (FillStyleType == FillStyle.Solid)
+            switch (FillStyleType)
             {
-                if (type < TagType.DefineShape3)
+                case FillStyle.Solid:
                 {
-                    Color = RgbaStruct.CreateFromRgbStream(reader);
+                    ReadSolid(reader, type);
+                    break;
                 }
-                else
+                case FillStyle.LinearGradient:
+                case FillStyle.RadialGradient:
+                case FillStyle.FocalRadialGradient:
                 {
-                    Color = RgbaStruct.CreateFromStream(reader);
+                    ReadGradient(reader, type);
+                    break;
+                }
+                case FillStyle.ClippedBitmap:
+                case FillStyle.RepeatingBitmap:
+                case FillStyle.NonSmoothedClippedBitmap:
+                case FillStyle.NonSmoothedRepeatingBitmap:
+                {
+                    ReadBitmap(reader);
+                    break;
                 }
             }
-            if (FillStyleType == FillStyle.LinearGradient ||
-                FillStyleType == FillStyle.RadialGradient ||
-                FillStyleType == FillStyle.FocalRadialGradient)
+        }
+
+        private void ReadBitmap(BitReader reader)
+        {
+            BitmapId = reader.ReadUI16();
+            BitmapMatrix = MatrixStruct.CreateFromStream(reader);
+        }
+
+        private void ReadGradient(BitReader reader, TagType type)
+        {
+            GradientMatrix = MatrixStruct.CreateFromStream(reader);
+            if (FillStyleType == FillStyle.FocalRadialGradient)
             {
-                GradientMatrix = MatrixStruct.CreateFromStream(reader);
-                if (FillStyleType == FillStyle.FocalRadialGradient)
-                {
-                    FocalGradient = FocalGradientStruct.CreateFromStream(reader, type);
-                }
-                else
-                {
-                    Gradient = GradientStruct.CreateFromStream(reader, type);
-                }
+                FocalGradient = FocalGradientStruct.CreateFromStream(reader, type);
             }
-            if (FillStyleType == FillStyle.ClippedBitmap ||
-                FillStyleType == FillStyle.RepeatingBitmap ||
-                FillStyleType == FillStyle.NonSmoothedClippedBitmap ||
-                FillStyleType == FillStyle.NonSmoothedRepeatingBitmap)
+            else
             {
-                BitmapId = reader.ReadUI16();
-                BitmapMatrix = MatrixStruct.CreateFromStream(reader);
+                Gradient = GradientStruct.CreateFromStream(reader, type);
+            }
+        }
+
+        private void ReadSolid(BitReader reader, TagType type)
+        {
+            if (type < TagType.DefineShape3)
+            {
+                Color = RgbaStruct.CreateFromRgbStream(reader);
+            }
+            else
+            {
+                Color = RgbaStruct.CreateFromStream(reader);
             }
         }
 
@@ -63,6 +84,59 @@ namespace SwfSharp.Structs
             result.FromStream(reader, type);
 
             return result;
+        }
+
+        internal void WriteTo(BitWriter writer, TagType type)
+        {
+            writer.WriteUI8((byte) FillStyleType);
+
+            switch (FillStyleType)
+            {
+                case FillStyle.Solid:
+                    {
+                        WriteSolid(writer);
+                        break;
+                    }
+                case FillStyle.LinearGradient:
+                case FillStyle.RadialGradient:
+                case FillStyle.FocalRadialGradient:
+                    {
+                        WriteGradient(writer, type);
+                        break;
+                    }
+                case FillStyle.ClippedBitmap:
+                case FillStyle.RepeatingBitmap:
+                case FillStyle.NonSmoothedClippedBitmap:
+                case FillStyle.NonSmoothedRepeatingBitmap:
+                    {
+                        WriteBitmap(writer);
+                        break;
+                    }
+            }
+        }
+
+        private void WriteBitmap(BitWriter writer)
+        {
+            writer.WriteUI16(BitmapId);
+            BitmapMatrix.ToStream(writer);
+        }
+
+        private void WriteGradient(BitWriter writer, TagType type)
+        {
+            GradientMatrix.ToStream(writer);
+            if (FillStyleType == FillStyle.FocalRadialGradient)
+            {
+                FocalGradient.ToStream(writer, type);
+            }
+            else
+            {
+                Gradient.ToStream(writer, type);
+            }
+        }
+
+        private void WriteSolid(BitWriter writer)
+        {
+            Color.ToStream(writer);
         }
     }
 }

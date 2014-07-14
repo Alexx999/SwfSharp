@@ -103,7 +103,58 @@ namespace SwfSharp.Tags
 
         internal override void ToStream(BitWriter writer, byte swfVersion)
         {
-            throw new NotImplementedException();
+            writer.WriteUI16(CharacterID);
+            Bounds.ToStream(writer);
+            writer.Align();
+            writer.WriteBoolBit(HasText);
+            writer.WriteBoolBit(WordWrap);
+            writer.WriteBoolBit(Multiline);
+            writer.WriteBoolBit(Password);
+            writer.WriteBoolBit(ReadOnly);
+            writer.WriteBoolBit(HasTextColor);
+            writer.WriteBoolBit(HasMaxLength);
+            writer.WriteBoolBit(HasFont);
+            writer.WriteBoolBit(HasFontClass);
+            writer.WriteBoolBit(AutoSize);
+            writer.WriteBoolBit(HasLayout);
+            writer.WriteBoolBit(NoSelect);
+            writer.WriteBoolBit(Border);
+            writer.WriteBoolBit(WasStatic);
+            writer.WriteBoolBit(HTML);
+            writer.WriteBoolBit(UseOutlines);
+            if (HasFont)
+            {
+                writer.WriteUI16(FontID);
+            }
+            if (HasFontClass)
+            {
+                writer.WriteString(FontClass, swfVersion);
+            }
+            if (HasFont || HasFontClass)
+            {
+                writer.WriteUI16(FontHeight);
+            }
+            if (HasTextColor)
+            {
+                TextColor.ToStream(writer);
+            }
+            if (HasMaxLength)
+            {
+                writer.WriteUI16(MaxLength);
+            }
+            if (HasLayout)
+            {
+                writer.WriteUI8((byte)Align);
+                writer.WriteUI16(LeftMargin);
+                writer.WriteUI16(RightMargin);
+                writer.WriteUI16(Indent);
+                writer.WriteSI16(Leading);
+            }
+            writer.WriteString(VariableName, swfVersion);
+            if (HasText)
+            {
+                writer.WriteString(InitialText, swfVersion);
+            }
         }
 
         public enum AlignMode

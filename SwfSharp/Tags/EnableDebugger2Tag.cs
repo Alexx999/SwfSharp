@@ -18,5 +18,11 @@ namespace SwfSharp.Tags
             reader.ReadUI16();
             base.FromStream(reader, swfVersion);
         }
+
+        internal override void ToStream(BitWriter writer, byte swfVersion)
+        {
+            writer.WriteUI16(0);
+            base.ToStream(writer, swfVersion);
+        }
     }
 }

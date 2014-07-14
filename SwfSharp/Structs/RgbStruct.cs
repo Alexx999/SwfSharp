@@ -15,7 +15,7 @@ namespace SwfSharp.Structs
             B = reader.ReadUI8();
         }
 
-        internal void ToStream(BitWriter writer)
+        internal virtual void ToStream(BitWriter writer)
         {
             writer.WriteUI8(R);
             writer.WriteUI8(G);

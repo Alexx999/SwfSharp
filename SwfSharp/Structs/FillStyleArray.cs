@@ -13,11 +13,7 @@ namespace SwfSharp.Structs
 
         private void FromStream(BitReader reader, TagType type)
         {
-            int len = reader.ReadUI8();
-            if (len == byte.MaxValue && type > TagType.DefineShape)
-            {
-                len = reader.ReadUI16();
-            }
+            int len = reader.ReadExtendableCount();
             FillStyles = new List<FillStyleStruct>(len);
 
             for (int i = 0; i < len; i++)
@@ -33,6 +29,16 @@ namespace SwfSharp.Structs
             result.FromStream(reader, type);
 
             return result;
+        }
+
+        internal byte ToStream(BitWriter writer, TagType type)
+        {
+            writer.WriteExtendableCount(FillStyles.Count());
+            foreach (var fillStyle in FillStyles)
+            {
+                fillStyle.WriteTo(writer, type);
+            }
+            return (byte) BitWriter.GetBitsForValue((uint)FillStyles.Count());
         }
     }
 }

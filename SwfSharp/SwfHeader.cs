@@ -43,7 +43,7 @@ namespace SwfSharp
             return compressionMode;
         }
 
-        internal void WriteToUncompressed(BitWriter writer)
+        internal void ToUncompressedStream(BitWriter writer)
         {
             writer.WriteUI8((byte)SwfFileCompression.None);
             writer.WriteUI16(0x5357);
@@ -51,9 +51,9 @@ namespace SwfSharp
             writer.WriteUI32(FileSize);
         }
 
-        internal void WriteTo(BitWriter writer)
+        internal void ToStream(BitWriter writer)
         {
-            Rect.WriteTo(writer);
+            Rect.ToStream(writer);
             writer.WriteFixed8(FrameRate);
             writer.WriteUI16(FrameCount);
         }

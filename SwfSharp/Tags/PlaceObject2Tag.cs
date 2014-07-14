@@ -79,7 +79,43 @@ namespace SwfSharp.Tags
 
         internal override void ToStream(BitWriter writer, byte swfVersion)
         {
-            throw new NotImplementedException();
+            writer.WriteBoolBit(PlaceFlagHasClipActions);
+            writer.WriteBoolBit(PlaceFlagHasClipDepth);
+            writer.WriteBoolBit(PlaceFlagHasName);
+            writer.WriteBoolBit(PlaceFlagHasRatio);
+            writer.WriteBoolBit(PlaceFlagHasColorTransform);
+            writer.WriteBoolBit(PlaceFlagHasMatrix);
+            writer.WriteBoolBit(PlaceFlagHasCharacter);
+            writer.WriteBoolBit(PlaceFlagMove);
+            writer.WriteUI16(Depth);
+            if (PlaceFlagHasCharacter)
+            {
+                writer.WriteUI16(CharacterId);
+            }
+            if (PlaceFlagHasMatrix)
+            {
+                Matrix.ToStream(writer);
+            }
+            if (PlaceFlagHasColorTransform)
+            {
+                ColorTransform.ToStream(writer);
+            }
+            if (PlaceFlagHasRatio)
+            {
+                writer.WriteUI16(Ratio);
+            }
+            if (PlaceFlagHasName)
+            {
+                writer.WriteString(Name, swfVersion);
+            }
+            if (PlaceFlagHasClipDepth)
+            {
+                writer.WriteUI16(ClipDepth);
+            }
+            if (PlaceFlagHasClipActions)
+            {
+                ClipActions.ToStream(writer, swfVersion);
+            }
         }
     }
 }

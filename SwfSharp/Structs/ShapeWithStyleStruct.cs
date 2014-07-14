@@ -27,5 +27,13 @@ namespace SwfSharp.Structs
 
             return result;
         }
+
+        internal override void ToStream(BitWriter writer, TagType tagType)
+        {
+            var fillbits = FillStyles.ToStream(writer, tagType);
+            var lineBits = LineStyles.ToStream(writer, tagType);
+
+            ToStream(writer, ref fillbits, ref lineBits, tagType);
+        }
     }
 }

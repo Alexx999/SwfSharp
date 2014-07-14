@@ -17,19 +17,16 @@ namespace SwfSharp.Structs
         {
             EventFlags = ClipEventFlagsStruct.CreateFromStream(reader, swfVersion);
             ActionRecordSize = reader.ReadUI32();
-            var actualSize = 0;
             if (EventFlags.ClipEventKeyPress)
             {
                 KeyCode = reader.ReadUI8();
-                actualSize += 1;
             }
             Actions = new List<ActionRecordStruct>();
 
-            while (actualSize < ActionRecordSize)
+            while (!reader.AtTagEnd())
             {
                 var record = ActionRecordStruct.CreateFromStream(reader);
                 Actions.Add(record);
-                actualSize += record.Size;
             }
         }
 

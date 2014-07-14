@@ -1,4 +1,5 @@
-﻿using SwfSharp.Utils;
+﻿using SwfSharp.Tags;
+using SwfSharp.Utils;
 
 namespace SwfSharp.ShapeRecords
 {
@@ -15,7 +16,7 @@ namespace SwfSharp.ShapeRecords
 
         private void FromStream(BitReader reader)
         {
-            var numBits = reader.ReadBits(4);
+            var numBits = reader.ReadBits(4) + 2;
             GeneralLineFlag = reader.ReadBoolBit();
             if (!GeneralLineFlag)
             {
@@ -24,11 +25,11 @@ namespace SwfSharp.ShapeRecords
 
             if(GeneralLineFlag || !VertLineFlag)
             {
-                DeltaX = reader.ReadBitsSigned(numBits + 2);
+                DeltaX = reader.ReadBitsSigned(numBits);
             }
             if (GeneralLineFlag || VertLineFlag)
             {
-                DeltaY = reader.ReadBitsSigned(numBits + 2);
+                DeltaY = reader.ReadBitsSigned(numBits);
             }
         }
 
@@ -39,6 +40,39 @@ namespace SwfSharp.ShapeRecords
             result.FromStream(reader);
 
             return result;
+        }
+
+        internal override void ToStream(BitWriter writer, ref byte numFillBits, ref byte numLineBits, TagType tagType)
+        {
+            //Type flags
+            writer.WriteBits(1, 1);
+            writer.WriteBits(1, 1);
+
+            int[] data;
+            if (GeneralLineFlag)
+            {
+                data = new[] {DeltaX, DeltaY};
+            }
+            else if (VertLineFlag)
+            {
+                data = new[] { DeltaY };
+            }
+            else
+            {
+                data = new[] { DeltaX };
+            }
+            var numBits = BitWriter.MinBitsPerField(data);
+            writer.WriteBits(4, numBits - 2);
+            writer.WriteBoolBit(GeneralLineFlag);
+            if (!GeneralLineFlag)
+            {
+                writer.WriteBoolBit(VertLineFlag);
+            }
+
+            for (int i = 0; i < data.Length; i++)
+            {
+                writer.WriteBitsSigned(numBits, data[i]);
+            }
         }
     }
 }

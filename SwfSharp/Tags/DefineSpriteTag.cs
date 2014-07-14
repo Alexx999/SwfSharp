@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using SwfSharp.Utils;
@@ -32,7 +33,13 @@ namespace SwfSharp.Tags
 
         internal override void ToStream(BitWriter writer, byte swfVersion)
         {
-            throw new NotImplementedException();
+            writer.WriteUI16(SpriteID);
+            writer.WriteUI16(FrameCount);
+            var ms = new MemoryStream();
+            foreach (var tag in ControlTags)
+            {
+                TagFactory.WriteTag(writer, tag, swfVersion, ms);
+            }
         }
     }
 }

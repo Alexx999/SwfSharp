@@ -37,5 +37,15 @@ namespace SwfSharp.Structs
 
             return result;
         }
+
+        internal byte ToStream(BitWriter writer, TagType type)
+        {
+            writer.WriteExtendableCount(LineStyles.Count());
+            foreach (var lineStyle in LineStyles)
+            {
+                lineStyle.ToStream(writer, type);
+            }
+            return (byte) BitWriter.GetBitsForValue((uint) LineStyles.Count());
+        }
     }
 }

@@ -307,14 +307,14 @@ namespace SwfSharp.Tags
             }
         }
 
-        public static void WriteTag(BitWriter writer, SwfTag tag, byte swfVersion)
+        public static void WriteTag(BitWriter writer, SwfTag tag, byte swfVersion, MemoryStream ms)
         {
-            var tagMs = new MemoryStream();
-            using (var tagWriter = new BitWriter(tagMs, true))
+            ms.Position = 0;
+            using (var tagWriter = new BitWriter(ms, true))
             {
                 tag.ToStream(tagWriter, swfVersion);
             }
-            var tagLen = (uint)tagMs.Position;
+            var tagLen = (uint)ms.Position;
             writer.Align();
             var tagCodeAndLength = (ushort) ((ushort)tag.TagType << 6);
             if (tagLen < SizeMask)
@@ -329,7 +329,7 @@ namespace SwfSharp.Tags
                 writer.WriteUI32(tagLen);
             }
 
-            var buff = tagMs.GetBuffer();
+            var buff = ms.GetBuffer();
             writer.WriteBytes(buff, 0, (int) tagLen);
         }
     }

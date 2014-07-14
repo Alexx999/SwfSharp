@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SwfSharp.Tags;
+using SwfSharp.Utils;
 
 namespace SwfSharp.ShapeRecords
 {
-    public class ShapeRecord
+    public abstract class ShapeRecord
     {
         public ShapeRecordType RecordType { get; set; }
 
@@ -13,5 +15,7 @@ namespace SwfSharp.ShapeRecords
         {
             RecordType = recordType;
         }
+
+        internal abstract void ToStream(BitWriter writer, ref byte numFillBits, ref byte numLineBits, TagType tagType);
     }
 }

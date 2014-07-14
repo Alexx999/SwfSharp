@@ -1,4 +1,5 @@
-﻿using SwfSharp.Utils;
+﻿using SwfSharp.Tags;
+using SwfSharp.Utils;
 
 namespace SwfSharp.ShapeRecords
 {
@@ -15,11 +16,11 @@ namespace SwfSharp.ShapeRecords
 
         private void FromStream(BitReader reader)
         {
-            var numBits = reader.ReadBits(4);
-            ControlDeltaX = reader.ReadBitsSigned(numBits + 2);
-            ControlDeltaY = reader.ReadBitsSigned(numBits + 2);
-            AnchorDeltaX = reader.ReadBitsSigned(numBits + 2);
-            AnchorDeltaY = reader.ReadBitsSigned(numBits + 2);
+            var numBits = reader.ReadBits(4) + 2;
+            ControlDeltaX = reader.ReadBitsSigned(numBits);
+            ControlDeltaY = reader.ReadBitsSigned(numBits);
+            AnchorDeltaX = reader.ReadBitsSigned(numBits);
+            AnchorDeltaY = reader.ReadBitsSigned(numBits);
         }
 
         internal static CurvedEdgeRecord CreateFromStream(BitReader reader)
@@ -29,6 +30,19 @@ namespace SwfSharp.ShapeRecords
             result.FromStream(reader);
 
             return result;
+        }
+
+        internal override void ToStream(BitWriter writer, ref byte numFillBits, ref byte numLineBits, TagType tagType)
+        {
+            //Type flags
+            writer.WriteBits(1, 1);
+            writer.WriteBits(1, 0);
+            var bitCount = BitWriter.MinBitsPerField(new[] {ControlDeltaX, ControlDeltaY, AnchorDeltaX, AnchorDeltaY});
+            writer.WriteBits(4, bitCount - 2);
+            writer.WriteBitsSigned(bitCount, ControlDeltaX);
+            writer.WriteBitsSigned(bitCount, ControlDeltaY);
+            writer.WriteBitsSigned(bitCount, AnchorDeltaX);
+            writer.WriteBitsSigned(bitCount, AnchorDeltaY);
         }
     }
 }

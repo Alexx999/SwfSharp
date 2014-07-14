@@ -23,5 +23,14 @@ namespace SwfSharp.ShapeRecords
         {
             return !StateNewStyles && !StateLineStyle && !StateFillStyle1 && !StateFillStyle0 && !StateMoveTo;
         }
+
+        internal void ToStream(BitWriter writer)
+        {
+            writer.WriteBoolBit(StateNewStyles);
+            writer.WriteBoolBit(StateLineStyle);
+            writer.WriteBoolBit(StateFillStyle1);
+            writer.WriteBoolBit(StateFillStyle0);
+            writer.WriteBoolBit(StateMoveTo);
+        }
     }
 }

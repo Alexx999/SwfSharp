@@ -304,5 +304,15 @@ namespace SwfSharp.Utils
         {
             get { return _reader.BaseStream.Position; }
         }
+
+        public int ReadExtendableCount()
+        {
+            int len = ReadUI8();
+            if (len == byte.MaxValue)
+            {
+                len = ReadUI16();
+            }
+            return len;
+        }
     }
 }

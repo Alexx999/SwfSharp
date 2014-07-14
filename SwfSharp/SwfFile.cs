@@ -7,10 +7,11 @@ using SwfSharp.Utils;
 
 namespace SwfSharp
 {
-    public class SwfFile
+    public class SwfFile : IDisposable
     {
         private IList<SwfTag> _tags;
         private SwfHeader _header;
+        private Stream _uncompStream;
 
         private SwfFile()
         {
@@ -20,14 +21,24 @@ namespace SwfSharp
 
         public static SwfFile FromFile(string path)
         {
+            return FromFile(path, true);
+        }
+
+        public static SwfFile FromFile(string path, bool decode)
+        {
             var stream = File.OpenRead(path);
-            return FromStream(stream);
+            return FromStream(stream, decode);
         }
 
         public static SwfFile FromStream(Stream stream)
         {
+            return FromStream(stream, true);
+        }
+
+        public static SwfFile FromStream(Stream stream, bool decode)
+        {
             var result = new SwfFile();
-            result.InitFromStream(stream);
+            result.InitFromStream(stream, decode);
             return result;
         }
 
@@ -35,43 +46,65 @@ namespace SwfSharp
         {
             using (var stream = File.Create(path))
             {
-                ToStream(stream);
+                ToStream(stream, false);
+            }
+        }
+        public void ToStream(Stream stream)
+        {
+            ToStream(stream, false);
+        }
+
+        public void ToStream(Stream stream, bool keepOpen)
+        {
+            var dataStream = GetDataStream();
+            _header.FileSize = (uint) (dataStream.Length + 8);
+            using (var writer = new BitWriter(stream, keepOpen))
+            {
+                _header.ToUncompressedStream(writer);
+                dataStream.CopyTo(stream);
             }
         }
 
-        public void ToStream(Stream stream)
+        private Stream GetDataStream()
         {
+            if (_uncompStream != null)
+            {
+                return _uncompStream;
+            }
             var ms = new MemoryStream();
             using (var writer = new BitWriter(ms, true))
             {
-                _header.WriteTo(writer);
+                _header.ToStream(writer);
+                var tagMs = new MemoryStream();
                 foreach (var tag in Tags)
                 {
-                    TagFactory.WriteTag(writer, tag, _header.Version);
+                    TagFactory.WriteTag(writer, tag, _header.Version, tagMs);
                 }
             }
-            using (var writer = new BitWriter(stream))
-            {
-                _header.WriteToUncompressed(writer);
-                ms.Position = 0;
-                ms.CopyTo(stream);
-            }
-            ms.Close();
+            ms.Position = 0;
+            return ms;
         }
 
-        private void InitFromStream(Stream stream)
+        private void InitFromStream(Stream stream, bool decode)
         {
-            var reader = new BitReader(stream);
+            var reader = new BitReader(stream, true);
             _header.FromCompressedStream(reader);
-            stream = GetDecompressedStream(stream);
-            reader = new BitReader(stream);
+            _uncompStream = GetDecompressedStream(stream);
+
+            if (decode) Decode();
+        }
+
+        public void Decode()
+        {
+            var reader = new BitReader(_uncompStream);
             _header.FromStream(reader);
-            while (stream.Position < stream.Length)
+            while (_uncompStream.Position < _uncompStream.Length)
             {
                 var tag = TagFactory.ReadTag(reader, _header.Version);
                 Tags.Add(tag);
             }
-            //_decompressedStream = stream;
+            _uncompStream.Close();
+            _uncompStream = null;
         }
 
         private Stream GetDecompressedStream(Stream stream)
@@ -131,6 +164,17 @@ namespace SwfSharp
         public SwfHeader Header
         {
             get { return _header; }
+        }
+
+        public void Dispose()
+        {
+            var stream = _uncompStream;
+            if (stream != null)
+            {
+                _uncompStream = null;
+                stream.Dispose();
+            }
+            GC.SuppressFinalize(this);
         }
     }
 

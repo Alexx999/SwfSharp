@@ -1,4 +1,5 @@
-﻿using SwfSharp.Structs;
+﻿using System;
+using SwfSharp.Structs;
 using SwfSharp.Tags;
 using SwfSharp.Utils;
 
@@ -59,6 +60,39 @@ namespace SwfSharp.ShapeRecords
             result.FromStream(reader, ref numFillBits, ref numLineBits, type);
 
             return result;
+        }
+
+        internal override void ToStream(BitWriter writer, ref byte numFillBits, ref byte numLineBits, TagType type)
+        {
+            writer.WriteBits(1, 0);
+            Flags.ToStream(writer);
+
+            if (Flags.StateMoveTo)
+            {
+                writer.WriteBitSizeAndData(5, new[] { MoveDeltaX, MoveDeltaY });
+            }
+            if (Flags.StateFillStyle0)
+            {
+                writer.WriteBits(numFillBits, FillStyle0);
+            }
+            if (Flags.StateFillStyle1)
+            {
+                writer.WriteBits(numFillBits, FillStyle1);
+            }
+            if (Flags.StateLineStyle)
+            {
+                writer.WriteBits(numLineBits, LineStyle);
+            }
+            var canHaveNewStyles = type == TagType.DefineShape2 || type == TagType.DefineShape3 ||
+                                type == TagType.DefineShape4;
+            if (canHaveNewStyles && Flags.StateNewStyles)
+            {
+                numFillBits = FillStyles.ToStream(writer, type);
+                numLineBits = LineStyles.ToStream(writer, type);
+                writer.Align();
+                writer.WriteBits(4, numFillBits);
+                writer.WriteBits(4, numLineBits);
+            }
         }
     }
 }

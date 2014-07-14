@@ -40,5 +40,16 @@ namespace SwfSharp.Structs
 
             return result;
         }
+
+        internal override void ToStream(BitWriter writer)
+        {
+            base.ToStream(writer);
+            writer.WriteUI8(A);
+        }
+
+        internal void ToRgbStream(BitWriter writer)
+        {
+            base.ToStream(writer);
+        }
     }
 }

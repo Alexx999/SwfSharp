@@ -30,14 +30,9 @@ namespace SwfSharp.Structs
             return result;
         }
 
-        internal void WriteTo(BitWriter writer)
+        internal void ToStream(BitWriter writer)
         {
-            var bitsPerField = BitWriter.MinBitsPerField(new [] {Xmin, Xmax, Ymin, Ymax});
-            writer.WriteBits(5, bitsPerField);
-            writer.WriteBitsSigned(bitsPerField, Xmin);
-            writer.WriteBitsSigned(bitsPerField, Xmax);
-            writer.WriteBitsSigned(bitsPerField, Ymin);
-            writer.WriteBitsSigned(bitsPerField, Ymax);
+            writer.WriteBitSizeAndData(5, new[] { Xmin, Xmax, Ymin, Ymax });
         }
     }
 }
