@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using SwfSharp.Utils;
@@ -304,6 +305,32 @@ namespace SwfSharp.Tags
                     return new UnknownTag(type, size);
                 }
             }
+        }
+
+        public static void WriteTag(BitWriter writer, SwfTag tag, byte swfVersion)
+        {
+            var tagMs = new MemoryStream();
+            using (var tagWriter = new BitWriter(tagMs, true))
+            {
+                tag.ToStream(tagWriter, swfVersion);
+            }
+            var tagLen = (uint)tagMs.Position;
+            writer.Align();
+            var tagCodeAndLength = (ushort) ((ushort)tag.TagType << 6);
+            if (tagLen < SizeMask)
+            {
+                tagCodeAndLength |= (ushort)tagLen;
+                writer.WriteUI16(tagCodeAndLength);
+            }
+            else
+            {
+                tagCodeAndLength |= SizeMask;
+                writer.WriteUI16(tagCodeAndLength);
+                writer.WriteUI32(tagLen);
+            }
+
+            var buff = tagMs.GetBuffer();
+            writer.WriteBytes(buff, 0, (int) tagLen);
         }
     }
 }

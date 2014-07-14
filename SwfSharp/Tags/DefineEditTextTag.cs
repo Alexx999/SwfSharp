@@ -101,6 +101,11 @@ namespace SwfSharp.Tags
             }
         }
 
+        internal override void ToStream(BitWriter writer, byte swfVersion)
+        {
+            throw new NotImplementedException();
+        }
+
         public enum AlignMode
         {
             Left = 0,

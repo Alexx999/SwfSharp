@@ -30,6 +30,16 @@ namespace SwfSharp.Tags
             CompileDate = reader.ReadSI64();
         }
 
+        internal override void ToStream(BitWriter writer, byte swfVersion)
+        {
+            writer.WriteSI32((int)Product);
+            writer.WriteSI32((int)Edition);
+            writer.WriteSI8(MajorVersion);
+            writer.WriteSI8(MinorVersion);
+            writer.WriteSI64(Build);
+            writer.WriteSI64(CompileDate);
+        }
+
         public enum ProductInfoEdition
         {
             Developer = 0,

@@ -190,6 +190,7 @@
     <Compile Include="Tags\UnknownTag.cs" />
     <Compile Include="Tags\VideoFrameTag.cs" />
     <Compile Include="Utils\BitReader.cs" />
+    <Compile Include="Utils\BitWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

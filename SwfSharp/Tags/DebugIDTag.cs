@@ -19,5 +19,10 @@ namespace SwfSharp.Tags
         {
             Uuid = reader.ReadBytes(16);
         }
+
+        internal override void ToStream(BitWriter writer, byte swfVersion)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

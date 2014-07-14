@@ -21,7 +21,7 @@ namespace SwfSharp.Tags
 
         internal override void FromStream(BitReader reader, byte swfVersion)
         {
-            reader.ReadBoolBit();
+            reader.ReadBits(1);
             UseDirectBlit = reader.ReadBoolBit();
             UseGPU = reader.ReadBoolBit();
             HasMetadata = reader.ReadBoolBit();
@@ -29,6 +29,18 @@ namespace SwfSharp.Tags
             reader.ReadBits(2);
             UseNetwork = reader.ReadBoolBit();
             reader.ReadUI24();
+        }
+
+        internal override void ToStream(BitWriter writer, byte swfVersion)
+        {
+            writer.WriteBits(1, 0);
+            writer.WriteBoolBit(UseDirectBlit);
+            writer.WriteBoolBit(UseGPU);
+            writer.WriteBoolBit(HasMetadata);
+            writer.WriteBoolBit(ActionScript3);
+            writer.WriteBits(2, 0);
+            writer.WriteBoolBit(UseNetwork);
+            writer.WriteUI24(0);
         }
     }
 }

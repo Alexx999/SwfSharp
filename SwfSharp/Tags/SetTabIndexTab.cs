@@ -21,5 +21,10 @@ namespace SwfSharp.Tags
             Depth = reader.ReadUI16();
             TabIndex = reader.ReadUI16();
         }
+
+        internal override void ToStream(BitWriter writer, byte swfVersion)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -33,6 +33,11 @@ namespace SwfSharp.Tags
             CodecID = (Codec) reader.ReadUI8();
         }
 
+        internal override void ToStream(BitWriter writer, byte swfVersion)
+        {
+            throw new NotImplementedException();
+        }
+
         public enum DeblockingMode
         {
             UseVideoPacket = 0,

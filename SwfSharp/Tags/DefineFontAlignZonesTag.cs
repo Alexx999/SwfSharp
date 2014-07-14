@@ -29,5 +29,10 @@ namespace SwfSharp.Tags
                 ZoneTable.Add(ZoneRecordStruct.CreateFromStream(reader));
             }
         }
+
+        internal override void ToStream(BitWriter writer, byte swfVersion)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

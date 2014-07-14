@@ -21,9 +21,18 @@ namespace SwfSharp.Tags
         {
             Name = reader.ReadString();
 
-            if (reader.TagBytesRemaining > 0)
+            if (swfVersion >= 6 && reader.TagBytesRemaining > 0)
             {
                 IsNamedAnchor = reader.ReadUI8() != 0;
+            }
+        }
+
+        internal override void ToStream(BitWriter writer, byte swfVersion)
+        {
+            writer.WriteString(Name, swfVersion);
+            if (swfVersion >= 6 && IsNamedAnchor)
+            {
+                writer.WriteUI8(1);
             }
         }
     }

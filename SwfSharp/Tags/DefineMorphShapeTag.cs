@@ -39,5 +39,10 @@ namespace SwfSharp.Tags
             StartEdges = ShapeStruct.CreateFromStream(reader, TagType);
             EndEdges = ShapeStruct.CreateFromStream(reader, TagType);
         }
+
+        internal override void ToStream(BitWriter writer, byte swfVersion)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

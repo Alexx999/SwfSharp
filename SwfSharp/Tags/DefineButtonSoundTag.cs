@@ -48,5 +48,10 @@ namespace SwfSharp.Tags
                 ButtonSoundInfo3 = SoundInfoStruct.CreateFromStream(reader);
             }
         }
+
+        internal override void ToStream(BitWriter writer, byte swfVersion)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -40,5 +40,10 @@ namespace SwfSharp.Tags
                 nextTextRecord = TextRecordStruct.CreateFromStream(reader, TagType, glyphBits, advanceBits);
             }
         }
+
+        internal override void ToStream(BitWriter writer, byte swfVersion)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

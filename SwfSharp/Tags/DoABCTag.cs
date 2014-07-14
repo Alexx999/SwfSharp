@@ -23,5 +23,12 @@ namespace SwfSharp.Tags
             Name = reader.ReadString();
             ABCData = reader.ReadBytes((int) reader.TagBytesRemaining);
         }
+
+        internal override void ToStream(BitWriter writer, byte swfVersion)
+        {
+            writer.WriteUI32(Flags);
+            writer.WriteString(Name, swfVersion);
+            writer.WriteBytes(ABCData);
+        }
     }
 }

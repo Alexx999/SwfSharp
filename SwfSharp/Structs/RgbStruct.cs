@@ -15,7 +15,14 @@ namespace SwfSharp.Structs
             B = reader.ReadUI8();
         }
 
-        internal virtual void FromRGB15Stream(BitReader reader)
+        internal void ToStream(BitWriter writer)
+        {
+            writer.WriteUI8(R);
+            writer.WriteUI8(G);
+            writer.WriteUI8(B);
+        }
+
+        internal void FromRGB15Stream(BitReader reader)
         {
             reader.ReadBits(1);
             R = (byte) reader.ReadBits(5);
@@ -23,7 +30,7 @@ namespace SwfSharp.Structs
             B = (byte) reader.ReadBits(5);
         }
 
-        internal virtual void FromRGB24Stream(BitReader reader)
+        internal void FromRGB24Stream(BitReader reader)
         {
             reader.ReadUI8();
             FromStream(reader);

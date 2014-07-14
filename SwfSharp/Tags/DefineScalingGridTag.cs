@@ -22,5 +22,10 @@ namespace SwfSharp.Tags
             CharacterId = reader.ReadUI16();
             Splitter = RectStruct.CreateFromStream(reader);
         }
+
+        internal override void ToStream(BitWriter writer, byte swfVersion)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

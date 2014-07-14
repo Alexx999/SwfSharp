@@ -30,6 +30,11 @@ namespace SwfSharp.Tags
             reader.ReadUI8();
         }
 
+        internal override void ToStream(BitWriter writer, byte swfVersion)
+        {
+            throw new NotImplementedException();
+        }
+
         public enum TextRenderType
         {
             Normal = 0,

@@ -44,6 +44,11 @@ namespace SwfSharp.Tags
             ReadCodeTable(reader, charSize);
         }
 
+        internal override void ToStream(BitWriter writer, byte swfVersion)
+        {
+            throw new NotImplementedException();
+        }
+
         internal virtual void ReadCodeTable(BitReader reader, int charSize)
         {
             var nGlyphs = (int)reader.TagBytesRemaining / charSize;

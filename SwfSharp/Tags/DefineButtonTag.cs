@@ -39,5 +39,10 @@ namespace SwfSharp.Tags
                 nextFlag = reader.ReadUI8();
             }
         }
+
+        internal override void ToStream(BitWriter writer, byte swfVersion)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -32,5 +32,10 @@ namespace SwfSharp.Tags
             SoundSampleCount = reader.ReadUI32();
             SoundData = reader.ReadBytes((int) reader.TagBytesRemaining);
         }
+
+        internal override void ToStream(BitWriter writer, byte swfVersion)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

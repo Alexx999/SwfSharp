@@ -23,5 +23,10 @@ namespace SwfSharp.Tags
             FrameNum = reader.ReadUI16();
             VideoData = reader.ReadBytes((int) reader.TagBytesRemaining);
         }
+
+        internal override void ToStream(BitWriter writer, byte swfVersion)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -31,6 +31,34 @@ namespace SwfSharp
             return result;
         }
 
+        public void ToFile(string path)
+        {
+            using (var stream = File.Create(path))
+            {
+                ToStream(stream);
+            }
+        }
+
+        public void ToStream(Stream stream)
+        {
+            var ms = new MemoryStream();
+            using (var writer = new BitWriter(ms, true))
+            {
+                _header.WriteTo(writer);
+                foreach (var tag in Tags)
+                {
+                    TagFactory.WriteTag(writer, tag, _header.Version);
+                }
+            }
+            using (var writer = new BitWriter(stream))
+            {
+                _header.WriteToUncompressed(writer);
+                ms.Position = 0;
+                ms.CopyTo(stream);
+            }
+            ms.Close();
+        }
+
         private void InitFromStream(Stream stream)
         {
             var reader = new BitReader(stream);
@@ -43,6 +71,7 @@ namespace SwfSharp
                 var tag = TagFactory.ReadTag(reader, _header.Version);
                 Tags.Add(tag);
             }
+            //_decompressedStream = stream;
         }
 
         private Stream GetDecompressedStream(Stream stream)

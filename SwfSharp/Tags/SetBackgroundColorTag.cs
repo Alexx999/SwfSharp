@@ -16,5 +16,10 @@ namespace SwfSharp.Tags
         {
             BackgroundColor = RgbStruct.CreateFromStream(reader);
         }
+
+        internal override void ToStream(BitWriter writer, byte swfVersion)
+        {
+            BackgroundColor.ToStream(writer);
+        }
     }
 }

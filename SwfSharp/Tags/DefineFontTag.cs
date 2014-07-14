@@ -34,5 +34,10 @@ namespace SwfSharp.Tags
                 GlyphShapeTable.Add(ShapeStruct.CreateFromStream(reader, TagType));
             }
         }
+
+        internal override void ToStream(BitWriter writer, byte swfVersion)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

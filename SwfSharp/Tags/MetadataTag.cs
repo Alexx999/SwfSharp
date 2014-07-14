@@ -16,5 +16,10 @@ namespace SwfSharp.Tags
         {
             Metadata = reader.ReadString(Size);
         }
+
+        internal override void ToStream(BitWriter writer, byte swfVersion)
+        {
+            writer.WriteString(Metadata, swfVersion);
+        }
     }
 }

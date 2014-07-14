@@ -42,5 +42,20 @@ namespace SwfSharp
             }
             return compressionMode;
         }
+
+        internal void WriteToUncompressed(BitWriter writer)
+        {
+            writer.WriteUI8((byte)SwfFileCompression.None);
+            writer.WriteUI16(0x5357);
+            writer.WriteUI8(Version);
+            writer.WriteUI32(FileSize);
+        }
+
+        internal void WriteTo(BitWriter writer)
+        {
+            Rect.WriteTo(writer);
+            writer.WriteFixed8(FrameRate);
+            writer.WriteUI16(FrameCount);
+        }
     }
 }

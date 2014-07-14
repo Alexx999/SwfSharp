@@ -76,5 +76,10 @@ namespace SwfSharp.Tags
                 ClipActions = ClipActionsStruct.CreateFromStream(reader, swfVersion);
             }
         }
+
+        internal override void ToStream(BitWriter writer, byte swfVersion)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

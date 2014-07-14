@@ -32,6 +32,11 @@ namespace SwfSharp.Tags
             }
         }
 
+        internal override void ToStream(BitWriter writer, byte swfVersion)
+        {
+            throw new NotImplementedException();
+        }
+
         public class SceneData
         {
             public SceneData(uint offset, string name)

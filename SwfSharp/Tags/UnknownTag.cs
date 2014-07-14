@@ -18,5 +18,10 @@ namespace SwfSharp.Tags
         {
             _origBytes = reader.ReadBytes(Size);
         }
+
+        internal override void ToStream(BitWriter writer, byte swfVersion)
+        {
+            writer.WriteBytes(_origBytes);
+        }
     }
 }

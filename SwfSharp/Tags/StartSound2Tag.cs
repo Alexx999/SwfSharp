@@ -21,5 +21,10 @@ namespace SwfSharp.Tags
             SoundClassName = reader.ReadString();
             SoundInfo = SoundInfoStruct.CreateFromStream(reader);
         }
+
+        internal override void ToStream(BitWriter writer, byte swfVersion)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

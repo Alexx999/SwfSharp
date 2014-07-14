@@ -22,5 +22,10 @@ namespace SwfSharp.Tags
             reader.ReadUI32();
             Data = reader.ReadBytes(Size - 6);
         }
+
+        internal override void ToStream(BitWriter writer, byte swfVersion)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

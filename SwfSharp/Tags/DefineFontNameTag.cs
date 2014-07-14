@@ -23,5 +23,10 @@ namespace SwfSharp.Tags
             FontName = reader.ReadString();
             FontCopyright = reader.ReadString();
         }
+
+        internal override void ToStream(BitWriter writer, byte swfVersion)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

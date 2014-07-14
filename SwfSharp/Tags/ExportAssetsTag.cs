@@ -23,6 +23,11 @@ namespace SwfSharp.Tags
             }
         }
 
+        internal override void ToStream(BitWriter writer, byte swfVersion)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public class ExportRecord
         {
             public ushort Tag { get; set; }

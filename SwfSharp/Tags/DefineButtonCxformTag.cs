@@ -22,5 +22,10 @@ namespace SwfSharp.Tags
             ButtonId = reader.ReadUI16();
             ButtonColorTransform = CXformStruct.CreateFromStream(reader);
         }
+
+        internal override void ToStream(BitWriter writer, byte swfVersion)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

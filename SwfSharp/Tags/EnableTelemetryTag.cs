@@ -23,5 +23,14 @@ namespace SwfSharp.Tags
                 PasswordHash = reader.ReadBytes(32);
             }
         }
+
+        internal override void ToStream(BitWriter writer, byte swfVersion)
+        {
+            writer.WriteUI16(0);
+            if (PasswordHash != null)
+            {
+                writer.WriteBytes(PasswordHash);
+            }
+        }
     }
 }

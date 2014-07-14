@@ -21,5 +21,11 @@ namespace SwfSharp.Tags
             MaxRecursionDepth = reader.ReadUI16();
             ScriptTimeoutSeconds = reader.ReadUI16();
         }
+
+        internal override void ToStream(BitWriter writer, byte swfVersion)
+        {
+            writer.WriteUI16(MaxRecursionDepth);
+            writer.WriteUI16(ScriptTimeoutSeconds);
+        }
     }
 }

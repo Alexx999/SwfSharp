@@ -29,5 +29,10 @@ namespace SwfSharp.Tags
                 ControlTags.Add(tag);
             } while (tag.TagType != TagType.End);
         }
+
+        internal override void ToStream(BitWriter writer, byte swfVersion)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

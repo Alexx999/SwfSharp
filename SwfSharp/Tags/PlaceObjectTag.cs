@@ -29,5 +29,10 @@ namespace SwfSharp.Tags
                 ColorTransform = CXformStruct.CreateFromStream(reader);
             }
         }
+
+        internal override void ToStream(BitWriter writer, byte swfVersion)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

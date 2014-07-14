@@ -44,5 +44,10 @@ namespace SwfSharp.Tags
 
             } while (lastAction.CondActionSize > 0);
         }
+
+        internal override void ToStream(BitWriter writer, byte swfVersion)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

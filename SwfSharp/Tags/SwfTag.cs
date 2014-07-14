@@ -14,5 +14,6 @@ namespace SwfSharp.Tags
 
         protected int Size { get; set; }
         internal abstract void FromStream(BitReader reader, byte swfVersion);
+        internal abstract void ToStream(BitWriter writer, byte swfVersion);
     }
 }
