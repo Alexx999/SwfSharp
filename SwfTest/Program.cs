@@ -14,7 +14,7 @@ namespace SwfTest
     {
         static void Main(string[] args)
         {
-            var files = Directory.GetFiles("./", "*.swf");
+            var files = Directory.GetFiles("./").Where(f => f.EndsWith(".swf"));
 
             var swfs = new ConcurrentDictionary<string, SwfFile>();
 
@@ -27,7 +27,7 @@ namespace SwfTest
 
             foreach (var swfFile in swfs)
             {
-                swfFile.Value.ToFile(swfFile.Key + "rpk");
+                swfFile.Value.ToFile(swfFile.Key + "unp");
             }
         }
 
