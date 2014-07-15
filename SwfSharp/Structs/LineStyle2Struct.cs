@@ -54,5 +54,31 @@ namespace SwfSharp.Structs
 
             return result;
         }
+
+        internal override void ToStream(BitWriter writer, TagType type)
+        {
+            writer.WriteUI16(Width);
+            writer.WriteBits(2, (uint) StartCapStyle);
+            writer.WriteBits(2, (uint) JoinStyle);
+            writer.WriteBoolBit(HasFillFlag);
+            writer.WriteBoolBit(NoHScaleFlag);
+            writer.WriteBoolBit(NoVScaleFlag);
+            writer.WriteBoolBit(PixelHintingFlag);
+            writer.WriteBits(5, 0);
+            writer.WriteBoolBit(NoClose);
+            writer.WriteBits(2, (uint) EndCapStyle);
+            if (JoinStyle == JoinStyle.MiterJoin)
+            {
+                writer.WriteFixed8(MiterLimitFactor);
+            }
+            if (!HasFillFlag)
+            {
+                Color.ToStream(writer);
+            }
+            else
+            {
+                FillType.ToStream(writer, type);
+            }
+        }
     }
 }

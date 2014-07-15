@@ -34,7 +34,7 @@ namespace SwfSharp.Structs
             return result;
         }
 
-        internal void ToStream(BitWriter writer, TagType type)
+        internal virtual void ToStream(BitWriter writer, TagType type)
         {
             writer.WriteUI16(Width);
             if (type < TagType.DefineShape3)
