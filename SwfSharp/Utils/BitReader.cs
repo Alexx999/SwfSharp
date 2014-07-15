@@ -12,7 +12,7 @@ namespace SwfSharp.Utils
         private BinaryReader _reader;
         private bool _keepOpen;
         private uint _bitPos;
-        private uint _tempBuf;
+        private ulong _tempBuf;
         private long _tagEndPos;
 
         public BitReader(Stream stream) : this(stream, false)
@@ -130,7 +130,7 @@ namespace SwfSharp.Utils
 
         public float ReadFixed()
         {
-            return ReadSI32() / 65536.0f;
+            return (float) (ReadSI32() / 65536.0);
         }
 
         public uint ReadBits(uint length)
@@ -152,9 +152,9 @@ namespace SwfSharp.Utils
             }
 
             var shift = (int)(_bitPos - length);
-            var mask = 0xFFFFFFFF >> (32 - shift);
+            var mask = ulong.MaxValue >> (64 - shift);
 
-            var result = _tempBuf >> shift;
+            var result = (uint)(_tempBuf >> shift);
             _tempBuf &= mask;
             if (shift == 0)
             {
@@ -184,7 +184,7 @@ namespace SwfSharp.Utils
 
         public float ReadFBits(uint length)
         {
-            return ReadBitsSigned(length) / 65536.0f;
+            return (float) (ReadBitsSigned(length) / 65536.0);
         }
 
         public byte[] ReadBytes(int size)
