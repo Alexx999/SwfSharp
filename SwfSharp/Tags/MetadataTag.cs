@@ -19,7 +19,7 @@ namespace SwfSharp.Tags
 
         internal override void ToStream(BitWriter writer, byte swfVersion)
         {
-            writer.WriteString(Metadata, swfVersion);
+            writer.WriteStringBytes(Metadata, swfVersion);
         }
     }
 }

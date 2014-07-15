@@ -230,7 +230,7 @@ namespace SwfSharp.Utils
             WriteBits(24, data);
         }
 
-        private void WriteStringBytes(string data, byte swfVersion)
+        public void WriteStringBytes(string data, byte swfVersion)
         {
             WriteBytes(GetStringBytes(data, swfVersion));
         }
