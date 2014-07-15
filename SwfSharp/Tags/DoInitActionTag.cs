@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using SwfSharp.Structs;
 using SwfSharp.Utils;
@@ -18,6 +19,12 @@ namespace SwfSharp.Tags
         {
             SpriteID = reader.ReadUI16();
             base.FromStream(reader, swfVersion);
+        }
+
+        internal override void ToStream(BitWriter writer, byte swfVersion)
+        {
+            writer.WriteUI16(SpriteID);
+            base.ToStream(writer, swfVersion);
         }
     }
 }
