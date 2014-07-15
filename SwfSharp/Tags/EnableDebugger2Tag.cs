@@ -8,6 +8,8 @@ namespace SwfSharp.Tags
 {
     public class EnableDebugger2Tag : EnableDebuggerTag
     {
+        public ushort Reserved { get; set; }
+
         public EnableDebugger2Tag(int size)
             : base(TagType.EnableDebugger2, size)
         {
@@ -15,13 +17,13 @@ namespace SwfSharp.Tags
 
         internal override void FromStream(BitReader reader, byte swfVersion)
         {
-            reader.ReadUI16();
+            Reserved = reader.ReadUI16();
             base.FromStream(reader, swfVersion);
         }
 
         internal override void ToStream(BitWriter writer, byte swfVersion)
         {
-            writer.WriteUI16(0);
+            writer.WriteUI16(Reserved);
             base.ToStream(writer, swfVersion);
         }
     }
