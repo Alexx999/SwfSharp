@@ -20,5 +20,11 @@ namespace SwfSharp.Tags
             CharacterId = reader.ReadUI16();
             base.FromStream(reader, swfVersion);
         }
+
+        internal override void ToStream(BitWriter writer, byte swfVersion)
+        {
+            writer.WriteUI16(CharacterId);
+            base.ToStream(writer, swfVersion);
+        }
     }
 }
