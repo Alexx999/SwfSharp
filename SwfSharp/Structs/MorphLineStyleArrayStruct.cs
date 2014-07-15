@@ -34,7 +34,7 @@ namespace SwfSharp.Structs
             return result;
         }
 
-        internal void ToStream(BitWriter writer)
+        internal byte ToStream(BitWriter writer)
         {
             writer.WriteExtendableCount(LineStyles.Count);
 
@@ -42,6 +42,7 @@ namespace SwfSharp.Structs
             {
                 style.ToStream(writer);
             }
+            return (byte)BitWriter.GetBitsForValue((uint)LineStyles.Count);
         }
     }
 }

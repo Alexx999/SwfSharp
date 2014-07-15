@@ -38,7 +38,7 @@ namespace SwfSharp.Structs
         internal virtual void ToStream(BitWriter writer, TagType tagType)
         {
             Debug.Assert(tagType == TagType.DefineFont || tagType == TagType.DefineFont2 ||
-                         tagType == TagType.DefineFont3, "Shape struct must be used only in fonts");
+                         tagType == TagType.DefineFont3, "Shape struct must be used only in fonts and morph shapes");
 
             writer.Align();
             byte numLineBits = 0;

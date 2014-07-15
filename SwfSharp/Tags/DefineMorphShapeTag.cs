@@ -46,10 +46,10 @@ namespace SwfSharp.Tags
             StartBounds.ToStream(writer);
             EndBounds.ToStream(writer);
             writer.WriteUI32(Offset);
-            MorphFillStyles.ToStream(writer);
-            MorphLineStyles.ToStream(writer);
-            StartEdges.ToStream(writer, TagType);
-            EndEdges.ToStream(writer, TagType);
+            var fillbits = MorphFillStyles.ToStream(writer);
+            var lineBits = MorphLineStyles.ToStream(writer);
+            StartEdges.ToStream(writer, ref fillbits, ref lineBits, TagType);
+            EndEdges.ToStream(writer, ref fillbits, ref lineBits, TagType);
         }
     }
 }
