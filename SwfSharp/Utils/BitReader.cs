@@ -9,6 +9,7 @@ namespace SwfSharp.Utils
 {
     internal class BitReader : IDisposable
     {
+        private const int BufferSize = 64;
         private BinaryReader _reader;
         private bool _keepOpen;
         private uint _bitPos;
@@ -128,9 +129,9 @@ namespace SwfSharp.Utils
             return ReadSI16() / 256.0f;
         }
 
-        public float ReadFixed()
+        public double ReadFixed()
         {
-            return (float) (ReadSI32() / 65536.0);
+            return ReadSI32() / 65536.0;
         }
 
         public uint ReadBits(uint length)
@@ -152,7 +153,7 @@ namespace SwfSharp.Utils
             }
 
             var shift = (int)(_bitPos - length);
-            var mask = ulong.MaxValue >> (64 - shift);
+            var mask = ulong.MaxValue >> (BufferSize - shift);
 
             var result = (uint)(_tempBuf >> shift);
             _tempBuf &= mask;
@@ -182,9 +183,9 @@ namespace SwfSharp.Utils
             return value;
         }
 
-        public float ReadFBits(uint length)
+        public double ReadFBits(uint length)
         {
-            return (float) (ReadBitsSigned(length) / 65536.0);
+            return ReadBitsSigned(length) / 65536.0;
         }
 
         public byte[] ReadBytes(int size)
@@ -274,7 +275,6 @@ namespace SwfSharp.Utils
 
         public void EndReadTag()
         {
-            Debug.Assert(AtTagEnd());
             _reader.BaseStream.Position = TagEndPos;
         }
 

@@ -9,11 +9,11 @@ namespace SwfSharp.Structs
     public class MatrixStruct
     {
         public bool HasScale { get; set; }
-        public float ScaleX { get; set; }
-        public float ScaleY { get; set; }
+        public double ScaleX { get; set; }
+        public double ScaleY { get; set; }
         public bool HasRotate { get; set; }
-        public float RotateSkew0 { get; set; }
-        public float RotateSkew1 { get; set; }
+        public double RotateSkew0 { get; set; }
+        public double RotateSkew1 { get; set; }
         public int TranslateX { get; set; }
         public int TranslateY { get; set; }
 

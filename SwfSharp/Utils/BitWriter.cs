@@ -279,13 +279,13 @@ namespace SwfSharp.Utils
             }
         }
 
-        private static int GetFixed(float data)
+        private static int GetFixed(double data)
         {
             var value = data * 65536.0;
             return (int) value;
         }
 
-        public void WriteBitSizeAndData(uint sizeBits, float[] data)
+        public void WriteBitSizeAndData(uint sizeBits, double[] data)
         {
             var values = new int[data.Length];
             for (int i = 0; i < data.Length; i++)

@@ -8,8 +8,8 @@ namespace SwfSharp.Filters
 {
     public class BlurFilter
     {
-        public float BlurX { get; set; }
-        public float BlurY { get; set; }
+        public double BlurX { get; set; }
+        public double BlurY { get; set; }
         public byte Passes { get; set; }
 
         private void FromStream(BitReader reader)

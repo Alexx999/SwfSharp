@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,7 @@ namespace SwfSharp.Tags
             var tag = GetTag(type, size);
             reader.BeginReadTag(size);
             tag.FromStream(reader, swfVersion);
+            Debug.WriteLineIf(!reader.AtTagEnd(), string.Format("Error reading tag {0}. Tag bytes remaining: {1}", type, reader.TagBytesRemaining));
             reader.EndReadTag();
             return tag;
         }

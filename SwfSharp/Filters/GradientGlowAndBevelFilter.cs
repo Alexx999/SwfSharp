@@ -11,10 +11,10 @@ namespace SwfSharp.Filters
     {
         public IList<RgbaStruct> GradientColors { get; set; }
         public IList<byte> GradientRatio { get; set; }
-        public float BlurX { get; set; }
-        public float BlurY { get; set; }
-        public float Angle { get; set; }
-        public float Distance { get; set; }
+        public double BlurX { get; set; }
+        public double BlurY { get; set; }
+        public double Angle { get; set; }
+        public double Distance { get; set; }
         public float Strength { get; set; }
         public bool InnerShadow { get; set; }
         public bool Knockout { get; set; }

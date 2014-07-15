@@ -10,8 +10,8 @@ namespace SwfSharp.Filters
     public class DropShadowFilter : BlurFilter
     {
         public RgbaStruct DropShadowColor { get; set; }
-        public float Angle { get; set; }
-        public float Distance { get; set; }
+        public double Angle { get; set; }
+        public double Distance { get; set; }
         public float Strength { get; set; }
         public bool InnerShadow { get; set; }
         public bool Knockout { get; set; }
