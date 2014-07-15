@@ -322,9 +322,8 @@ namespace SwfSharp.Utils
         public void WriteSizeString(string data, byte swfVersion)
         {
             var bytes = GetStringBytes(data, swfVersion);
-            WriteUI8((byte) (bytes.Length + 1));
+            WriteUI8((byte) (bytes.Length));
             WriteBytes(bytes);
-            WriteUI8(0);
         }
 
         public void WriteSI16(short data)

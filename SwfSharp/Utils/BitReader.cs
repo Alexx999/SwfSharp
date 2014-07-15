@@ -237,7 +237,7 @@ namespace SwfSharp.Utils
         public string ReadString(int size)
         {
             Align();
-            return Encoding.UTF8.GetString(ReadBytes(size), 0, size - 1);
+            return Encoding.UTF8.GetString(ReadBytes(size), 0, size);
         }
 
         public string ReadSizeString()
