@@ -8,11 +8,10 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
-    public class DefineButtonTag : SwfTag
+    public class DefineButtonTag : DoActionTag
     {
         public ushort ButtonId { get; set; }
         public IList<ButtonRecordStruct> Characters { get; set; }
-        public IList<ActionRecordStruct> Actions { get; set; }
 
         public DefineButtonTag(int size)
             : base(TagType.DefineButton, size)
@@ -30,14 +29,7 @@ namespace SwfSharp.Tags
                 Characters.Add(ButtonRecordStruct.CreateFromStream(reader, TagType, swfVersion));
                 nextFlag = reader.ReadUI8();
             }
-            Actions = new List<ActionRecordStruct>();
-            nextFlag = reader.ReadUI8();
-            while (nextFlag != 0)
-            {
-                reader.Seek(-1, SeekOrigin.Current);
-                Actions.Add(ActionRecordStruct.CreateFromStream(reader));
-                nextFlag = reader.ReadUI8();
-            }
+            base.FromStream(reader, swfVersion);
         }
 
         internal override void ToStream(BitWriter writer, byte swfVersion)
@@ -48,11 +40,7 @@ namespace SwfSharp.Tags
                 character.ToStream(writer, TagType, swfVersion);
             }
             writer.WriteUI8(0);
-            foreach (var action in Actions)
-            {
-                action.ToStream(writer);
-            }
-            writer.WriteUI8(0);
+            base.ToStream(writer, swfVersion);
         }
     }
 }
