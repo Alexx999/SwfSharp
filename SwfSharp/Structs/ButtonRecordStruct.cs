@@ -24,6 +24,7 @@ namespace SwfSharp.Structs
 
         private void FromStream(BitReader reader, TagType type, byte swfVersion)
         {
+            reader.Align();
             if (swfVersion >= 8)
             {
                 reader.ReadBits(2);
@@ -66,6 +67,7 @@ namespace SwfSharp.Structs
 
         internal void ToStream(BitWriter writer, TagType type, byte swfVersion)
         {
+            writer.Align();
             if (swfVersion >= 8)
             {
                 writer.WriteBits(2, 0);

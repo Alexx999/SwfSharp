@@ -55,8 +55,25 @@ namespace SwfSharp.Tags
             {
                 foreach (var character in Characters)
                 {
-                    character.ToStream(writer, TagType, swfVersion);
+                    character.ToStream(charWriter, TagType, swfVersion);
                 }
+                charWriter.WriteUI8(0);
+            }
+            ushort actionOffset;
+            if (Actions == null || Actions.Count == 0)
+            {
+                actionOffset = 0;
+            }
+            else
+            {
+                actionOffset = (ushort)(ms.Position + 2);
+            }
+            writer.WriteUI16(actionOffset);
+            writer.WriteBytes(ms.GetBuffer(), 0, (int) ms.Position);
+            if (actionOffset == 0) return;
+            foreach (var action in Actions)
+            {
+                action.ToStream(writer);
             }
         }
     }
