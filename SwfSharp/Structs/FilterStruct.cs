@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using SwfSharp.Filters;
@@ -63,6 +64,10 @@ namespace SwfSharp.Structs
                 {
                     GradientBevelFilter = GradientBevelFilter.CreateFromStream(reader);
                     break;
+                }
+                default:
+                {
+                    throw new InvalidDataException("Bad filter type");
                 }
             }
         }
