@@ -130,7 +130,7 @@ namespace SwfSharp.Utils
 
         private static uint GetBitsForFieldNeg(int value)
         {
-            if (value == -1) return 2;
+            if (value == -1) return 1;
             const uint mask = 0x80000000;
             var bits = 32U;
             while ((value & mask) != 0 && bits > 0)
