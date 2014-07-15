@@ -49,7 +49,18 @@ namespace SwfSharp.Filters
 
         internal void ToStream(BitWriter writer)
         {
-            throw new NotImplementedException();
+            ShadowColor.ToStream(writer);
+            HighlightColor.ToStream(writer);
+            writer.WriteFixed(BlurX);
+            writer.WriteFixed(BlurY);
+            writer.WriteFixed(Angle);
+            writer.WriteFixed(Distance);
+            writer.WriteFixed8(Strength);
+            writer.WriteBoolBit(InnerShadow);
+            writer.WriteBoolBit(Knockout);
+            writer.WriteBoolBit(CompositeSource);
+            writer.WriteBoolBit(OnTop);
+            writer.WriteBits(4, Passes);
         }
     }
 }

@@ -25,5 +25,13 @@ namespace SwfSharp.Structs
 
             return result;
         }
+
+        internal void ToStream(BitWriter writer)
+        {
+            writer.WriteUI8(StartRatio);
+            StartColor.ToStream(writer);
+            writer.WriteUI8(EndRatio);
+            EndColor.ToStream(writer);
+        }
     }
 }

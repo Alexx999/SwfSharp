@@ -24,7 +24,8 @@ namespace SwfSharp.Tags
 
         internal override void ToStream(BitWriter writer, byte swfVersion)
         {
-            throw new NotImplementedException();
+            writer.WriteUI16(Depth);
+            writer.WriteUI16(TabIndex);
         }
     }
 }

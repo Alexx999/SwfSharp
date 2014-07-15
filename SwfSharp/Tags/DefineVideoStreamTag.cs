@@ -35,7 +35,14 @@ namespace SwfSharp.Tags
 
         internal override void ToStream(BitWriter writer, byte swfVersion)
         {
-            throw new NotImplementedException();
+            writer.WriteUI16(CharacterID);
+            writer.WriteUI16(NumFrames);
+            writer.WriteUI16(Width);
+            writer.WriteUI16(Height);
+            writer.WriteBits(4, 0);
+            writer.WriteBits(3, (uint) VideoFlagsDeblocking);
+            writer.WriteBoolBit(VideoFlagsSmoothing);
+            writer.WriteUI8((byte) CodecID);
         }
 
         public enum DeblockingMode

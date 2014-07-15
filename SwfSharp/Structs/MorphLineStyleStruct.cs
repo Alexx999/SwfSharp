@@ -29,5 +29,13 @@ namespace SwfSharp.Structs
 
             return result;
         }
+
+        internal virtual void ToStream(BitWriter writer)
+        {
+            writer.WriteUI16(StartWidth);
+            writer.WriteUI16(EndWidth);
+            StartColor.ToStream(writer);
+            EndColor.ToStream(writer);
+        }
     }
 }

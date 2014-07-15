@@ -13,11 +13,7 @@ namespace SwfSharp.Structs
 
         private void FromStream(BitReader reader, TagType type)
         {
-            int len = reader.ReadUI8();
-            if (len == byte.MaxValue)
-            {
-                len = reader.ReadUI16();
-            }
+            int len = reader.ReadExtendableCount();
             LineStyles = new List<MorphLineStyleStruct>(len);
 
             for (int i = 0; i < len; i++)
@@ -36,6 +32,16 @@ namespace SwfSharp.Structs
             result.FromStream(reader, type);
 
             return result;
+        }
+
+        internal void ToStream(BitWriter writer)
+        {
+            writer.WriteExtendableCount(LineStyles.Count);
+
+            foreach (var style in LineStyles)
+            {
+                style.ToStream(writer);
+            }
         }
     }
 }

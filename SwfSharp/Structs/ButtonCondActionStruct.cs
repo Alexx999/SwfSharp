@@ -56,7 +56,22 @@ namespace SwfSharp.Structs
 
         internal void ToStream(BitWriter writer)
         {
-            throw new NotImplementedException();
+            writer.WriteUI16(CondActionSize);
+            writer.WriteBoolBit(CondIdleToOverDown);
+            writer.WriteBoolBit(CondOutDownToIdle);
+            writer.WriteBoolBit(CondOutDownToOverDown);
+            writer.WriteBoolBit(CondOverDownToOutDown);
+            writer.WriteBoolBit(CondOverDownToOverUp);
+            writer.WriteBoolBit(CondOverUpToOverDown);
+            writer.WriteBoolBit(CondOverUpToIdle);
+            writer.WriteBoolBit(CondIdleToOverUp);
+            writer.WriteBits(7, CondKeyPress);
+            writer.WriteBoolBit(CondOverDownToIdle);
+            foreach (var action in Actions)
+            {
+                action.ToStream(writer);
+            }
+            writer.WriteUI8(0);
         }
     }
 }

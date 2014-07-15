@@ -47,7 +47,19 @@ namespace SwfSharp.Filters
 
         internal void ToStream(BitWriter writer)
         {
-            throw new NotImplementedException();
+            writer.WriteUI8(MatrixX);
+            writer.WriteUI8(MatrixY);
+            writer.WriteFloat(Divisor);
+            writer.WriteFloat(Bias);
+            var matrixSize = MatrixX * MatrixY;
+            for (int i = 0; i < matrixSize; i++)
+            {
+                writer.WriteFloat(Matrix[i]);
+            }
+            DefaultColor.ToStream(writer);
+            writer.WriteBits(6, 0);
+            writer.WriteBoolBit(Clamp);
+            writer.WriteBoolBit(PreserveAlpha);
         }
     }
 }

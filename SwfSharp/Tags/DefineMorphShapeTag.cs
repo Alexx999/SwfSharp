@@ -42,7 +42,14 @@ namespace SwfSharp.Tags
 
         internal override void ToStream(BitWriter writer, byte swfVersion)
         {
-            throw new NotImplementedException();
+            writer.WriteUI16(CharacterId);
+            StartBounds.ToStream(writer);
+            EndBounds.ToStream(writer);
+            writer.WriteUI32(Offset);
+            MorphFillStyles.ToStream(writer);
+            MorphLineStyles.ToStream(writer);
+            StartEdges.ToStream(writer, TagType);
+            EndEdges.ToStream(writer, TagType);
         }
     }
 }

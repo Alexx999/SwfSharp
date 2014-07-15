@@ -33,7 +33,13 @@ namespace SwfSharp.Tags
 
         internal override void ToStream(BitWriter writer, byte swfVersion)
         {
-            throw new NotImplementedException();
+            writer.WriteUI16(FontID);
+            writer.WriteBits(5, 0);
+            writer.WriteBoolBit(FontFlagsHasFontData);
+            writer.WriteBoolBit(FontFlagsItalic);
+            writer.WriteBoolBit(FontFlagsBold);
+            writer.WriteString(FontName, swfVersion);
+            writer.WriteBytes(FontData);
         }
     }
 }

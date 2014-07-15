@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using SwfSharp.Structs;
@@ -35,9 +36,35 @@ namespace SwfSharp.Tags
             }
         }
 
+        private ushort[] WriteGlyphData(BitWriter writer, int numGlyphs)
+        {
+            var result = new ushort[numGlyphs];
+            var startPos = writer.Position;
+            for (int i = 0; i < numGlyphs; i++)
+            {
+                result[i] = (ushort)(writer.Position - startPos);
+                GlyphShapeTable[i].ToStream(writer, TagType);
+                writer.Align();
+            }
+            return result;
+        }
+
         internal override void ToStream(BitWriter writer, byte swfVersion)
         {
-            throw new NotImplementedException();
+            var numGlyphs = GlyphShapeTable.Count;
+            var ms = new MemoryStream();
+            ushort[] offsets;
+            using (var glyphWriter = new BitWriter(ms, true))
+            {
+                offsets = WriteGlyphData(glyphWriter, numGlyphs);
+            }
+            writer.WriteUI16(FontID);
+            var offsetSize = numGlyphs * 2;
+            foreach (var offset in offsets)
+            {
+                writer.WriteUI16((ushort) (offset + offsetSize));
+            }
+            writer.WriteBytes(ms.GetBuffer(), 0, (int) ms.Position);
         }
     }
 }

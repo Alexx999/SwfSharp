@@ -58,7 +58,25 @@ namespace SwfSharp.Filters
 
         internal void ToStream(BitWriter writer)
         {
-            throw new NotImplementedException();
+            writer.WriteUI8((byte) GradientColors.Count);
+            foreach (var color in GradientColors)
+            {
+                color.ToStream(writer);
+            }
+            foreach (var ratio in GradientRatio)
+            {
+                writer.WriteUI8(ratio);
+            }
+            writer.WriteFixed(BlurX);
+            writer.WriteFixed(BlurY);
+            writer.WriteFixed(Angle);
+            writer.WriteFixed(Distance);
+            writer.WriteFixed8(Strength);
+            writer.WriteBoolBit(InnerShadow);
+            writer.WriteBoolBit(Knockout);
+            writer.WriteBoolBit(CompositeSource);
+            writer.WriteBoolBit(OnTop);
+            writer.WriteBits(4, Passes);
         }
     }
 }

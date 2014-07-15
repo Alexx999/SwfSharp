@@ -25,5 +25,14 @@ namespace SwfSharp.Structs
 
             return result;
         }
+
+        internal void ToStream(BitWriter writer)
+        {
+            writer.WriteUI8((byte) GradientRecords.Count);
+            foreach (var record in GradientRecords)
+            {
+                record.ToStream(writer);
+            }
+        }
     }
 }

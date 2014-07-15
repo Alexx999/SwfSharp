@@ -15,7 +15,7 @@ namespace SwfSharp.Tags
         {
         }
 
-        internal override void ReadCodeTable(BitReader reader, int charSize)
+        internal override void ReadCodeTable(BitReader reader)
         {
             LanguageCode = reader.ReadUI8();
             var nGlyphs = (int)reader.TagBytesRemaining / 2;
@@ -26,9 +26,13 @@ namespace SwfSharp.Tags
             }
         }
 
-        internal override void FromStream(BitReader reader, byte swfVersion)
+        internal override void WriteCodeTable(BitWriter writer)
         {
-            throw new NotImplementedException();
+            writer.WriteUI8(LanguageCode);
+            foreach (var code in CodeTable)
+            {
+                writer.WriteUI16(code);
+            }
         }
     }
 }

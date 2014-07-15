@@ -40,17 +40,41 @@ namespace SwfSharp.Tags
             FontFlagsItalic = reader.ReadBoolBit();
             FontFlagsBold = reader.ReadBoolBit();
             FontFlagsWideCodes = reader.ReadBoolBit();
-            var charSize = FontFlagsWideCodes ? 2 : 1;
-            ReadCodeTable(reader, charSize);
+            ReadCodeTable(reader);
         }
 
         internal override void ToStream(BitWriter writer, byte swfVersion)
         {
-            throw new NotImplementedException();
+            writer.WriteUI16(FontID);
+            writer.WriteSizeString(FontName, swfVersion);
+            writer.WriteBits(2, 0);
+            writer.WriteBoolBit(FontFlagsSmallText);
+            writer.WriteBoolBit(FontFlagsShiftJIS);
+            writer.WriteBoolBit(FontFlagsANSI);
+            writer.WriteBoolBit(FontFlagsItalic);
+            writer.WriteBoolBit(FontFlagsBold);
+            writer.WriteBoolBit(FontFlagsWideCodes);
+            WriteCodeTable(writer);
         }
 
-        internal virtual void ReadCodeTable(BitReader reader, int charSize)
+        internal virtual void WriteCodeTable(BitWriter writer)
         {
+            foreach (var code in CodeTable)
+            {
+                if (FontFlagsWideCodes)
+                {
+                    writer.WriteUI16(code);
+                }
+                else
+                {
+                    writer.WriteUI8((byte) code);
+                }
+            }
+        }
+
+        internal virtual void ReadCodeTable(BitReader reader)
+        {
+            var charSize = FontFlagsWideCodes ? 2 : 1;
             var nGlyphs = (int)reader.TagBytesRemaining / charSize;
             CodeTable = new List<ushort>(nGlyphs);
             if (FontFlagsWideCodes)

@@ -51,7 +51,27 @@ namespace SwfSharp.Tags
 
         internal override void ToStream(BitWriter writer, byte swfVersion)
         {
-            throw new NotImplementedException();
+            writer.WriteUI16(ButtonId);
+            writer.WriteUI16(ButtonSoundChar0);
+            if (ButtonSoundChar0 != 0)
+            {
+                ButtonSoundInfo0.ToStream(writer);
+            }
+            writer.WriteUI16(ButtonSoundChar1);
+            if (ButtonSoundChar1 != 0)
+            {
+                ButtonSoundInfo1.ToStream(writer);
+            }
+            writer.WriteUI16(ButtonSoundChar2);
+            if (ButtonSoundChar2 != 0)
+            {
+                ButtonSoundInfo2.ToStream(writer);
+            }
+            writer.WriteUI16(ButtonSoundChar3);
+            if (ButtonSoundChar3 != 0)
+            {
+                ButtonSoundInfo3.ToStream(writer);
+            }
         }
     }
 }

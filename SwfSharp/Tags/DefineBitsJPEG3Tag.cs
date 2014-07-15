@@ -25,12 +25,15 @@ namespace SwfSharp.Tags
             CharacterID = reader.ReadUI16();
             var dataSize = (int)reader.ReadUI32();
             ImageData = reader.ReadBytes(dataSize);
-            BitmapAlphaData = reader.ReadBytes(Size - (dataSize + 6));
+            BitmapAlphaData = reader.ReadBytes((int)reader.TagBytesRemaining);
         }
 
         internal override void ToStream(BitWriter writer, byte swfVersion)
         {
-            throw new NotImplementedException();
+            writer.WriteUI16(CharacterID);
+            writer.WriteUI32((uint)ImageData.Length);
+            writer.WriteBytes(ImageData);
+            writer.WriteBytes(BitmapAlphaData);
         }
     }
 }

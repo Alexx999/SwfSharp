@@ -32,7 +32,13 @@ namespace SwfSharp.Tags
 
         internal override void ToStream(BitWriter writer, byte swfVersion)
         {
-            throw new NotImplementedException();
+            writer.WriteUI16(CharacterId);
+            writer.WriteUI16(Depth);
+            Matrix.ToStream(writer);
+            if (ColorTransform != null)
+            {
+                ColorTransform.ToStream(writer);
+            }
         }
     }
 }
