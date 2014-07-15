@@ -7,10 +7,12 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Filters
 {
-    public class BevelFilter : BlurFilter
+    public abstract class GradientGlowAndBevelFilter
     {
-        public RgbaStruct ShadowColor { get; set; }
-        public RgbaStruct HighlightColor { get; set; }
+        public IList<RgbaStruct> GradientColors { get; set; }
+        public IList<byte> GradientRatio { get; set; }
+        public float BlurX { get; set; }
+        public float BlurY { get; set; }
         public float Angle { get; set; }
         public float Distance { get; set; }
         public float Strength { get; set; }
@@ -18,11 +20,21 @@ namespace SwfSharp.Filters
         public bool Knockout { get; set; }
         public bool CompositeSource { get; set; }
         public bool OnTop { get; set; }
+        public byte Passes { get; set; }
 
-        private void FromStream(BitReader reader)
+        internal void FromStream(BitReader reader)
         {
-            ShadowColor = RgbaStruct.CreateFromStream(reader);
-            HighlightColor = RgbaStruct.CreateFromStream(reader);
+            var numColors = reader.ReadUI8();
+            GradientColors = new List<RgbaStruct>(numColors);
+            for (int i = 0; i < numColors; i++)
+            {
+                GradientColors.Add(RgbaStruct.CreateFromStream(reader));
+            }
+            GradientRatio = new List<byte>(numColors);
+            for (int i = 0; i < numColors; i++)
+            {
+                GradientRatio.Add(reader.ReadUI8());
+            }
             BlurX = reader.ReadFixed();
             BlurY = reader.ReadFixed();
             Angle = reader.ReadFixed();
@@ -35,19 +47,17 @@ namespace SwfSharp.Filters
             Passes = (byte)reader.ReadBits(4);
         }
 
-        internal new static BevelFilter CreateFromStream(BitReader reader)
+        internal void ToStream(BitWriter writer)
         {
-            var result = new BevelFilter();
-
-            result.FromStream(reader);
-
-            return result;
-        }
-
-        internal override void ToStream(BitWriter writer)
-        {
-            ShadowColor.ToStream(writer);
-            HighlightColor.ToStream(writer);
+            writer.WriteUI8((byte)GradientColors.Count);
+            foreach (var color in GradientColors)
+            {
+                color.ToStream(writer);
+            }
+            foreach (var ratio in GradientRatio)
+            {
+                writer.WriteUI8(ratio);
+            }
             writer.WriteFixed(BlurX);
             writer.WriteFixed(BlurY);
             writer.WriteFixed(Angle);

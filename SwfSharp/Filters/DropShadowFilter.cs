@@ -7,18 +7,15 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Filters
 {
-    public class DropShadowFilter
+    public class DropShadowFilter : BlurFilter
     {
         public RgbaStruct DropShadowColor { get; set; }
-        public float BlurX { get; set; }
-        public float BlurY { get; set; }
         public float Angle { get; set; }
         public float Distance { get; set; }
         public float Strength { get; set; }
         public bool InnerShadow { get; set; }
         public bool Knockout { get; set; }
         public bool CompositeSource { get; set; }
-        public byte Passes { get; set; }
 
         private void FromStream(BitReader reader)
         {
@@ -34,7 +31,7 @@ namespace SwfSharp.Filters
             Passes = (byte) reader.ReadBits(5);
         }
 
-        internal static DropShadowFilter CreateFromStream(BitReader reader)
+        internal new static DropShadowFilter CreateFromStream(BitReader reader)
         {
             var result = new DropShadowFilter();
 
@@ -43,7 +40,7 @@ namespace SwfSharp.Filters
             return result;
         }
 
-        internal void ToStream(BitWriter writer)
+        internal override void ToStream(BitWriter writer)
         {
             DropShadowColor.ToStream(writer);
             writer.WriteFixed(BlurX);

@@ -168,12 +168,17 @@ namespace SwfSharp
 
         public void Dispose()
         {
+            Dispose(true);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
             var stream = _uncompStream;
-            if (stream != null)
+            if (stream != null && disposing)
             {
-                _uncompStream = null;
                 stream.Dispose();
             }
+            _uncompStream = null;
             GC.SuppressFinalize(this);
         }
     }

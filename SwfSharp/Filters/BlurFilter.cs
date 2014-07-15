@@ -29,7 +29,7 @@ namespace SwfSharp.Filters
             return result;
         }
 
-        internal void ToStream(BitWriter writer)
+        internal virtual void ToStream(BitWriter writer)
         {
             writer.WriteFixed(BlurX);
             writer.WriteFixed(BlurY);
