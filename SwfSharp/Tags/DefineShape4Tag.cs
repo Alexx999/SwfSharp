@@ -30,5 +30,17 @@ namespace SwfSharp.Tags
             UsesScalingStrokes = reader.ReadBoolBit();
             Shapes = ShapeWithStyleStruct.CreateFromStream(reader, TagType);
         }
+
+        internal override void ToStream(BitWriter writer, byte swfVersion)
+        {
+            writer.WriteUI16(ShapeId);
+            ShapeBounds.ToStream(writer);
+            EdgeBounds.ToStream(writer);
+            writer.WriteBits(5, 0);
+            writer.WriteBoolBit(UsesFillWindingRule);
+            writer.WriteBoolBit(UsesNonScalingStrokes);
+            writer.WriteBoolBit(UsesScalingStrokes);
+            Shapes.ToStream(writer, TagType);
+        }
     }
 }
