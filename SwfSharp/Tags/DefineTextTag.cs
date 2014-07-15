@@ -47,8 +47,8 @@ namespace SwfSharp.Tags
             TextBounds.ToStream(writer);
             TextMatrix.ToStream(writer);
             var glyphs = TextRecords.SelectMany(t => t.GlyphEntries).ToList();
-            var glyphBits = (byte) glyphs.Max(g => BitWriter.GetBitsForValue(g.GlyphIndex));
-            var advanceBits = (byte) glyphs.Max(g => BitWriter.GetBitsForValue(g.GlyphAdvance));
+            var glyphBits = (byte)(glyphs.Count == 0 ? 0 : glyphs.Max(g => BitWriter.GetBitsForValue(g.GlyphIndex)));
+            var advanceBits = (byte)(glyphs.Count == 0 ? 0 : glyphs.Max(g => BitWriter.GetBitsForValue(g.GlyphAdvance)));
             writer.WriteUI8(glyphBits);
             writer.WriteUI8(advanceBits);
             foreach (var textRecord in TextRecords)
