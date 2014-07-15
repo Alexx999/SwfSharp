@@ -130,6 +130,7 @@ namespace SwfSharp.Utils
 
         private static uint GetBitsForFieldNeg(int value)
         {
+            if (value == -1) return 2;
             const uint mask = 0x80000000;
             var bits = 32U;
             while ((value & mask) != 0 && bits > 0)
@@ -277,25 +278,20 @@ namespace SwfSharp.Utils
             }
         }
 
-        private static uint GetFixed(float data)
+        private static int GetFixed(float data)
         {
             var value = data * 65536.0;
-            return (uint) value;
+            return (int) value;
         }
 
         public void WriteBitSizeAndData(uint sizeBits, float[] data)
         {
-            var values = new uint[data.Length];
+            var values = new int[data.Length];
             for (int i = 0; i < data.Length; i++)
             {
                 values[i] = GetFixed(data[i]);
             }
-            var bitsPerValue = MinBitsPerField(values);
-            WriteBits(sizeBits, bitsPerValue);
-            for (int i = 0; i < values.Length; i++)
-            {
-                WriteBits(bitsPerValue, values[i]);
-            }
+            WriteBitSizeAndData(sizeBits, values);
         }
 
         public void WriteBitSizeAndData(uint sizeBits, uint[] data)
