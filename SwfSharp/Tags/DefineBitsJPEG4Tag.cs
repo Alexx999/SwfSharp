@@ -23,5 +23,10 @@ namespace SwfSharp.Tags
             ImageData = reader.ReadBytes(dataSize);
             BitmapAlphaData = reader.ReadBytes(Size - (dataSize + 6));
         }
+
+        internal override void ToStream(BitWriter writer, byte swfVersion)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

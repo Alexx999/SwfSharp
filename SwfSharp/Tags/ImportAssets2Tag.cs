@@ -28,5 +28,10 @@ namespace SwfSharp.Tags
                 Records.Add(new ImportRecord(reader.ReadUI16(), reader.ReadString()));
             }
         }
+
+        internal override void ToStream(BitWriter writer, byte swfVersion)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

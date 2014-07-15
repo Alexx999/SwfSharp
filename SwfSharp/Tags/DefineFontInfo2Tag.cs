@@ -25,5 +25,10 @@ namespace SwfSharp.Tags
                 CodeTable.Add(reader.ReadUI16());
             }
         }
+
+        internal override void FromStream(BitReader reader, byte swfVersion)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

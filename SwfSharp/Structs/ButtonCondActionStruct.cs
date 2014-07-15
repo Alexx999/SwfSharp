@@ -53,5 +53,10 @@ namespace SwfSharp.Structs
 
             return result;
         }
+
+        internal void ToStream(BitWriter writer)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
