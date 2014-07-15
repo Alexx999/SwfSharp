@@ -91,7 +91,7 @@ namespace SwfSharp.Structs
             return result;
         }
 
-        internal void WriteTo(BitWriter writer, TagType type)
+        internal void ToStream(BitWriter writer, TagType type)
         {
             writer.WriteUI8((byte) FillStyleType);
 

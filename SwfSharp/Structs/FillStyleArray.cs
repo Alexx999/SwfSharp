@@ -36,7 +36,7 @@ namespace SwfSharp.Structs
             writer.WriteExtendableCount(FillStyles.Count);
             foreach (var fillStyle in FillStyles)
             {
-                fillStyle.WriteTo(writer, type);
+                fillStyle.ToStream(writer, type);
             }
             return (byte) BitWriter.GetBitsForValue((uint)FillStyles.Count);
         }
