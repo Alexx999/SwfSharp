@@ -1,4 +1,5 @@
-﻿using SwfSharp.Tags;
+﻿using System;
+using SwfSharp.Tags;
 using SwfSharp.Utils;
 
 namespace SwfSharp.ShapeRecords
@@ -61,8 +62,8 @@ namespace SwfSharp.ShapeRecords
             {
                 data = new[] { DeltaX };
             }
-            var numBits = BitWriter.MinBitsPerField(data);
-            writer.WriteBits(4, numBits - 2);
+            var numBits = (uint)Math.Max((int)BitWriter.MinBitsPerField(data) - 2, 0);
+            writer.WriteBits(4, numBits);
             writer.WriteBoolBit(GeneralLineFlag);
             if (!GeneralLineFlag)
             {
@@ -71,7 +72,7 @@ namespace SwfSharp.ShapeRecords
 
             for (int i = 0; i < data.Length; i++)
             {
-                writer.WriteBitsSigned(numBits, data[i]);
+                writer.WriteBitsSigned(numBits + 2, data[i]);
             }
         }
     }
