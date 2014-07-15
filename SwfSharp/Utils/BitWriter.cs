@@ -8,10 +8,11 @@ namespace SwfSharp.Utils
 {
     class BitWriter : IDisposable
     {
+        private const int BufferSize = 64;
         private BinaryWriter _writer;
         private bool _keepOpen;
-        private uint _bitPos = 32;
-        private uint _tempBuf;
+        private uint _bitPos = BufferSize;
+        private ulong _tempBuf;
         private Encoding _swf5Encoding;
 
         public BitWriter(Stream stream)
@@ -48,13 +49,13 @@ namespace SwfSharp.Utils
         public void Align()
         {
             Flush();
-            _bitPos = 32;
+            _bitPos = BufferSize;
             _tempBuf = 0;
         }
 
         private void Flush()
         {
-            while (_bitPos != 32)
+            while (_bitPos != BufferSize)
             {
                 WriteByteFromBuffer();
             }
@@ -156,13 +157,13 @@ namespace SwfSharp.Utils
         public void WriteBits(uint numBits, uint value)
         {
             if(numBits == 0) return;
-            var valueMask = uint.MaxValue >> (int)(32 - numBits);
-            value &= valueMask;
+            var valueMask = ulong.MaxValue >> (int)(BufferSize - numBits);
+            ulong val = value & valueMask;
             var shift = _bitPos - numBits;
-            value <<= (int)shift;
-            _tempBuf |= value;
+            val <<= (int)shift;
+            _tempBuf |= val;
             _bitPos -= numBits;
-            while (_bitPos <= 24)
+            while (_bitPos <= (BufferSize - 8))
             {
                 WriteByteFromBuffer();
             }
@@ -181,16 +182,16 @@ namespace SwfSharp.Utils
 
         private void WriteByteFromBuffer()
         {
-            var toWrite = _tempBuf >> 24;
+            var toWrite = _tempBuf >> (BufferSize - 8);
             WriteUI8Internal((byte)toWrite);
             _tempBuf <<= 8;
-            if (_bitPos <= 24)
+            if (_bitPos <= (BufferSize - 8))
             {
                 _bitPos += 8;
             }
             else
             {
-                _bitPos = 32;
+                _bitPos = BufferSize;
             }
         }
 
@@ -359,7 +360,7 @@ namespace SwfSharp.Utils
             _writer.Write(data);
         }
 
-        public void WriteFixed(float data)
+        public void WriteFixed(double data)
         {
             var value = (uint)(data * 65536.0);
             WriteUI32(value);
