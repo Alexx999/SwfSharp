@@ -36,7 +36,15 @@ namespace SwfSharp.Structs
 
         internal void ToStream(BitWriter writer, TagType type)
         {
-            throw new NotImplementedException();
+            writer.WriteUI16(Width);
+            if (type < TagType.DefineShape3)
+            {
+                Color.ToRgbStream(writer);
+            }
+            else
+            {
+                Color.ToStream(writer);
+            }
         }
     }
 }

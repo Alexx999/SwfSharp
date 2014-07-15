@@ -43,7 +43,7 @@ namespace SwfSharp.Structs
             writer.Align();
             byte numLineBits = 0;
             byte numFillBits = 1;
-            ToStream(writer, ref numLineBits, ref numFillBits, tagType);
+            ToStream(writer, ref numFillBits, ref numLineBits, tagType);
         }
 
         internal void ToStream(BitWriter writer, ref byte numFillBits, ref byte numLineBits, TagType tagType)

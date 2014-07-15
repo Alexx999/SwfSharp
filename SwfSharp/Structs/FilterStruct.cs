@@ -87,5 +87,53 @@ namespace SwfSharp.Structs
             ColorMatrixFilter = 6,
             GradientBevelFilter = 7
         }
+
+        internal void ToStream(BitWriter writer)
+        {
+            writer.WriteUI8((byte) FilterID);
+            switch (FilterID)
+            {
+                case FilterType.DropShadowFilter:
+                {
+                    DropShadowFilter.ToStream(writer);
+                    break;
+                }
+                case FilterType.BlurFilter:
+                {
+                    BlurFilter.ToStream(writer);
+                    break;
+                }
+                case FilterType.GlowFilter:
+                {
+                    GlowFilter.ToStream(writer);
+                    break;
+                }
+                case FilterType.BevelFilter:
+                {
+                    BevelFilter.ToStream(writer);
+                    break;
+                }
+                case FilterType.GradientGlowFilter:
+                {
+                    GradientGlowFilter.ToStream(writer);
+                    break;
+                }
+                case FilterType.ConvolutionFilter:
+                {
+                    ConvolutionFilter.ToStream(writer);
+                    break;
+                }
+                case FilterType.ColorMatrixFilter:
+                {
+                    ColorMatrixFilter.ToStream(writer);
+                    break;
+                }
+                case FilterType.GradientBevelFilter:
+                {
+                    GradientBevelFilter.ToStream(writer);
+                    break;
+                }
+            }
+        }
     }
 }

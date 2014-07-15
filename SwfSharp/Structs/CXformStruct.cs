@@ -51,7 +51,36 @@ namespace SwfSharp.Structs
 
         internal virtual void ToStream(BitWriter writer)
         {
-            throw new NotImplementedException();
+            writer.Align();
+
+            writer.WriteBoolBit(HasAddTerms);
+            writer.WriteBoolBit(HasMultTerms);
+
+            uint nbits = 0;
+
+            if (HasMultTerms)
+            {
+                nbits = BitWriter.MinBitsPerField(new[] { RedMultTerm, GreenMultTerm, BlueMultTerm });
+            }
+            if (HasAddTerms)
+            {
+                nbits = Math.Max(BitWriter.MinBitsPerField(new[] { RedAddTerm, GreenAddTerm, BlueAddTerm }), nbits);
+            }
+
+            writer.WriteBits(4, nbits);
+
+            if (HasMultTerms)
+            {
+                writer.WriteBitsSigned(nbits, RedMultTerm);
+                writer.WriteBitsSigned(nbits, GreenMultTerm);
+                writer.WriteBitsSigned(nbits, BlueMultTerm);
+            }
+            if (HasAddTerms)
+            {
+                writer.WriteBitsSigned(nbits, RedAddTerm);
+                writer.WriteBitsSigned(nbits, GreenAddTerm);
+                writer.WriteBitsSigned(nbits, BlueAddTerm);
+            }
         }
     }
 }

@@ -28,7 +28,8 @@ namespace SwfSharp.Structs
 
         internal override void ToStream(BitWriter writer, TagType type)
         {
-            throw new NotImplementedException();
+            base.ToStream(writer, type);
+            writer.WriteFixed8(FocalPoint);
         }
     }
 }

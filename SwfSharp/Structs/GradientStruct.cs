@@ -34,7 +34,15 @@ namespace SwfSharp.Structs
 
         internal virtual void ToStream(BitWriter writer, TagType type)
         {
-            throw new System.NotImplementedException();
+            writer.Align();
+            writer.WriteBits(2, (uint) SpreadMode);
+            writer.WriteBits(2, (uint) InterpolationMode);
+            writer.WriteBits(4, (uint) GradientRecords.Count);
+
+            foreach (var record in GradientRecords)
+            {
+                record.ToStream(writer, type);
+            }
         }
     }
 }

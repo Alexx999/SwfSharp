@@ -1,4 +1,5 @@
-﻿using SwfSharp.Utils;
+﻿using System;
+using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
 {
@@ -43,7 +44,38 @@ namespace SwfSharp.Structs
 
         internal override void ToStream(BitWriter writer)
         {
-            throw new System.NotImplementedException();
+            writer.Align();
+
+            writer.WriteBoolBit(HasAddTerms);
+            writer.WriteBoolBit(HasMultTerms);
+
+            uint nbits = 0;
+
+            if (HasMultTerms)
+            {
+                nbits = BitWriter.MinBitsPerField(new[] {RedMultTerm, GreenMultTerm, BlueMultTerm, AlphaMultTerm});
+            }
+            if (HasAddTerms)
+            {
+                nbits = Math.Max(BitWriter.MinBitsPerField(new[] { RedAddTerm, GreenAddTerm, BlueAddTerm, AlphaAddTerm }), nbits);
+            }
+
+            writer.WriteBits(4, nbits);
+
+            if (HasMultTerms)
+            {
+                writer.WriteBitsSigned(nbits, RedMultTerm);
+                writer.WriteBitsSigned(nbits, GreenMultTerm);
+                writer.WriteBitsSigned(nbits, BlueMultTerm);
+                writer.WriteBitsSigned(nbits, AlphaMultTerm);
+            }
+            if (HasAddTerms)
+            {
+                writer.WriteBitsSigned(nbits, RedAddTerm);
+                writer.WriteBitsSigned(nbits, GreenAddTerm);
+                writer.WriteBitsSigned(nbits, BlueAddTerm);
+                writer.WriteBitsSigned(nbits, AlphaAddTerm);
+            }
         }
     }
 }

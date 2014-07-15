@@ -23,5 +23,12 @@ namespace SwfSharp.Structs
 
             return result;
         }
+
+        internal void ToStream(BitWriter writer)
+        {
+            writer.WriteUI32(Pos44);
+            writer.WriteUI16(LeftLevel);
+            writer.WriteUI16(RightLevel);
+        }
     }
 }

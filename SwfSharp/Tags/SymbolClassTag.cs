@@ -27,7 +27,7 @@ namespace SwfSharp.Tags
 
         internal override void ToStream(BitWriter writer, byte swfVersion)
         {
-            writer.WriteUI16((ushort) Symbols.Count());
+            writer.WriteUI16((ushort) Symbols.Count);
             foreach (var symbol in Symbols)
             {
                 writer.WriteUI16(symbol.TagId);

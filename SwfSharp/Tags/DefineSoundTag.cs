@@ -35,7 +35,13 @@ namespace SwfSharp.Tags
 
         internal override void ToStream(BitWriter writer, byte swfVersion)
         {
-            throw new NotImplementedException();
+            writer.WriteUI16(SoundId);
+            writer.WriteBits(4, (uint) SoundFormat);
+            writer.WriteBits(2, (uint) SoundRate);
+            writer.WriteBits(1, (uint) SoundSize);
+            writer.WriteBits(1, (uint) SoundType);
+            writer.WriteUI32(SoundSampleCount);
+            writer.WriteBytes(SoundData);
         }
     }
 }

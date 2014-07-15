@@ -10,7 +10,7 @@ namespace SwfSharp.Structs
 {
     public class TextRecordStruct
     {
-        public byte TextRecordType { get; set; }
+        public byte TextRecordType { get; private set; }
         public bool StyleFlagsHasFont { get; set; }
         public bool StyleFlagsHasColor { get; set; }
         public bool StyleFlagsHasYOffset { get; set; }
@@ -20,7 +20,6 @@ namespace SwfSharp.Structs
         public short XOffset { get; set; }
         public short YOffset { get; set; }
         public ushort TextHeight { get; set; }
-        public byte GlyphCount { get; set; }
         public IList<GlyphEntryStruct> GlyphEntries { get; set; }
 
         private void FromStream(BitReader reader, TagType type, byte glyphBits, byte advanceBits)
@@ -74,6 +73,51 @@ namespace SwfSharp.Structs
             result.FromStream(reader, type, glyphBits, advanceBits);
 
             return result;
+        }
+
+        internal void ToStream(BitWriter writer, TagType type, byte glyphBits, byte advanceBits)
+        {
+            writer.Align();
+            writer.WriteBits(1, 1);
+            writer.WriteBits(3, 0);
+            writer.WriteBoolBit(StyleFlagsHasFont);
+            writer.WriteBoolBit(StyleFlagsHasColor);
+            writer.WriteBoolBit(StyleFlagsHasYOffset);
+            writer.WriteBoolBit(StyleFlagsHasXOffset);
+
+            if (StyleFlagsHasFont)
+            {
+                writer.WriteUI16(FontID);
+            }
+            if (StyleFlagsHasColor)
+            {
+                if (type == TagType.DefineText2)
+                {
+                    TextColor.ToStream(writer);
+                }
+                else
+                {
+                    TextColor.ToRgbStream(writer);
+                }
+            }
+            if (StyleFlagsHasXOffset)
+            {
+                writer.WriteSI16(XOffset);
+            }
+            if (StyleFlagsHasYOffset)
+            {
+                writer.WriteSI16(YOffset);
+            }
+            if (StyleFlagsHasFont)
+            {
+                writer.WriteUI16(TextHeight);
+            }
+            writer.WriteUI8((byte) GlyphEntries.Count);
+
+            foreach (var glyphEntry in GlyphEntries)
+            {
+                glyphEntry.ToStream(writer, glyphBits, advanceBits);
+            }
         }
     }
 }

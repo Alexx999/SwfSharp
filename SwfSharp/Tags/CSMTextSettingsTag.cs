@@ -32,7 +32,13 @@ namespace SwfSharp.Tags
 
         internal override void ToStream(BitWriter writer, byte swfVersion)
         {
-            throw new NotImplementedException();
+            writer.WriteUI16(TextID);
+            writer.WriteBits(2, (uint) UseFlashType);
+            writer.WriteBits(3, (uint) GridFit);
+            writer.WriteBits(3, 0);
+            writer.WriteFloat(Thickness);
+            writer.WriteFloat(Sharpness);
+            writer.WriteUI8(0);
         }
 
         public enum TextRenderType

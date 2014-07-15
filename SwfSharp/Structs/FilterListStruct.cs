@@ -28,5 +28,14 @@ namespace SwfSharp.Structs
 
             return result;
         }
+
+        internal void ToStream(BitWriter writer)
+        {
+            writer.WriteUI8((byte) Filter.Count);
+            foreach (var filterStruct in Filter)
+            {
+                filterStruct.ToStream(writer);
+            }
+        }
     }
 }

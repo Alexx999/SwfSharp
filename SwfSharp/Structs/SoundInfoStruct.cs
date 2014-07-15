@@ -59,5 +59,36 @@ namespace SwfSharp.Structs
 
             return result;
         }
+
+        internal void ToStream(BitWriter writer)
+        {
+            writer.WriteBits(2, 0);
+            writer.WriteBoolBit(SyncStop);
+            writer.WriteBoolBit(SyncNoMultiple);
+            writer.WriteBoolBit(HasEnvelope);
+            writer.WriteBoolBit(HasLoops);
+            writer.WriteBoolBit(HasOutPoint);
+            writer.WriteBoolBit(HasInPoint);
+            if (HasInPoint)
+            {
+                writer.WriteUI32(InPoint);
+            }
+            if (HasOutPoint)
+            {
+                writer.WriteUI32(OutPoint);
+            }
+            if (HasLoops)
+            {
+                writer.WriteUI16(LoopCount);
+            }
+            if (HasEnvelope)
+            {
+                writer.WriteUI8((byte) EnvelopeRecords.Count);
+                foreach (var record in EnvelopeRecords)
+                {
+                    record.ToStream(writer);
+                }
+            }
+        }
     }
 }

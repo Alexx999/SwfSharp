@@ -60,7 +60,15 @@ namespace SwfSharp.Tags
 
         internal override void ToStream(BitWriter writer, byte swfVersion)
         {
-            throw new NotImplementedException();
+            writer.WriteUI16(CharacterID);
+            writer.WriteUI8((byte)BitmapFormat);
+            writer.WriteUI16(BitmapWidth);
+            writer.WriteUI16(BitmapHeight);
+            if (BitmapFormat == BitmapFormatType.Colormap8)
+            {
+                writer.WriteUI8(BitmapColorTableSize);
+            }
+            writer.WriteBytes(ZlibBitmapData);
         }
 
         public enum BitmapFormatType : byte

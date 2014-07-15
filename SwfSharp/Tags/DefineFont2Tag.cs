@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using SwfSharp.Structs;
@@ -54,8 +55,13 @@ namespace SwfSharp.Tags
             FontName = reader.ReadSizeString();
             var numGlyphs = reader.ReadUI16();
             if (numGlyphs == 0 && reader.AtTagEnd()) return;
-            var offsetTableSize = numGlyphs*(fontFlagsWideOffsets ? 4 : 2);
-            reader.ReadBytes(offsetTableSize);
+            //var offsetTableSize = numGlyphs*(fontFlagsWideOffsets ? 4 : 2);
+            //reader.ReadBytes(offsetTableSize);
+            var offsets = new uint[numGlyphs];
+            for (int i = 0; i < numGlyphs; i++)
+            {
+                offsets[i] = (fontFlagsWideOffsets ? reader.ReadUI32() : reader.ReadUI16()) - 232;
+            }
             // ReSharper disable once UnusedVariable
             uint codeTableOffset = fontFlagsWideOffsets ? reader.ReadUI32() : reader.ReadUI16();
             GlyphShapeTable = new List<ShapeStruct>(numGlyphs);
@@ -91,35 +97,70 @@ namespace SwfSharp.Tags
             }
         }
 
+        private uint[] WriteGlyphData(BitWriter writer, int numGlyphs, out uint totalSize)
+        {
+            var result = new uint[numGlyphs];
+            var startPos = writer.Position;
+            for (int i = 0; i < numGlyphs; i++)
+            {
+                result[i] = (uint) (writer.Position - startPos);
+                GlyphShapeTable[i].ToStream(writer, TagType);
+                writer.Align();
+            }
+            totalSize = (uint)(writer.Position - startPos);
+            return result;
+        }
+
         internal override void ToStream(BitWriter writer, byte swfVersion)
         {
+            var numGlyphs = (ushort)(GlyphShapeTable == null ? 0 : GlyphShapeTable.Count);
+            var ms = new MemoryStream();
+            uint totalSize;
+            uint[] offsets;
+            using (var glyphWriter = new BitWriter(ms, true))
+            {
+                offsets = WriteGlyphData(glyphWriter, numGlyphs, out totalSize);
+            }
+            bool useWideOffsets = (numGlyphs + 1)*2 + totalSize > ushort.MaxValue;
+
             writer.WriteUI16(FontID);
             writer.WriteBoolBit(FontFlagsHasLayout);
             writer.WriteBoolBit(FontFlagsShiftJIS);
             writer.WriteBoolBit(FontFlagsSmallText);
             writer.WriteBoolBit(FontFlagsANSI);
-            writer.WriteBoolBit(false);
+            writer.WriteBoolBit(useWideOffsets);
             writer.WriteBoolBit(FontFlagsWideCodes);
             writer.WriteBoolBit(FontFlagsItalic);
             writer.WriteBoolBit(FontFlagsBold);
             writer.WriteUI8(LanguageCode);
             writer.WriteSizeString(FontName, swfVersion);
-            var numGlyphs = (ushort) (GlyphShapeTable == null ? 0 : GlyphShapeTable.Count);
             writer.WriteUI16(numGlyphs);
 #if !MAKE_SWFINVESTIGATOR_HAPPY
             if (numGlyphs == 0) return;
 #endif
+            var offsetSize = (numGlyphs + 1)*(useWideOffsets ? 4 : 2);
             for (int i = 0; i < numGlyphs; i++)
             {
-                writer.WriteUI16(0);
+                if (useWideOffsets)
+                {
+                    writer.WriteUI32((uint) (offsets[i] + offsetSize));
+                }
+                else
+                {
+                    writer.WriteUI16((ushort)(offsets[i] + offsetSize));
+                }
             }
-            // ReSharper disable once UnusedVariable
-            writer.WriteUI16(0);
-            for (int i = 0; i < numGlyphs; i++)
+            var totalOffset = (uint) (totalSize + offsetSize);
+            if (useWideOffsets)
             {
-                GlyphShapeTable[i].ToStream(writer, TagType);
+                writer.WriteUI32(totalOffset);
             }
-            CodeTable = new List<ushort>(numGlyphs);
+            else
+            {
+                writer.WriteUI16((ushort)totalOffset);
+            }
+            writer.WriteBytes(ms.GetBuffer(), 0, (int) totalSize);
+
             for (int i = 0; i < numGlyphs; i++)
             {
                 if (FontFlagsWideCodes)

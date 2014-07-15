@@ -32,7 +32,13 @@ namespace SwfSharp.Structs
 
         internal void ToStream(BitWriter writer)
         {
+            writer.Align();
             writer.WriteBitSizeAndData(5, new[] { Xmin, Xmax, Ymin, Ymax });
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0},{1},{2},{3}", Xmin, Xmax, Ymin, Ymax);
         }
     }
 }

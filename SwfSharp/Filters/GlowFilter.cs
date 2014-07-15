@@ -38,5 +38,17 @@ namespace SwfSharp.Filters
 
             return result;
         }
+
+        internal void ToStream(BitWriter writer)
+        {
+            GlowColor.ToStream(writer);
+            writer.WriteFixed(BlurX);
+            writer.WriteFixed(BlurY);
+            writer.WriteFixed8(Strength);
+            writer.WriteBoolBit(InnerShadow);
+            writer.WriteBoolBit(Knockout);
+            writer.WriteBoolBit(CompositeSource);
+            writer.WriteBits(5, Passes);
+        }
     }
 }

@@ -37,7 +37,14 @@ namespace SwfSharp.Structs
 
         internal void ToStream(BitWriter writer, byte swfVersion)
         {
-            throw new System.NotImplementedException();
+            writer.WriteUI16(0);
+            AllEventFlags.ToStream(writer, swfVersion);
+            var endFlagSize = (swfVersion >= 6) ? 4 : 2;
+            foreach (var record in ClipActionRecords)
+            {
+                record.ToStream(writer, swfVersion);
+            }
+            writer.WriteBytes(new byte[endFlagSize]);
         }
     }
 }

@@ -100,5 +100,77 @@ namespace SwfSharp.Tags
                 ClipActions = ClipActionsStruct.CreateFromStream(reader, swfVersion);
             }
         }
+        internal override void ToStream(BitWriter writer, byte swfVersion)
+        {
+            writer.WriteBoolBit(PlaceFlagHasClipActions);
+            writer.WriteBoolBit(PlaceFlagHasClipDepth);
+            writer.WriteBoolBit(PlaceFlagHasName);
+            writer.WriteBoolBit(PlaceFlagHasRatio);
+            writer.WriteBoolBit(PlaceFlagHasColorTransform);
+            writer.WriteBoolBit(PlaceFlagHasMatrix);
+            writer.WriteBoolBit(PlaceFlagHasCharacter);
+            writer.WriteBoolBit(PlaceFlagMove);
+            writer.WriteBits(1, 0);
+            writer.WriteBoolBit(PlaceFlagOpaqueBackground);
+            writer.WriteBoolBit(PlaceFlagHasVisible);
+            writer.WriteBoolBit(PlaceFlagHasImage);
+            writer.WriteBoolBit(PlaceFlagHasClassName);
+            writer.WriteBoolBit(PlaceFlagHasCacheAsBitmap);
+            writer.WriteBoolBit(PlaceFlagHasBlendMode);
+            writer.WriteBoolBit(PlaceFlagHasFilterList);
+            writer.WriteUI16(Depth);
+            if (PlaceFlagHasClassName)
+            {
+                writer.WriteString(ClassName, swfVersion);
+            }
+            if (PlaceFlagHasCharacter)
+            {
+                writer.WriteUI16(CharacterId);
+            }
+            if (PlaceFlagHasMatrix)
+            {
+                Matrix.ToStream(writer);
+            }
+            if (PlaceFlagHasColorTransform)
+            {
+                ColorTransform.ToStream(writer);
+            }
+            if (PlaceFlagHasRatio)
+            {
+                writer.WriteUI16(Ratio);
+            }
+            if (PlaceFlagHasName)
+            {
+                writer.WriteString(Name, swfVersion);
+            }
+            if (PlaceFlagHasClipDepth)
+            {
+                writer.WriteUI16(ClipDepth);
+            }
+            if (PlaceFlagHasFilterList)
+            {
+                SurfaceFilterList.ToStream(writer);
+            }
+            if (PlaceFlagHasBlendMode)
+            {
+                writer.WriteUI8((byte) BlendMode);
+            }
+            if (PlaceFlagHasCacheAsBitmap)
+            {
+                writer.WriteUI8(BitmapCache);
+            }
+            if (PlaceFlagHasVisible)
+            {
+                writer.WriteUI8(Visible);
+            }
+            if (PlaceFlagOpaqueBackground)
+            {
+                BackgroundColor.ToStream(writer);
+            }
+            if (PlaceFlagHasClipActions)
+            {
+                ClipActions.ToStream(writer, swfVersion);
+            }
+        }
     }
 }

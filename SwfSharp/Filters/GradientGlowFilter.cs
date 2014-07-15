@@ -55,5 +55,10 @@ namespace SwfSharp.Filters
 
             return result;
         }
+
+        internal void ToStream(BitWriter writer)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

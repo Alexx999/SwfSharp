@@ -37,12 +37,7 @@ namespace SwfSharp.ShapeRecords
             //Type flags
             writer.WriteBits(1, 1);
             writer.WriteBits(1, 0);
-            var bitCount = BitWriter.MinBitsPerField(new[] {ControlDeltaX, ControlDeltaY, AnchorDeltaX, AnchorDeltaY});
-            writer.WriteBits(4, bitCount - 2);
-            writer.WriteBitsSigned(bitCount, ControlDeltaX);
-            writer.WriteBitsSigned(bitCount, ControlDeltaY);
-            writer.WriteBitsSigned(bitCount, AnchorDeltaX);
-            writer.WriteBitsSigned(bitCount, AnchorDeltaY);
+            writer.WriteBitSizeAndDataWithOffset(4, 2, new[] { ControlDeltaX, ControlDeltaY, AnchorDeltaX, AnchorDeltaY });
         }
     }
 }

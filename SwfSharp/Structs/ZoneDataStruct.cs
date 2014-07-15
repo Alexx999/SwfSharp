@@ -25,5 +25,11 @@ namespace SwfSharp.Structs
 
             return result;
         }
+
+        internal void ToStream(BitWriter writer)
+        {
+            writer.WriteFloat16(AlignmentCoordinate);
+            writer.WriteFloat16(Range);
+        }
     }
 }

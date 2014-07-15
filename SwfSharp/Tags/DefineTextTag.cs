@@ -43,7 +43,19 @@ namespace SwfSharp.Tags
 
         internal override void ToStream(BitWriter writer, byte swfVersion)
         {
-            throw new NotImplementedException();
+            writer.WriteUI16(CharacterID);
+            TextBounds.ToStream(writer);
+            TextMatrix.ToStream(writer);
+            var glyphs = TextRecords.SelectMany(t => t.GlyphEntries).ToList();
+            var glyphBits = (byte) glyphs.Max(g => BitWriter.GetBitsForValue(g.GlyphIndex));
+            var advanceBits = (byte) glyphs.Max(g => BitWriter.GetBitsForValue(g.GlyphAdvance));
+            writer.WriteUI8(glyphBits);
+            writer.WriteUI8(advanceBits);
+            foreach (var textRecord in TextRecords)
+            {
+                textRecord.ToStream(writer, TagType, glyphBits, advanceBits);
+            }
+            writer.WriteUI8(0);
         }
     }
 }

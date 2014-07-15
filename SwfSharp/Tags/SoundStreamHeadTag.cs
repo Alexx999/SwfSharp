@@ -48,7 +48,19 @@ namespace SwfSharp.Tags
 
         internal override void ToStream(BitWriter writer, byte swfVersion)
         {
-            throw new NotImplementedException();
+            writer.WriteBits(4, 0);
+            writer.WriteBits(2, (uint) PlaybackSoundRate);
+            writer.WriteBits(1, (uint) PlaybackSoundSize);
+            writer.WriteBits(1, (uint) PlaybackSoundType);
+            writer.WriteBits(4, (uint) StreamSoundCompression);
+            writer.WriteBits(2, (uint) StreamSoundRate);
+            writer.WriteBits(1, (uint) StreamSoundSize);
+            writer.WriteBits(1, (uint) StreamSoundType);
+            writer.WriteUI16(StreamSoundSampleCount);
+            if (StreamSoundCompression == SoundFormat.MP3)
+            {
+                writer.WriteSI16(LatencySeek);
+            }
         }
     }
 }

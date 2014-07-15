@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
@@ -33,7 +30,7 @@ namespace SwfSharp.Structs
             ClipEventKeyUp = reader.ReadBoolBit();
             ClipEventKeyDown = reader.ReadBoolBit();
             ClipEventMouseUp = reader.ReadBoolBit();
-            ClipEventKeyDown = reader.ReadBoolBit();
+            ClipEventMouseDown = reader.ReadBoolBit();
             ClipEventMouseMove = reader.ReadBoolBit();
             ClipEventUnload = reader.ReadBoolBit();
             ClipEventEnterFrame = reader.ReadBoolBit();
@@ -61,6 +58,32 @@ namespace SwfSharp.Structs
             result.FromStream(reader, swfVersion);
 
             return result;
+        }
+
+        internal void ToStream(BitWriter writer, byte swfVersion)
+        {
+            writer.WriteBoolBit(ClipEventKeyUp);
+            writer.WriteBoolBit(ClipEventKeyDown);
+            writer.WriteBoolBit(ClipEventMouseUp);
+            writer.WriteBoolBit(ClipEventMouseDown);
+            writer.WriteBoolBit(ClipEventMouseMove);
+            writer.WriteBoolBit(ClipEventUnload);
+            writer.WriteBoolBit(ClipEventEnterFrame);
+            writer.WriteBoolBit(ClipEventLoad);
+            writer.WriteBoolBit(ClipEventDragOver);
+            writer.WriteBoolBit(ClipEventRollOut);
+            writer.WriteBoolBit(ClipEventRollOver);
+            writer.WriteBoolBit(ClipEventReleaseOutside);
+            writer.WriteBoolBit(ClipEventRelease);
+            writer.WriteBoolBit(ClipEventPress);
+            writer.WriteBoolBit(ClipEventInitialize);
+            writer.WriteBoolBit(ClipEventData);
+            if (swfVersion < 6) return;
+            writer.WriteBits(5, 0);
+            writer.WriteBoolBit(ClipEventConstruct);
+            writer.WriteBoolBit(ClipEventKeyPress);
+            writer.WriteBoolBit(ClipEventDragOut);
+            writer.WriteBits(8, 0);
         }
     }
 }

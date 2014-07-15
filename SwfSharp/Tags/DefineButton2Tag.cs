@@ -47,7 +47,17 @@ namespace SwfSharp.Tags
 
         internal override void ToStream(BitWriter writer, byte swfVersion)
         {
-            throw new NotImplementedException();
+            writer.WriteUI16(ButtonId);
+            writer.WriteBits(7, 0);
+            writer.WriteBoolBit(TrackAsMenu);
+            var ms = new MemoryStream();
+            using (var charWriter = new BitWriter(ms, true))
+            {
+                foreach (var character in Characters)
+                {
+                    character.ToStream(writer, TagType, swfVersion);
+                }
+            }
         }
     }
 }

@@ -32,7 +32,13 @@ namespace SwfSharp.Tags
 
         internal override void ToStream(BitWriter writer, byte swfVersion)
         {
-            throw new NotImplementedException();
+            writer.WriteUI16(FontID);
+            writer.WriteBits(2, (uint) CSMTableHint);
+            writer.WriteBits(6, 0);
+            foreach (var zone in ZoneTable)
+            {
+                zone.ToStream(writer);
+            }
         }
     }
 }

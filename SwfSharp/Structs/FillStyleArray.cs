@@ -33,12 +33,12 @@ namespace SwfSharp.Structs
 
         internal byte ToStream(BitWriter writer, TagType type)
         {
-            writer.WriteExtendableCount(FillStyles.Count());
+            writer.WriteExtendableCount(FillStyles.Count);
             foreach (var fillStyle in FillStyles)
             {
                 fillStyle.WriteTo(writer, type);
             }
-            return (byte) BitWriter.GetBitsForValue((uint)FillStyles.Count());
+            return (byte) BitWriter.GetBitsForValue((uint)FillStyles.Count);
         }
     }
 }

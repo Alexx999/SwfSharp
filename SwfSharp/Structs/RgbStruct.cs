@@ -38,7 +38,7 @@ namespace SwfSharp.Structs
 
         public override string ToString()
         {
-            return string.Format("#{0:X}{1:X}{2:X}", R, G, B);
+            return string.Format("#{0:X2}{1:X2}{2:X2}", R, G, B);
         }
 
         internal static RgbStruct CreateFromStream(BitReader reader)

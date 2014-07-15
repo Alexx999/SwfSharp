@@ -33,5 +33,17 @@ namespace SwfSharp.Structs
 
             return result;
         }
+
+        internal void ToStream(BitWriter writer)
+        {
+            writer.WriteUI8((byte) ZoneData.Count);
+            foreach (var zoneDataStruct in ZoneData)
+            {
+                zoneDataStruct.ToStream(writer);
+            }
+            writer.WriteBits(6, 0);
+            writer.WriteBoolBit(ZoneMaskY);
+            writer.WriteBoolBit(ZoneMaskX);
+        }
     }
 }

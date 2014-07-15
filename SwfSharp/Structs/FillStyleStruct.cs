@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using SwfSharp.Tags;
@@ -42,6 +43,10 @@ namespace SwfSharp.Structs
                 {
                     ReadBitmap(reader);
                     break;
+                }
+                default:
+                {
+                    throw new InvalidDataException("Bad fill style");
                 }
             }
         }
@@ -93,25 +98,29 @@ namespace SwfSharp.Structs
             switch (FillStyleType)
             {
                 case FillStyle.Solid:
-                    {
-                        WriteSolid(writer);
-                        break;
-                    }
+                {
+                    WriteSolid(writer, type);
+                    break;
+                }
                 case FillStyle.LinearGradient:
                 case FillStyle.RadialGradient:
                 case FillStyle.FocalRadialGradient:
-                    {
-                        WriteGradient(writer, type);
-                        break;
-                    }
+                {
+                    WriteGradient(writer, type);
+                    break;
+                }
                 case FillStyle.ClippedBitmap:
                 case FillStyle.RepeatingBitmap:
                 case FillStyle.NonSmoothedClippedBitmap:
                 case FillStyle.NonSmoothedRepeatingBitmap:
-                    {
-                        WriteBitmap(writer);
-                        break;
-                    }
+                {
+                    WriteBitmap(writer);
+                    break;
+                }
+                default:
+                {
+                    throw new InvalidDataException("Bad fill style");
+                }
             }
         }
 
@@ -134,9 +143,16 @@ namespace SwfSharp.Structs
             }
         }
 
-        private void WriteSolid(BitWriter writer)
+        private void WriteSolid(BitWriter writer, TagType type)
         {
-            Color.ToStream(writer);
+            if (type < TagType.DefineShape3)
+            {
+                Color.ToRgbStream(writer);
+            }
+            else
+            {
+                Color.ToStream(writer);
+            }
         }
     }
 }

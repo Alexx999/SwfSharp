@@ -154,6 +154,7 @@ namespace SwfSharp.Utils
 
         public void WriteBits(uint numBits, uint value)
         {
+            if(numBits == 0) return;
             var valueMask = uint.MaxValue >> (int)(32 - numBits);
             value &= valueMask;
             var shift = _bitPos - numBits;
@@ -334,6 +335,39 @@ namespace SwfSharp.Utils
         {
             Align();
             _writer.Write(data);
+        }
+
+        public void WriteEncodedU32(uint data)
+        {
+            Align();
+            do
+            {
+                byte fragment = (byte)(data & 127);
+                if ((data >>= 7) > 0)
+                {
+                    fragment = (byte)(fragment | 128);
+                }
+                WriteUI8(fragment);
+            } while (data > 0);
+        }
+
+        public void WriteFloat16(float data)
+        {
+            Align();
+            var half = new Half(data);
+            WriteUI16(Half.GetBits(half));
+        }
+
+        public void WriteFloat(float data)
+        {
+            Align();
+            _writer.Write(data);
+        }
+
+        public void WriteFixed(float data)
+        {
+            var value = (uint)(data * 65536.0);
+            WriteUI32(value);
         }
     }
 }

@@ -29,5 +29,18 @@ namespace SwfSharp.Structs
 
             return result;
         }
+
+        internal void ToStream(BitWriter writer, TagType type)
+        {
+            writer.WriteUI8(Ratio);
+            if (type < TagType.DefineShape3)
+            {
+                Color.ToRgbStream(writer);
+            }
+            else
+            {
+                Color.ToStream(writer);
+            }
+        }
     }
 }

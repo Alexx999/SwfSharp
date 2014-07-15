@@ -21,5 +21,11 @@ namespace SwfSharp.Structs
 
             return result;
         }
+
+        internal void ToStream(BitWriter writer, byte glyphBits, byte advanceBits)
+        {
+            writer.WriteBits(glyphBits, GlyphIndex);
+            writer.WriteBitsSigned(advanceBits, GlyphAdvance);
+        }
     }
 }

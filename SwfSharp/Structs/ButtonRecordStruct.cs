@@ -63,5 +63,38 @@ namespace SwfSharp.Structs
 
             return result;
         }
+
+        internal void ToStream(BitWriter writer, TagType type, byte swfVersion)
+        {
+            if (swfVersion >= 8)
+            {
+                writer.WriteBits(2, 0);
+                writer.WriteBoolBit(ButtonHasBlendMode);
+                writer.WriteBoolBit(ButtonHasFilterList);
+            }
+            else
+            {
+                writer.WriteBits(4, 0);
+            }
+            writer.WriteBoolBit(ButtonStateHitTest);
+            writer.WriteBoolBit(ButtonStateDown);
+            writer.WriteBoolBit(ButtonStateOver);
+            writer.WriteBoolBit(ButtonStateUp);
+            writer.WriteUI16(CharacterID);
+            writer.WriteUI16(PlaceDepth);
+            PlaceMatrix.ToStream(writer);
+
+            if (type < TagType.DefineButton2) return;
+
+            ColorTransform.ToStream(writer);
+            if (ButtonHasFilterList)
+            {
+                FilterList.ToStream(writer);
+            }
+            if (ButtonHasBlendMode)
+            {
+                writer.WriteUI8((byte) BlendMode);
+            }
+        }
     }
 }

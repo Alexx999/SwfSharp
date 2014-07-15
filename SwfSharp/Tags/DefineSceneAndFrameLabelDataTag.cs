@@ -34,7 +34,18 @@ namespace SwfSharp.Tags
 
         internal override void ToStream(BitWriter writer, byte swfVersion)
         {
-            throw new NotImplementedException();
+            writer.WriteEncodedU32((uint)Scenes.Count);
+            foreach (var scene in Scenes)
+            {
+                writer.WriteEncodedU32(scene.Offset);
+                writer.WriteString(scene.Name, swfVersion);
+            }
+            writer.WriteEncodedU32((uint)Frames.Count);
+            foreach (var frame in Frames)
+            {
+                writer.WriteEncodedU32(frame.FrameNum);
+                writer.WriteString(frame.FrameLabel, swfVersion);
+            }
         }
 
         public class SceneData
