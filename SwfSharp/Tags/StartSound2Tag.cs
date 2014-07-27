@@ -12,10 +12,15 @@ namespace SwfSharp.Tags
         public string SoundClassName { get; set; }
         public SoundInfoStruct SoundInfo { get; set; }
 
+        public StartSound2Tag() : this(0)
+        {
+        }
+
         public StartSound2Tag(int size)
             : base(TagType.StartSound2, size)
         {
         }
+
         internal override void FromStream(BitReader reader, byte swfVersion)
         {
             SoundClassName = reader.ReadString();

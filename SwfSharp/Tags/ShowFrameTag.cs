@@ -8,6 +8,10 @@ namespace SwfSharp.Tags
 {
     public class ShowFrameTag : SwfTag
     {
+        public ShowFrameTag() : this(0)
+        {
+        }
+
         public ShowFrameTag(int size)
             : base(TagType.ShowFrame, size)
         {

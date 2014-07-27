@@ -17,6 +17,10 @@ namespace SwfSharp.Tags
         public uint SoundSampleCount { get; set; }
         public byte[] SoundData { get; set; }
 
+        public DefineSoundTag() : this(0)
+        {
+        }
+
         public DefineSoundTag(int size)
             : base(TagType.DefineSound, size)
         {

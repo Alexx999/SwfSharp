@@ -8,6 +8,11 @@ namespace SwfSharp.Tags
 {
     public class FileAttributesTag : SwfTag
     {
+        public FileAttributesTag()
+            : base(TagType.FileAttributes, 0)
+        {
+        }
+
         public FileAttributesTag(int size)
             : base(TagType.FileAttributes, size)
         {

@@ -10,6 +10,10 @@ namespace SwfSharp.Tags
     {
         public byte[] Data { get; set; }
 
+        public ProtectTag() : this(0)
+        {
+        }
+
         public ProtectTag(int size)
             : base(TagType.Protect, size)
         {

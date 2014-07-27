@@ -13,6 +13,10 @@ namespace SwfSharp.Tags
         public RectStruct ShapeBounds { get; set; }
         public ShapeWithStyleStruct Shapes { get; set; }
 
+        public DefineShapeTag() : this(0)
+        {
+        }
+
         public DefineShapeTag(int size)
             : base(TagType.DefineShape, size)
         {

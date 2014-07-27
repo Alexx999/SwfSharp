@@ -8,7 +8,11 @@ namespace SwfSharp.Tags
 {
     public class SymbolClassTag : SwfTag
     {
-        public IList<Symbol> Symbols { get; set; }
+        public List<Symbol> Symbols { get; set; }
+
+        public SymbolClassTag() : this(0)
+        {
+        }
 
         public SymbolClassTag(int size)
             : base(TagType.SymbolClass, size)
@@ -38,6 +42,9 @@ namespace SwfSharp.Tags
 
         public class Symbol
         {
+            private Symbol()
+            {}
+
             public Symbol(ushort tagId, string name)
             {
                 TagId = tagId;

@@ -16,6 +16,10 @@ namespace SwfSharp.Tags
         public bool VideoFlagsSmoothing { get; set; }
         public Codec CodecID { get; set; }
 
+        public DefineVideoStreamTag() : this(0)
+        {
+        }
+
         public DefineVideoStreamTag(int size)
             : base(TagType.DefineVideoStream, size)
         {

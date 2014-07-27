@@ -12,6 +12,10 @@ namespace SwfSharp.Tags
         public ushort CharacterId { get; set; }
         public RectStruct Splitter { get; set; }
 
+        public DefineScalingGridTag() : this(0)
+        {
+        }
+
         public DefineScalingGridTag(int size)
             : base(TagType.DefineScalingGrid, size)
         {

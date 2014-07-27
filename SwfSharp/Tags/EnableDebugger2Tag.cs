@@ -10,6 +10,10 @@ namespace SwfSharp.Tags
     {
         public ushort Reserved { get; set; }
 
+        public EnableDebugger2Tag() : this(0)
+        {
+        }
+
         public EnableDebugger2Tag(int size)
             : base(TagType.EnableDebugger2, size)
         {

@@ -13,6 +13,10 @@ namespace SwfSharp.Tags
         public CSMTableHint CSMTableHint { get; set; }
         public IList<ZoneRecordStruct> ZoneTable { get; set; }
 
+        public DefineFontAlignZonesTag() : this(0)
+        {
+        }
+
         public DefineFontAlignZonesTag(int size)
             : base(TagType.DefineFontAlignZones, size)
         {

@@ -7,6 +7,10 @@ namespace SwfSharp.Tags
     {
         public RgbStruct BackgroundColor { get; set; }
 
+        public SetBackgroundColorTag() : this(0)
+        {
+        }
+
         public SetBackgroundColorTag(int size)
             : base(TagType.SetBackgroundColor, size)
         {

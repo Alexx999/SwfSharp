@@ -14,6 +14,10 @@ namespace SwfSharp.Tags
         public bool UsesNonScalingStrokes { get; set; }
         public bool UsesScalingStrokes { get; set; }
 
+        public DefineMorphShape2Tag() : this(0)
+        {
+        }
+
         public DefineMorphShape2Tag(int size)
             : base(TagType.DefineMorphShape2, size)
         {

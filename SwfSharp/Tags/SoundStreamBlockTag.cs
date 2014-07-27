@@ -10,6 +10,10 @@ namespace SwfSharp.Tags
     {
         public byte[] StreamSoundData { get; set; }
 
+        public SoundStreamBlockTag() : this(0)
+        {
+        }
+
         public SoundStreamBlockTag(int size)
             : base(TagType.SoundStreamBlock, size)
         {

@@ -10,6 +10,10 @@ namespace SwfSharp.Tags
     {
         public byte[] Uuid { get; set; }
 
+        public DebugIDTag() : this(0)
+        {
+        }
+
         public DebugIDTag(int size)
             : base(TagType.DebugID, size)
         {

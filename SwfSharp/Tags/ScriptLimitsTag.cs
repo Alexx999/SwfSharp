@@ -11,6 +11,10 @@ namespace SwfSharp.Tags
         public ushort MaxRecursionDepth { get; set; }
         public ushort ScriptTimeoutSeconds { get; set; }
 
+        public ScriptLimitsTag() : this(0)
+        {
+        }
+
         public ScriptLimitsTag(int size)
             : base(TagType.ScriptLimits, size)
         {

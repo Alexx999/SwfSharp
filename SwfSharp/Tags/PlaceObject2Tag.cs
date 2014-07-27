@@ -26,6 +26,10 @@ namespace SwfSharp.Tags
         public ushort ClipDepth { get; set; }
         public ClipActionsStruct ClipActions { get; set; }
 
+        public PlaceObject2Tag() : this(0)
+        {
+        }
+
         public PlaceObject2Tag(int size)
             : base(TagType.PlaceObject2, size)
         {

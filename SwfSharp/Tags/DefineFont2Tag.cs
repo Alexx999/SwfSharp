@@ -30,6 +30,10 @@ namespace SwfSharp.Tags
         public ushort KerningCount { get; set; }
         public IList<KerningRecordStruct> FontKerningTable { get; set; }
 
+        public DefineFont2Tag() : this(0)
+        {
+        }
+
         public DefineFont2Tag(int size)
             : base(TagType.DefineFont2, size)
         {

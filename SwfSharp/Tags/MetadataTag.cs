@@ -7,6 +7,10 @@ namespace SwfSharp.Tags
     {
         public string Metadata { get; set; }
 
+        public MetadataTag() : this(0)
+        {
+        }
+
         public MetadataTag(int size)
             : base(TagType.Metadata, size)
         {
@@ -14,7 +18,7 @@ namespace SwfSharp.Tags
 
         internal override void FromStream(BitReader reader, byte swfVersion)
         {
-            Metadata = reader.ReadString(Size);
+            Metadata = reader.ReadString(Size - 1);
         }
 
         internal override void ToStream(BitWriter writer, byte swfVersion)

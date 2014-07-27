@@ -11,6 +11,10 @@ namespace SwfSharp.Tags
         public ushort CharacterID { get; set; }
         public byte[] JPEGData { get; set; }
 
+        public DefineBitsTag() : this(0)
+        {
+        }
+
         public DefineBitsTag(int size)
             : base(TagType.DefineBits, size)
         {

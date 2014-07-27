@@ -10,6 +10,10 @@ namespace SwfSharp.Tags
     {
         public byte[] PasswordHash { get; set; }
 
+        public EnableTelemetryTag() : this(0)
+        {
+        }
+
         public EnableTelemetryTag(int size)
             : base(TagType.EnableTelemetry, size)
         {

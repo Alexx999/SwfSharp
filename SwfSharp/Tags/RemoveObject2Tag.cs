@@ -10,6 +10,10 @@ namespace SwfSharp.Tags
     {
         public ushort Depth { get; set; }
 
+        public RemoveObject2Tag() : this(0)
+        {
+        }
+
         public RemoveObject2Tag(int size)
             : base(TagType.RemoveObject2, size)
         {

@@ -7,6 +7,10 @@ namespace SwfSharp.Tags
 {
     public class DefineShape2Tag : DefineShapeTag
     {
+        public DefineShape2Tag() : this(0)
+        {
+        }
+
         public DefineShape2Tag(int size)
             : base(TagType.DefineShape2, size)
         {

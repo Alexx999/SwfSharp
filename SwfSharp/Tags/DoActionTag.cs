@@ -9,6 +9,10 @@ namespace SwfSharp.Tags
     {
         public IList<ActionRecordStruct> Actions { get; set; }
 
+        public DoActionTag() : this(0)
+        {
+        }
+
         public DoActionTag(int size)
             : base(TagType.DoAction, size)
         {

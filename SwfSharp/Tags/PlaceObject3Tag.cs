@@ -23,6 +23,10 @@ namespace SwfSharp.Tags
         public byte Visible { get; set; }
         public RgbaStruct BackgroundColor { get; set; }
 
+        public PlaceObject3Tag() : this(0)
+        {
+        }
+
         public PlaceObject3Tag(int size)
             : base(TagType.PlaceObject3, size)
         {

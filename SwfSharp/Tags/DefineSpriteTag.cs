@@ -13,6 +13,10 @@ namespace SwfSharp.Tags
         public ushort FrameCount { get; set; }
         public IList<SwfTag> ControlTags { get; set; }
 
+        public DefineSpriteTag() : this(0)
+        {
+        }
+
         public DefineSpriteTag(int size)
             : base(TagType.DefineSprite, size)
         {

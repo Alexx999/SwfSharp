@@ -12,6 +12,10 @@ namespace SwfSharp.Tags
         public string Name { get; set; }
         public bool IsNamedAnchor { get; set; }
 
+        public FrameLabelTag() : this(0)
+        {
+        }
+
         public FrameLabelTag(int size)
             : base(TagType.FrameLabel, size)
         {

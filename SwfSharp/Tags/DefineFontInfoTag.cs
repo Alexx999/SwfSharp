@@ -18,6 +18,9 @@ namespace SwfSharp.Tags
         public bool FontFlagsWideCodes { get; set; }
         public IList<ushort> CodeTable { get; set; }
 
+        public DefineFontInfoTag() : this(0)
+        {
+        }
 
         public DefineFontInfoTag(int size)
             : base(TagType.DefineFontInfo, size)

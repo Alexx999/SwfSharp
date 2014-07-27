@@ -10,6 +10,10 @@ namespace SwfSharp.Tags
     {
         public float DeblockParam { get; set; }
 
+        public DefineBitsJPEG4Tag() : this(0)
+        {
+        }
+
         public DefineBitsJPEG4Tag(int size)
             : base(TagType.DefineBitsJPEG4, size)
         {

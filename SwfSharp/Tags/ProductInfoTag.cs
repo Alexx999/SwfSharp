@@ -15,6 +15,10 @@ namespace SwfSharp.Tags
         public long Build { get; set; }
         public long CompileDate { get; set; }
 
+        public ProductInfoTag() : this(0)
+        {
+        }
+
         public ProductInfoTag(int size)
             : base(TagType.ProductInfo, size)
         {

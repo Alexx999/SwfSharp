@@ -10,6 +10,10 @@ namespace SwfSharp.Tags
     {
         public ushort SpriteID { get; set; }
 
+        public DoInitActionTag() : this(0)
+        {
+        }
+
         public DoInitActionTag(int size)
             : base(TagType.DoInitAction, size)
         {

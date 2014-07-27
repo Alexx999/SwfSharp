@@ -11,6 +11,10 @@ namespace SwfSharp.Tags
         public string URL { get; set; }
         public IList<ImportRecord> Records { get; set; }
 
+        public ImportAssetsTag() : this(0)
+        {
+        }
+
         public ImportAssetsTag(int size)
             : base(TagType.ImportAssets, size)
         {

@@ -22,6 +22,10 @@ namespace SwfSharp.Tags
         public BitmapDataStruct BitmapData { get; set; }
          */
 
+        public DefineBitsLosslessTag() : this(0)
+        {
+        }
+
         public DefineBitsLosslessTag(int size)
             : base(TagType.DefineBitsLossless, size)
         {

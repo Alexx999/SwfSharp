@@ -10,6 +10,10 @@ namespace SwfSharp.Tags
     {
         public ushort CharacterId { get; set; }
 
+        public RemoveObjectTag() : this(0)
+        {
+        }
+
         public RemoveObjectTag(int size)
             : base(TagType.RemoveObject, size)
         {

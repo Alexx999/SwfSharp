@@ -15,6 +15,10 @@ namespace SwfSharp.Tags
         public MatrixStruct TextMatrix { get; set; }
         public IList<TextRecordStruct> TextRecords { get; set; }
 
+        public DefineTextTag() : this(0)
+        {
+        }
+
         public DefineTextTag(int size)
             : base(TagType.DefineText, size)
         {

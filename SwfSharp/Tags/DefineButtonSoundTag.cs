@@ -19,6 +19,10 @@ namespace SwfSharp.Tags
         public ushort ButtonSoundChar3 { get; set; }
         public SoundInfoStruct ButtonSoundInfo3 { get; set; }
 
+        public DefineButtonSoundTag() : this(0)
+        {
+        }
+
         public DefineButtonSoundTag(int size)
             : base(TagType.DefineButtonSound, size)
         {
