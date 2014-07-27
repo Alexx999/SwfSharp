@@ -19,11 +19,13 @@ namespace SwfSharp.Tags
         internal override void FromStream(BitReader reader, byte swfVersion)
         {
             Metadata = reader.ReadString(Size - 1);
+            reader.ReadUI8();
         }
 
         internal override void ToStream(BitWriter writer, byte swfVersion)
         {
             writer.WriteStringBytes(Metadata, swfVersion);
+            writer.WriteUI8(0);
         }
     }
 }
