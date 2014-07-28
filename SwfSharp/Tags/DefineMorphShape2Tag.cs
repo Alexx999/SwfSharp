@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using SwfSharp.Structs;
@@ -33,7 +34,7 @@ namespace SwfSharp.Tags
             reader.ReadBits(6);
             UsesNonScalingStrokes = reader.ReadBoolBit();
             UsesScalingStrokes = reader.ReadBoolBit();
-            Offset = reader.ReadUI32();
+            reader.ReadUI32();
             MorphFillStyles = MorphFillStyleArrayStruct.CreateFromStream(reader);
             MorphLineStyles = MorphLineStyleArrayStruct.CreateFromStream(reader, TagType);
             StartEdges = ShapeStruct.CreateFromStream(reader, TagType);
@@ -42,6 +43,15 @@ namespace SwfSharp.Tags
 
         internal override void ToStream(BitWriter writer, byte swfVersion)
         {
+            uint offset;
+            byte fillbits;
+            byte lineBits;
+            var ms = new MemoryStream();
+            using (var bitWriter = new BitWriter(ms, true))
+            {
+                offset = WriteData(bitWriter, out fillbits, out lineBits);
+            }
+
             writer.WriteUI16(CharacterId);
             StartBounds.ToStream(writer);
             EndBounds.ToStream(writer);
@@ -50,10 +60,8 @@ namespace SwfSharp.Tags
             writer.WriteBits(6, 0);
             writer.WriteBoolBit(UsesNonScalingStrokes);
             writer.WriteBoolBit(UsesScalingStrokes);
-            writer.WriteUI32(Offset);
-            var fillbits = MorphFillStyles.ToStream(writer);
-            var lineBits = MorphLineStyles.ToStream(writer);
-            StartEdges.ToStream(writer, ref fillbits, ref lineBits, TagType);
+            writer.WriteUI32(offset);
+            writer.WriteBytes(ms.GetBuffer(), 0, (int)offset);
             EndEdges.ToStream(writer, ref fillbits, ref lineBits, TagType);
         }
     }
