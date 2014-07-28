@@ -127,9 +127,9 @@ namespace SwfSharp.Tags
         internal override void ToStream(BitWriter writer, byte swfVersion)
         {
             var numGlyphs = (ushort)(GlyphShapeTable == null ? 0 : GlyphShapeTable.Count);
-            var ms = new MemoryStream();
             uint totalSize;
             uint[] offsets;
+            var ms = new MemoryStream();
             using (var glyphWriter = new BitWriter(ms, true))
             {
                 offsets = WriteGlyphData(glyphWriter, numGlyphs, out totalSize);

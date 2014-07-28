@@ -2,17 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
 {
     public class SoundInfoStruct
     {
+        [XmlAttribute]
         public bool SyncStop { get; set; }
+        [XmlAttribute]
         public bool SyncNoMultiple { get; set; }
+        [XmlAttribute]
         public bool HasEnvelope { get; set; }
+        [XmlAttribute]
         public bool HasLoops { get; set; }
+        [XmlAttribute]
         public bool HasOutPoint { get; set; }
+        [XmlAttribute]
         public bool HasInPoint { get; set; }
         public uint InPoint { get; set; }
         public uint OutPoint { get; set; }

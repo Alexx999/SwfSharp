@@ -1,13 +1,20 @@
-﻿using SwfSharp.Tags;
+﻿using System;
+using System.Xml.Serialization;
+using SwfSharp.Tags;
 using SwfSharp.Utils;
 
 namespace SwfSharp.ShapeRecords
 {
+    [Serializable]
     public class CurvedEdgeRecord : ShapeRecord
     {
+        [XmlAttribute]
         public int ControlDeltaX { get; set; }
+        [XmlAttribute]
         public int ControlDeltaY { get; set; }
+        [XmlAttribute]
         public int AnchorDeltaX { get; set; }
+        [XmlAttribute]
         public int AnchorDeltaY { get; set; }
 
         public CurvedEdgeRecord() : base(ShapeRecordType.CurvedEdge)

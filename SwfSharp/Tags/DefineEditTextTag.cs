@@ -14,8 +14,6 @@ namespace SwfSharp.Tags
         public ushort CharacterID { get; set; }
         public RectStruct Bounds { get; set; }
         [XmlAttribute]
-        public bool HasText { get; set; }
-        [XmlAttribute]
         public bool WordWrap { get; set; }
         [XmlAttribute]
         public bool Multiline { get; set; }
@@ -24,17 +22,7 @@ namespace SwfSharp.Tags
         [XmlAttribute]
         public bool ReadOnly { get; set; }
         [XmlAttribute]
-        public bool HasTextColor { get; set; }
-        [XmlAttribute]
-        public bool HasMaxLength { get; set; }
-        [XmlAttribute]
-        public bool HasFont { get; set; }
-        [XmlAttribute]
-        public bool HasFontClass { get; set; }
-        [XmlAttribute]
         public bool AutoSize { get; set; }
-        [XmlAttribute]
-        public bool HasLayout { get; set; }
         [XmlAttribute]
         public bool NoSelect { get; set; }
         [XmlAttribute]
@@ -45,11 +33,11 @@ namespace SwfSharp.Tags
         public bool HTML { get; set; }
         [XmlAttribute]
         public bool UseOutlines { get; set; }
-        public ushort FontID { get; set; }
+        public int FontID { get; set; }
         public string FontClass { get; set; }
         public ushort FontHeight { get; set; }
         public RgbaStruct TextColor { get; set; }
-        public ushort MaxLength { get; set; }
+        public int MaxLength { get; set; }
         public AlignMode Align { get; set; }
         public ushort LeftMargin { get; set; }
         public ushort RightMargin { get; set; }
@@ -65,6 +53,8 @@ namespace SwfSharp.Tags
         public DefineEditTextTag(int size)
             : base(TagType.DefineEditText, size)
         {
+            FontID = -1;
+            MaxLength = -1;
         }
 
         internal override void FromStream(BitReader reader, byte swfVersion)
@@ -72,43 +62,43 @@ namespace SwfSharp.Tags
             CharacterID = reader.ReadUI16();
             Bounds = RectStruct.CreateFromStream(reader);
             reader.Align();
-            HasText = reader.ReadBoolBit();
+            var hasText = reader.ReadBoolBit();
             WordWrap = reader.ReadBoolBit();
             Multiline = reader.ReadBoolBit();
             Password = reader.ReadBoolBit();
             ReadOnly = reader.ReadBoolBit();
-            HasTextColor = reader.ReadBoolBit();
-            HasMaxLength = reader.ReadBoolBit();
-            HasFont = reader.ReadBoolBit();
-            HasFontClass = reader.ReadBoolBit();
+            var hasTextColor = reader.ReadBoolBit();
+            var hasMaxLength = reader.ReadBoolBit();
+            var hasFont = reader.ReadBoolBit();
+            var hasFontClass = reader.ReadBoolBit();
             AutoSize = reader.ReadBoolBit();
-            HasLayout = reader.ReadBoolBit();
+            var hasLayout = reader.ReadBoolBit();
             NoSelect = reader.ReadBoolBit();
             Border = reader.ReadBoolBit();
             WasStatic = reader.ReadBoolBit();
             HTML = reader.ReadBoolBit();
             UseOutlines = reader.ReadBoolBit();
-            if (HasFont)
+            if (hasFont)
             {
                 FontID = reader.ReadUI16();
             }
-            if (HasFontClass)
+            if (hasFontClass)
             {
                 FontClass = reader.ReadString();
             }
-            if (HasFont || HasFontClass)
+            if (hasFont || hasFontClass)
             {
                 FontHeight = reader.ReadUI16();
             }
-            if (HasTextColor)
+            if (hasTextColor)
             {
                 TextColor = RgbaStruct.CreateFromStream(reader);
             }
-            if (HasMaxLength)
+            if (hasMaxLength)
             {
                 MaxLength = reader.ReadUI16();
             }
-            if (HasLayout)
+            if (hasLayout)
             {
                 Align = (AlignMode) reader.ReadUI8();
                 LeftMargin = reader.ReadUI16();
@@ -117,7 +107,7 @@ namespace SwfSharp.Tags
                 Leading = reader.ReadSI16();
             }
             VariableName = reader.ReadString();
-            if (HasText)
+            if (hasText)
             {
                 InitialText = reader.ReadString();
             }
@@ -125,46 +115,54 @@ namespace SwfSharp.Tags
 
         internal override void ToStream(BitWriter writer, byte swfVersion)
         {
+            var hasText = !string.IsNullOrEmpty(InitialText);
+            var hasTextColor = TextColor != null;
+            var hasMaxLength = MaxLength > 0;
+            var hasFont = FontID > 0;
+            var hasFontClass = !string.IsNullOrEmpty(FontClass);
+            var hasLayout = (Align != AlignMode.Left || LeftMargin != 0 || RightMargin != 0 || Indent != 0 ||
+                             Leading != 0);
+
             writer.WriteUI16(CharacterID);
             Bounds.ToStream(writer);
             writer.Align();
-            writer.WriteBoolBit(HasText);
+            writer.WriteBoolBit(hasText);
             writer.WriteBoolBit(WordWrap);
             writer.WriteBoolBit(Multiline);
             writer.WriteBoolBit(Password);
             writer.WriteBoolBit(ReadOnly);
-            writer.WriteBoolBit(HasTextColor);
-            writer.WriteBoolBit(HasMaxLength);
-            writer.WriteBoolBit(HasFont);
-            writer.WriteBoolBit(HasFontClass);
+            writer.WriteBoolBit(hasTextColor);
+            writer.WriteBoolBit(hasMaxLength);
+            writer.WriteBoolBit(hasFont);
+            writer.WriteBoolBit(hasFontClass);
             writer.WriteBoolBit(AutoSize);
-            writer.WriteBoolBit(HasLayout);
+            writer.WriteBoolBit(hasLayout);
             writer.WriteBoolBit(NoSelect);
             writer.WriteBoolBit(Border);
             writer.WriteBoolBit(WasStatic);
             writer.WriteBoolBit(HTML);
             writer.WriteBoolBit(UseOutlines);
-            if (HasFont)
+            if (hasFont)
             {
-                writer.WriteUI16(FontID);
+                writer.WriteUI16((ushort) FontID);
             }
-            if (HasFontClass)
+            if (hasFontClass)
             {
                 writer.WriteString(FontClass, swfVersion);
             }
-            if (HasFont || HasFontClass)
+            if (hasFont || hasFontClass)
             {
                 writer.WriteUI16(FontHeight);
             }
-            if (HasTextColor)
+            if (hasTextColor)
             {
                 TextColor.ToStream(writer);
             }
-            if (HasMaxLength)
+            if (hasMaxLength)
             {
-                writer.WriteUI16(MaxLength);
+                writer.WriteUI16((ushort) MaxLength);
             }
-            if (HasLayout)
+            if (hasLayout)
             {
                 writer.WriteUI8((byte)Align);
                 writer.WriteUI16(LeftMargin);
@@ -173,7 +171,7 @@ namespace SwfSharp.Tags
                 writer.WriteSI16(Leading);
             }
             writer.WriteString(VariableName, swfVersion);
-            if (HasText)
+            if (hasText)
             {
                 writer.WriteString(InitialText, swfVersion);
             }

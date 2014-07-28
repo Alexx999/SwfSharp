@@ -25,6 +25,7 @@ namespace SwfSharp.Tags
         public bool FontFlagsBold { get; set; }
         [XmlAttribute]
         public bool FontFlagsWideCodes { get; set; }
+        [XmlArrayItem("Code")]
         public List<ushort> CodeTable { get; set; }
 
         public DefineFontInfoTag() : this(0)

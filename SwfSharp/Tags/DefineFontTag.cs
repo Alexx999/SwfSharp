@@ -13,7 +13,6 @@ namespace SwfSharp.Tags
     {
         [XmlAttribute]
         public ushort FontID { get; set; }
-        public List<ushort> OffsetTable { get; set; }
         public List<ShapeStruct> GlyphShapeTable { get; set; }
 
         public DefineFontTag() : this(0)
@@ -30,11 +29,7 @@ namespace SwfSharp.Tags
             FontID = reader.ReadUI16();
             var firstOffset = reader.ReadUI16();
             var nGlyphs = firstOffset/2;
-            OffsetTable = new List<ushort>(nGlyphs) {firstOffset};
-            for (int i = 1; i < nGlyphs; i++)
-            {
-                OffsetTable.Add(reader.ReadUI16());
-            }
+            reader.ReadBytes((nGlyphs-1)*2);
             GlyphShapeTable = new List<ShapeStruct>(nGlyphs);
             for (int i = 0; i < nGlyphs; i++)
             {

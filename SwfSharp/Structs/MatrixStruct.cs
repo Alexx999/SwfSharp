@@ -8,27 +8,31 @@ namespace SwfSharp.Structs
 {
     public class MatrixStruct
     {
-        public bool HasScale { get; set; }
         public double ScaleX { get; set; }
         public double ScaleY { get; set; }
-        public bool HasRotate { get; set; }
         public double RotateSkew0 { get; set; }
         public double RotateSkew1 { get; set; }
         public int TranslateX { get; set; }
         public int TranslateY { get; set; }
 
+        public MatrixStruct()
+        {
+            ScaleX = 1;
+            ScaleY = 1;
+        }
+
         private void FromStream(BitReader reader)
         {
             reader.Align();
-            HasScale = reader.ReadBoolBit();
-            if (HasScale)
+            var hasScale = reader.ReadBoolBit();
+            if (hasScale)
             {
                 var scaleBits = reader.ReadBits(5);
                 ScaleX = reader.ReadFBits(scaleBits);
                 ScaleY = reader.ReadFBits(scaleBits);
             }
-            HasRotate = reader.ReadBoolBit();
-            if (HasRotate)
+            var hasRotate = reader.ReadBoolBit();
+            if (hasRotate)
             {
                 var rotateBits = reader.ReadBits(5);
                 RotateSkew0 = reader.ReadFBits(rotateBits);
@@ -51,13 +55,15 @@ namespace SwfSharp.Structs
         internal void ToStream(BitWriter writer)
         {
             writer.Align();
-            writer.WriteBoolBit(HasScale);
-            if (HasScale)
+            var hasScale = (ScaleX != 1) || (ScaleY != 1);
+            writer.WriteBoolBit(hasScale);
+            if (hasScale)
             {
                 writer.WriteBitSizeAndData(5, new[] { ScaleX, ScaleY });
             }
-            writer.WriteBoolBit(HasRotate);
-            if (HasRotate)
+            var hasRotate = (RotateSkew0 != 0) || (RotateSkew1 != 0);
+            writer.WriteBoolBit(hasRotate);
+            if (hasRotate)
             {
                 writer.WriteBitSizeAndData(5, new[] { RotateSkew0, RotateSkew1 });
             }

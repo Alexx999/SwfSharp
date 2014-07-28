@@ -9,6 +9,7 @@ namespace SwfSharp.Tags
 {
     public class SymbolClassTag : SwfTag
     {
+        [XmlElement("Symbol")]
         public List<Symbol> Symbols { get; set; }
 
         public SymbolClassTag() : this(0)

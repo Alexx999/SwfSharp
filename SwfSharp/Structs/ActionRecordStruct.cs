@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
 {
     public class ActionRecordStruct
     {
+        [XmlAttribute]
         public byte ActionCode { get; set; }
         public byte[] Data { get; set; }
 
