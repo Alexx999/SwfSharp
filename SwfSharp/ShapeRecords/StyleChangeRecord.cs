@@ -6,22 +6,27 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.ShapeRecords
 {
+    [Serializable]
     public class StyleChangeRecord : ShapeRecord
     {
-        [XmlIgnore]
-        public NonEdgeFlags Flags { get; set; }
+        private NonEdgeFlags Flags { get; set; }
+        [XmlAttribute]
         public int MoveDeltaX { get; set; }
+        [XmlAttribute]
         public int MoveDeltaY { get; set; }
+        [XmlAttribute]
         public uint FillStyle0 { get; set; }
+        [XmlAttribute]
         public uint FillStyle1 { get; set; }
+        [XmlAttribute]
         public uint LineStyle { get; set; }
         public FillStyleArray FillStyles { get; set; }
         public LineStyleArray LineStyles { get; set; }
 
-        private StyleChangeRecord() : this(null)
+        public StyleChangeRecord() : this(new NonEdgeFlags())
         {}
 
-        public StyleChangeRecord(NonEdgeFlags nonEdgeFlags) : base(ShapeRecordType.StyleChange)
+        private StyleChangeRecord(NonEdgeFlags nonEdgeFlags) : base(ShapeRecordType.StyleChange)
         {
             Flags = nonEdgeFlags;
         }
@@ -69,6 +74,16 @@ namespace SwfSharp.ShapeRecords
 
         internal override void ToStream(BitWriter writer, ref byte numFillBits, ref byte numLineBits, TagType type)
         {
+            var canHaveNewStyles = type == TagType.DefineShape2 || type == TagType.DefineShape3 ||
+                                type == TagType.DefineShape4;
+
+            Flags.StateMoveTo = (MoveDeltaX != 0) || (MoveDeltaY != 0);
+            Flags.StateFillStyle0 = FillStyle0 != 0;
+            Flags.StateFillStyle1 = FillStyle1 != 0;
+            Flags.StateLineStyle = LineStyle != 0;
+            Flags.StateNewStyles = canHaveNewStyles && LineStyles != null && FillStyles != null &&
+                                   ((LineStyles.LineStyles.Count > 0) || (FillStyles.FillStyles.Count > 0));
+
             writer.WriteBits(1, 0);
             Flags.ToStream(writer);
 
@@ -88,9 +103,7 @@ namespace SwfSharp.ShapeRecords
             {
                 writer.WriteBits(numLineBits, LineStyle);
             }
-            var canHaveNewStyles = type == TagType.DefineShape2 || type == TagType.DefineShape3 ||
-                                type == TagType.DefineShape4;
-            if (canHaveNewStyles && Flags.StateNewStyles)
+            if (Flags.StateNewStyles)
             {
                 numFillBits = FillStyles.ToStream(writer, type);
                 numLineBits = LineStyles.ToStream(writer, type);

@@ -1,8 +1,10 @@
-﻿using SwfSharp.Tags;
+﻿using System;
+using SwfSharp.Tags;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
 {
+    [Serializable]
     public class GradRecordStruct
     {
         public byte Ratio { get; set; }

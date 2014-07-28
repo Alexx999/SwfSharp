@@ -6,6 +6,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
+    [Serializable]
     public class EnableTelemetryTag : SwfTag
     {
         public byte[] PasswordHash { get; set; }

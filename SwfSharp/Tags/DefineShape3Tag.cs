@@ -5,6 +5,7 @@ using System.Text;
 
 namespace SwfSharp.Tags
 {
+    [Serializable]
     public class DefineShape3Tag : DefineShape2Tag
     {
         public DefineShape3Tag() : this(0)

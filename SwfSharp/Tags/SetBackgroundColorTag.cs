@@ -1,8 +1,10 @@
-﻿using SwfSharp.Structs;
+﻿using System;
+using SwfSharp.Structs;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
+    [Serializable]
     public class SetBackgroundColorTag : SwfTag
     {
         public RgbStruct BackgroundColor { get; set; }

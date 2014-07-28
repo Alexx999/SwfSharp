@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
 {
+    [Serializable]
     public class ClipActionsStruct
     {
         public ClipEventFlagsStruct AllEventFlags { get; set; }

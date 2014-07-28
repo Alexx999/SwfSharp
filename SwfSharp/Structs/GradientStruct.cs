@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using SwfSharp.Tags;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
 {
+    [Serializable]
     public class GradientStruct
     {
         public SpreadMode SpreadMode { get; set; }

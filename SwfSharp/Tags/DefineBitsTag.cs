@@ -7,6 +7,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
+    [Serializable]
     public class DefineBitsTag : SwfTag
     {
         [XmlAttribute]

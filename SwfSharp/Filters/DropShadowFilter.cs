@@ -7,6 +7,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Filters
 {
+    [Serializable]
     public class DropShadowFilter : BlurFilter
     {
         public RgbaStruct DropShadowColor { get; set; }

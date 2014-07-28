@@ -7,6 +7,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
+    [Serializable]
     public class DefineBitsJPEG4Tag : DefineBitsJPEG3Tag
     {
         [XmlAttribute]

@@ -6,6 +6,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
 {
+    [Serializable]
     public class KerningRecordStruct
     {
         public ushort FontKerningCode1 { get; set; }

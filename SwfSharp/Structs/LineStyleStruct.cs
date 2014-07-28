@@ -7,6 +7,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
 {
+    [Serializable]
     public class LineStyleStruct
     {
         public ushort Width { get; set; }

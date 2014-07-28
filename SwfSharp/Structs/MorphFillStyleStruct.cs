@@ -7,6 +7,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
 {
+    [Serializable]
     public class MorphFillStyleStruct
     {
         public FillStyle FillStyleType { get; set; }

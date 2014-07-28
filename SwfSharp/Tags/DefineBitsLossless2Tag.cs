@@ -10,12 +10,13 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
+    [Serializable]
     public class DefineBitsLossless2Tag : SwfTag
     {
         [XmlAttribute]
         public ushort CharacterID { get; set; }
         [XmlAttribute]
-        public BitmapFormatType BitmapFormat { get; set; }
+        public BitmapFormatType2 BitmapFormat { get; set; }
         [XmlAttribute]
         public ushort BitmapWidth { get; set; }
         [XmlAttribute]
@@ -40,10 +41,10 @@ namespace SwfSharp.Tags
         internal override void FromStream(BitReader reader, byte swfVersion)
         {
             CharacterID = reader.ReadUI16();
-            BitmapFormat = (BitmapFormatType)reader.ReadUI8();
+            BitmapFormat = (BitmapFormatType2)reader.ReadUI8();
             BitmapWidth = reader.ReadUI16();
             BitmapHeight = reader.ReadUI16();
-            if (BitmapFormat == BitmapFormatType.Colormap8)
+            if (BitmapFormat == BitmapFormatType2.Colormap8)
             {
                 BitmapColorTableSize = reader.ReadUI8();
             }
@@ -74,14 +75,14 @@ namespace SwfSharp.Tags
             writer.WriteUI8((byte)BitmapFormat);
             writer.WriteUI16(BitmapWidth);
             writer.WriteUI16(BitmapHeight);
-            if (BitmapFormat == BitmapFormatType.Colormap8)
+            if (BitmapFormat == BitmapFormatType2.Colormap8)
             {
                 writer.WriteUI8(BitmapColorTableSize);
             }
             writer.WriteBytes(ZlibBitmapData);
         }
 
-        public enum BitmapFormatType : byte
+        public enum BitmapFormatType2 : byte
         {
             Colormap8 = 3,
             ARGB32 = 5

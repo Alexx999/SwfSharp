@@ -7,6 +7,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.ShapeRecords
 {
+    [Serializable]
     class ShapeRecordFactory
     {
 

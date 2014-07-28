@@ -5,6 +5,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.ShapeRecords
 {
+    [Serializable]
     public class StraightEdgeRecord : ShapeRecord
     {
         [XmlAttribute]

@@ -7,6 +7,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Filters
 {
+    [Serializable]
     public abstract class GradientGlowAndBevelFilter
     {
         public List<RgbaStruct> GradientColors { get; set; }

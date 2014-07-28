@@ -6,6 +6,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
+    [Serializable]
     public class DoInitActionTag : DoActionTag
     {
         public ushort SpriteID { get; set; }

@@ -7,6 +7,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
+    [Serializable]
     public class DefineShape4Tag : DefineShape3Tag
     {
         public RectStruct EdgeBounds { get; set; }

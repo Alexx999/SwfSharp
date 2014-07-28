@@ -6,6 +6,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
 {
+    [Serializable]
     public class FilterListStruct
     {
         public List<FilterStruct> Filter { get; set; } 

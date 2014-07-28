@@ -7,6 +7,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
 {
+    [Serializable]
     public class ClipActionRecordStruct
     {
         public ClipEventFlagsStruct EventFlags { get; set; }

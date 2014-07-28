@@ -7,6 +7,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Filters
 {
+    [Serializable]
     public class BevelFilter : BlurFilter
     {
         public RgbaStruct ShadowColor { get; set; }

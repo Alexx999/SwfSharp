@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
+    [Serializable]
     public class ExportAssetsTag : SwfTag
     {
         public List<ExportRecord> Records { get; set; }
@@ -37,10 +40,17 @@ namespace SwfSharp.Tags
             }
         }
 
+        [Serializable]
         public class ExportRecord
         {
+            [XmlAttribute]
             public ushort Tag { get; set; }
+            [XmlAttribute]
             public string Name { get; set; }
+
+            private ExportRecord()
+            {}
+
             public ExportRecord(ushort tag, string name)
             {
                 Tag = tag;

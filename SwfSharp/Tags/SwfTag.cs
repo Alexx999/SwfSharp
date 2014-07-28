@@ -1,8 +1,10 @@
-﻿using System.Xml.Serialization;
+﻿using System;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
+    [Serializable]
     public abstract class SwfTag
     {
         protected SwfTag(TagType tagType, int size)

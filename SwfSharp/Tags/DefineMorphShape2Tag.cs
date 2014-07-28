@@ -9,6 +9,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
+    [Serializable]
     public class DefineMorphShape2Tag : DefineMorphShapeTag
     {
         public RectStruct StartEdgeBounds { get; set; }

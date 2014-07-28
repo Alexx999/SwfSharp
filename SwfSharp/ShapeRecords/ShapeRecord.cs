@@ -12,6 +12,7 @@ namespace SwfSharp.ShapeRecords
     [XmlInclude(typeof(StyleChangeRecord))]
     [XmlInclude(typeof(StraightEdgeRecord))]
     [XmlInclude(typeof(CurvedEdgeRecord))]
+    [Serializable]
     public abstract class ShapeRecord
     {
         [XmlIgnore]

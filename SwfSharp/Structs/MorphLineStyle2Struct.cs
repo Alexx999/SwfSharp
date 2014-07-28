@@ -6,6 +6,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
 {
+    [Serializable]
     class MorphLineStyle2Struct : MorphLineStyleStruct
     {
         public CapStyle StartCapStyle { get; set; }

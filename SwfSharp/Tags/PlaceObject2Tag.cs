@@ -8,6 +8,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
+    [Serializable]
     public class PlaceObject2Tag : SwfTag
     {
         [XmlAttribute]

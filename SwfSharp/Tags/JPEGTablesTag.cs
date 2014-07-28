@@ -6,6 +6,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
+    [Serializable]
     public class JPEGTablesTag : SwfTag
     {
         public byte[] JPEGData { get; set; }

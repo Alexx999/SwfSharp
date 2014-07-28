@@ -1,8 +1,10 @@
-﻿using SwfSharp.Tags;
+﻿using System;
+using SwfSharp.Tags;
 using SwfSharp.Utils;
 
 namespace SwfSharp.ShapeRecords
 {
+    [Serializable]
     public class EndShapeRecord : ShapeRecord
     {
         public EndShapeRecord() : base(ShapeRecordType.EndShape)

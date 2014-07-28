@@ -7,6 +7,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
 {
+    [Serializable]
     public class LineStyle2Struct : LineStyleStruct
     {
         public CapStyle StartCapStyle { get; set; }

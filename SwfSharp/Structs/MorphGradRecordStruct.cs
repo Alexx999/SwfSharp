@@ -1,7 +1,9 @@
-﻿using SwfSharp.Utils;
+﻿using System;
+using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
 {
+    [Serializable]
     public class MorphGradRecordStruct
     {
         public byte StartRatio { get; set; }

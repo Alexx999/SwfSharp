@@ -5,6 +5,7 @@ using System.Text;
 
 namespace SwfSharp.Tags
 {
+    [Serializable]
     public class SoundStreamHead2Tag : SoundStreamHeadTag
     {
         public SoundStreamHead2Tag() : this(0)

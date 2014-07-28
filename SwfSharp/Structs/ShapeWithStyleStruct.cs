@@ -7,6 +7,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
 {
+    [Serializable]
     public class ShapeWithStyleStruct : ShapeStruct
     {
         public FillStyleArray FillStyles { get; set; }

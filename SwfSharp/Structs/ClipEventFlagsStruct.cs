@@ -3,6 +3,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
 {
+    [Serializable]
     public class ClipEventFlagsStruct
     {
         public bool ClipEventKeyUp { get; set; }

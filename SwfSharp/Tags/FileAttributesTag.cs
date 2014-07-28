@@ -7,6 +7,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
+    [Serializable]
     public class FileAttributesTag : SwfTag
     {
         public FileAttributesTag()

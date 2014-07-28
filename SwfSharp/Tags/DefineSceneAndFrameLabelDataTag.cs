@@ -7,6 +7,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
+    [Serializable]
     public class DefineSceneAndFrameLabelDataTag : SwfTag
     {
         public List<SceneData> Scenes { get; set; }
@@ -53,6 +54,7 @@ namespace SwfSharp.Tags
             }
         }
 
+        [Serializable]
         public class SceneData
         {
             [XmlAttribute]
@@ -70,6 +72,7 @@ namespace SwfSharp.Tags
             }
         }
 
+        [Serializable]
         public class FrameData
         {
             [XmlAttribute]

@@ -8,6 +8,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp
 {
+    [Serializable]
     public class SwfHeader
     {
         public byte Version { get; set; }

@@ -1,7 +1,9 @@
+using System;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
 {
+    [Serializable]
     public class GlyphEntryStruct
     {
         public uint GlyphIndex { get; set; }

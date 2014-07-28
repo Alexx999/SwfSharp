@@ -1,7 +1,9 @@
-﻿using SwfSharp.Utils;
+﻿using System;
+using SwfSharp.Utils;
 
 namespace SwfSharp.ShapeRecords
 {
+    [Serializable]
     public class NonEdgeFlags
     {
         public bool StateNewStyles { get; set; }

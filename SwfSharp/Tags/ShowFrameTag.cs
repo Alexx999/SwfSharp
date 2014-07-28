@@ -6,6 +6,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
+    [Serializable]
     public class ShowFrameTag : SwfTag
     {
         public ShowFrameTag() : this(0)

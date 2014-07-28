@@ -8,6 +8,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
 {
+    [Serializable]
     public class AlphaBitmapDataStruct
     {
         public List<ArgbStruct> BitmapPixelData { get; set; }

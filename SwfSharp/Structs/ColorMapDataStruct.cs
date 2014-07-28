@@ -6,6 +6,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
 {
+    [Serializable]
     public class ColorMapDataStruct
     {
         public List<RgbStruct> ColorTableRGB { get; set; }

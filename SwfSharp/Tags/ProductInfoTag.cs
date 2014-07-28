@@ -6,6 +6,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
+    [Serializable]
     public class ProductInfoTag : SwfTag
     {
         public ProductInfoProduct Product { get; set; }

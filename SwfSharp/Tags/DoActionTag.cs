@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using SwfSharp.Structs;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
+    [Serializable]
     public class DoActionTag : SwfTag
     {
         public List<ActionRecordStruct> Actions { get; set; }

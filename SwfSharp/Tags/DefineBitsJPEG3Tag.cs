@@ -6,6 +6,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
+    [Serializable]
     public class DefineBitsJPEG3Tag : DefineBitsJPEG2Tag
     {
         public byte[] BitmapAlphaData { get; set; }

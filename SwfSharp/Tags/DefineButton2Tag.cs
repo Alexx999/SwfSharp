@@ -9,6 +9,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
+    [Serializable]
     public class DefineButton2Tag : SwfTag
     {
         [XmlAttribute]

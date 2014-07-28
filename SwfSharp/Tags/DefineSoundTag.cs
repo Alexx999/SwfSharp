@@ -8,6 +8,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
+    [Serializable]
     public class DefineSoundTag : SwfTag
     {
         [XmlAttribute]

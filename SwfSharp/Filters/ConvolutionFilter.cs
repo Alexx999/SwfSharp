@@ -7,6 +7,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Filters
 {
+    [Serializable]
     public class ConvolutionFilter
     {
         public byte MatrixX { get; set; }

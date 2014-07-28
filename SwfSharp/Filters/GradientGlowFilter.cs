@@ -7,6 +7,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Filters
 {
+    [Serializable]
     public class GradientGlowFilter : GradientGlowAndBevelFilter
     {
         internal static GradientGlowFilter CreateFromStream(BitReader reader)

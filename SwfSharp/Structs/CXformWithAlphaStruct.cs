@@ -3,6 +3,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
 {
+    [Serializable]
     public class CXformWithAlphaStruct : CXformStruct
     {
         public int AlphaMultTerm { get; set; }

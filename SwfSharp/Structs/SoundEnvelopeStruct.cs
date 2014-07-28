@@ -1,7 +1,9 @@
-﻿using SwfSharp.Utils;
+﻿using System;
+using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
 {
+    [Serializable]
     public class SoundEnvelopeStruct
     {
         public uint Pos44 { get; set; }

@@ -10,12 +10,13 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
 {
+    [Serializable]
     public class ShapeStruct
     {
-        [XmlArrayItem("EndShapeRecord", typeof(EndShapeRecord))]
-        [XmlArrayItem("StyleChangeRecord", typeof(StyleChangeRecord))]
-        [XmlArrayItem("StraightEdgeRecord", typeof(StraightEdgeRecord))]
-        [XmlArrayItem("CurvedEdgeRecord", typeof(CurvedEdgeRecord))]
+        [XmlArrayItem("EndShape", typeof(EndShapeRecord))]
+        [XmlArrayItem("StyleChange", typeof(StyleChangeRecord))]
+        [XmlArrayItem("StraightEdge", typeof(StraightEdgeRecord))]
+        [XmlArrayItem("CurvedEdge", typeof(CurvedEdgeRecord))]
         public List<ShapeRecord> ShapeRecords { get; set; }
 
         internal virtual void FromStream(BitReader reader, TagType type)

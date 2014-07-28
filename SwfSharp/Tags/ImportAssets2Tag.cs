@@ -6,6 +6,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
+    [Serializable]
     public class ImportAssets2Tag : ImportAssetsTag
     {
         public ImportAssets2Tag() : this(0)

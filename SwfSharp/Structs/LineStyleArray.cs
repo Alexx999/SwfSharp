@@ -7,6 +7,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
 {
+    [Serializable]
     public class LineStyleArray
     {
         public List<LineStyleStruct> LineStyles { get; set; }

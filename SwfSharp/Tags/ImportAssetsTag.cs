@@ -7,6 +7,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
+    [Serializable]
     public class ImportAssetsTag : SwfTag
     {
         [XmlAttribute]
@@ -52,10 +53,15 @@ namespace SwfSharp.Tags
             }
         }
 
+        [Serializable]
         public class ImportRecord
         {
             public ushort Tag { get; set; }
             public string Name { get; set; }
+
+            private ImportRecord()
+            {}
+
             public ImportRecord(ushort tag, string name)
             {
                 Tag = tag;

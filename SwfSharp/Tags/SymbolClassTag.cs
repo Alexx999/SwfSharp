@@ -7,6 +7,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
+    [Serializable]
     public class SymbolClassTag : SwfTag
     {
         [XmlElement("Symbol")]
@@ -41,9 +42,14 @@ namespace SwfSharp.Tags
             }
         }
 
-
+        [Serializable]
         public class Symbol
         {
+            [XmlAttribute]
+            public ushort TagId { get; set; }
+            [XmlAttribute]
+            public string Name { get; set; }
+
             private Symbol()
             {}
 
@@ -52,11 +58,6 @@ namespace SwfSharp.Tags
                 TagId = tagId;
                 Name = name;
             }
-            
-            [XmlAttribute]
-            public ushort TagId { get; set; }
-            [XmlAttribute]
-            public string Name { get; set; }
         }
     }
 }

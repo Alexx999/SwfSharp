@@ -6,6 +6,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Filters
 {
+    [Serializable]
     public class BlurFilter
     {
         public double BlurX { get; set; }
