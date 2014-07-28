@@ -244,7 +244,12 @@ namespace SwfSharp.Utils
         public string ReadSizeString()
         {
             var size = ReadUI8();
-            return ReadString(size);
+            var str = ReadString(size);
+            if (str.Last() == '\0')
+            {
+                return str.Substring(0, str.Length - 1);
+            }
+            return str;
         }
 
         public void Close()

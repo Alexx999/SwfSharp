@@ -45,6 +45,7 @@ namespace SwfSharp.Tags
         public short Leading { get; set; }
         public string VariableName { get; set; }
         public string InitialText { get; set; }
+        internal bool HasLayout { get; set; }
 
         public DefineEditTextTag() : this(0)
         {
@@ -72,7 +73,7 @@ namespace SwfSharp.Tags
             var hasFont = reader.ReadBoolBit();
             var hasFontClass = reader.ReadBoolBit();
             AutoSize = reader.ReadBoolBit();
-            var hasLayout = reader.ReadBoolBit();
+            HasLayout = reader.ReadBoolBit();
             NoSelect = reader.ReadBoolBit();
             Border = reader.ReadBoolBit();
             WasStatic = reader.ReadBoolBit();
@@ -98,7 +99,7 @@ namespace SwfSharp.Tags
             {
                 MaxLength = reader.ReadUI16();
             }
-            if (hasLayout)
+            if (HasLayout)
             {
                 Align = (AlignMode) reader.ReadUI8();
                 LeftMargin = reader.ReadUI16();
@@ -117,11 +118,9 @@ namespace SwfSharp.Tags
         {
             var hasText = !string.IsNullOrEmpty(InitialText);
             var hasTextColor = TextColor != null;
-            var hasMaxLength = MaxLength > 0;
-            var hasFont = FontID > 0;
+            var hasMaxLength = MaxLength != -1;
+            var hasFont = FontID != -1;
             var hasFontClass = !string.IsNullOrEmpty(FontClass);
-            var hasLayout = (Align != AlignMode.Left || LeftMargin != 0 || RightMargin != 0 || Indent != 0 ||
-                             Leading != 0);
 
             writer.WriteUI16(CharacterID);
             Bounds.ToStream(writer);
@@ -136,7 +135,7 @@ namespace SwfSharp.Tags
             writer.WriteBoolBit(hasFont);
             writer.WriteBoolBit(hasFontClass);
             writer.WriteBoolBit(AutoSize);
-            writer.WriteBoolBit(hasLayout);
+            writer.WriteBoolBit(HasLayout);
             writer.WriteBoolBit(NoSelect);
             writer.WriteBoolBit(Border);
             writer.WriteBoolBit(WasStatic);
@@ -162,7 +161,7 @@ namespace SwfSharp.Tags
             {
                 writer.WriteUI16((ushort) MaxLength);
             }
-            if (hasLayout)
+            if (HasLayout)
             {
                 writer.WriteUI8((byte)Align);
                 writer.WriteUI16(LeftMargin);

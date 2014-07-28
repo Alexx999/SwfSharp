@@ -1,12 +1,17 @@
-﻿using SwfSharp.Utils;
+﻿using System.Xml.Serialization;
+using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
 {
     public class RectStruct
     {
+        [XmlAttribute]
         public int Xmin { get; set; }
+        [XmlAttribute]
         public int Xmax { get; set; }
+        [XmlAttribute]
         public int Ymin { get; set; }
+        [XmlAttribute]
         public int Ymax { get; set; }
 
         private void FromStream(BitReader reader)

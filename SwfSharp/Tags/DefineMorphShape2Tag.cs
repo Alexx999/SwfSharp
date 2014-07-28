@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Structs;
 using SwfSharp.Utils;
 
@@ -12,7 +13,9 @@ namespace SwfSharp.Tags
     {
         public RectStruct StartEdgeBounds { get; set; }
         public RectStruct EndEdgeBounds { get; set; }
+        [XmlAttribute]
         public bool UsesNonScalingStrokes { get; set; }
+        [XmlAttribute]
         public bool UsesScalingStrokes { get; set; }
 
         public DefineMorphShape2Tag() : this(0)

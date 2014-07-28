@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml.Serialization;
 using SwfSharp.Structs;
 using SwfSharp.Tags;
 using SwfSharp.Utils;
@@ -7,6 +8,7 @@ namespace SwfSharp.ShapeRecords
 {
     public class StyleChangeRecord : ShapeRecord
     {
+        [XmlIgnore]
         public NonEdgeFlags Flags { get; set; }
         public int MoveDeltaX { get; set; }
         public int MoveDeltaY { get; set; }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
@@ -54,26 +55,36 @@ namespace SwfSharp.Tags
 
         public class SceneData
         {
+            [XmlAttribute]
+            public uint Offset { get; set; }
+            [XmlAttribute]
+            public string Name { get; set; }
+
+            private SceneData()
+            {}
+
             public SceneData(uint offset, string name)
             {
                 Offset = offset;
                 Name = name;
             }
-
-            public uint Offset { get; set; }
-            public string Name { get; set; }
         }
 
         public class FrameData
         {
+            [XmlAttribute]
+            public uint FrameNum { get; set; }
+            [XmlAttribute]
+            public string FrameLabel { get; set; }
+
+            private FrameData()
+            {}
+
             public FrameData(uint frameNum, string frameLabel)
             {
                 FrameNum = frameNum;
                 FrameLabel = frameLabel;
             }
-
-            public uint FrameNum { get; set; }
-            public string FrameLabel { get; set; }
         }
     }
 }
