@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Structs;
 using SwfSharp.Utils;
 
@@ -10,10 +11,11 @@ namespace SwfSharp.Tags
 {
     public class DefineTextTag : SwfTag
     {
+        [XmlAttribute]
         public ushort CharacterID { get; set; }
         public RectStruct TextBounds { get; set; }
         public MatrixStruct TextMatrix { get; set; }
-        public IList<TextRecordStruct> TextRecords { get; set; }
+        public List<TextRecordStruct> TextRecords { get; set; }
 
         public DefineTextTag() : this(0)
         {

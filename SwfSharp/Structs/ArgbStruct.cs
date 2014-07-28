@@ -1,12 +1,17 @@
-﻿using SwfSharp.Utils;
+﻿using System.Xml.Serialization;
+using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
 {
     public class ArgbStruct
     {
+        [XmlAttribute]
         public byte A { get; set; }
+        [XmlAttribute]
         public byte R { get; set; }
+        [XmlAttribute]
         public byte G { get; set; }
+        [XmlAttribute]
         public byte B { get; set; }
 
         private void FromStream(BitReader reader)

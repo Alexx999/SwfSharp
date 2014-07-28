@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
     public class RemoveObjectTag : RemoveObject2Tag
     {
+        [XmlAttribute]
         public ushort CharacterId { get; set; }
 
         public RemoveObjectTag() : this(0)

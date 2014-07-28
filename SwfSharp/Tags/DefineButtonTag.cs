@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Structs;
 using SwfSharp.Utils;
 
@@ -10,8 +11,9 @@ namespace SwfSharp.Tags
 {
     public class DefineButtonTag : DoActionTag
     {
+        [XmlAttribute]
         public ushort ButtonId { get; set; }
-        public IList<ButtonRecordStruct> Characters { get; set; }
+        public List<ButtonRecordStruct> Characters { get; set; }
 
         public DefineButtonTag() : this(0)
         {

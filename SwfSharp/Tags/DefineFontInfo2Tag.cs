@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
     public class DefineFontInfo2Tag : DefineFontInfoTag
     {
+        [XmlAttribute]
         public byte LanguageCode { get; set; }
 
         public DefineFontInfo2Tag() : this(0)

@@ -10,7 +10,7 @@ namespace SwfSharp.Structs
 {
     public class BitmapDataStruct
     {
-        public IList<RgbStruct> BitmapPixelData { get; set; }
+        public List<RgbStruct> BitmapPixelData { get; set; }
 
         private void FromStream(BitReader reader, DefineBitsLosslessTag.BitmapFormatType bitmapFormat, int width, int height)
         {

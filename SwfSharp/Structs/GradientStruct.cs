@@ -8,7 +8,7 @@ namespace SwfSharp.Structs
     {
         public SpreadMode SpreadMode { get; set; }
         public InterpolationMode InterpolationMode { get; set; }
-        public IList<GradRecordStruct> GradientRecords { get; set; }
+        public List<GradRecordStruct> GradientRecords { get; set; }
 
         internal virtual void FromStream(BitReader reader, TagType type)
         {

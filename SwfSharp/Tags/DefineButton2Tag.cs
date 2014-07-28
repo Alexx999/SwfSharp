@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Structs;
 using SwfSharp.Utils;
 
@@ -10,10 +11,12 @@ namespace SwfSharp.Tags
 {
     public class DefineButton2Tag : SwfTag
     {
+        [XmlAttribute]
         public ushort ButtonId { get; set; }
+        [XmlAttribute]
         public bool TrackAsMenu { get; set; }
-        public IList<ButtonRecordStruct> Characters { get; set; }
-        public IList<ButtonCondActionStruct> Actions { get; set; }
+        public List<ButtonRecordStruct> Characters { get; set; }
+        public List<ButtonCondActionStruct> Actions { get; set; }
 
         public DefineButton2Tag() : this(0)
         {

@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
     public class DefineBitsJPEG4Tag : DefineBitsJPEG3Tag
     {
+        [XmlAttribute]
         public float DeblockParam { get; set; }
 
         public DefineBitsJPEG4Tag() : this(0)

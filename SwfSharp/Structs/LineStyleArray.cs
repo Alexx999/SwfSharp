@@ -9,7 +9,7 @@ namespace SwfSharp.Structs
 {
     public class LineStyleArray
     {
-        public IList<LineStyleStruct> LineStyles { get; set; }
+        public List<LineStyleStruct> LineStyles { get; set; }
 
         private void FromStream(BitReader reader, TagType type)
         {

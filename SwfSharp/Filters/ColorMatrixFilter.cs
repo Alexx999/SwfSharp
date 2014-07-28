@@ -8,7 +8,7 @@ namespace SwfSharp.Filters
 {
     public class ColorMatrixFilter
     {
-        public IList<float> Matrix { get; set; } 
+        public float[] Matrix { get; set; } 
 
         private void FromStream(BitReader reader)
         {

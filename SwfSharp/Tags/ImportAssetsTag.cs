@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
     public class ImportAssetsTag : SwfTag
     {
+        [XmlAttribute]
         public string URL { get; set; }
-        public IList<ImportRecord> Records { get; set; }
+        public List<ImportRecord> Records { get; set; }
 
         public ImportAssetsTag() : this(0)
         {

@@ -1,9 +1,11 @@
-﻿using SwfSharp.Utils;
+﻿using System.Xml.Serialization;
+using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
 {
     public class RgbaStruct : RgbStruct
     {
+        [XmlAttribute]
         public byte A { get; set; }
 
         internal override void FromStream(BitReader reader)

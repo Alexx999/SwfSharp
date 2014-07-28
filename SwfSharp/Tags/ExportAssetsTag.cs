@@ -5,7 +5,7 @@ namespace SwfSharp.Tags
 {
     public class ExportAssetsTag : SwfTag
     {
-        public IList<ExportRecord> Records { get; set; }
+        public List<ExportRecord> Records { get; set; }
 
         public ExportAssetsTag() : this(0)
         {

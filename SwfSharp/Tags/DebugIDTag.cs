@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
     public class DebugIDTag : SwfTag
     {
+        [XmlAttribute]
         public byte[] Uuid { get; set; }
 
         public DebugIDTag() : this(0)

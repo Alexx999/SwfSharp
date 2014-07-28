@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Tags;
 using SwfSharp.Utils;
 
@@ -9,18 +10,31 @@ namespace SwfSharp.Structs
 {
     public class ButtonRecordStruct
     {
+        [XmlAttribute]
         public bool ButtonHasBlendMode { get; set; }
+        [XmlAttribute]
         public bool ButtonHasFilterList { get; set; }
+        [XmlAttribute]
         public bool ButtonStateHitTest { get; set; }
+        [XmlAttribute]
         public bool ButtonStateDown { get; set; }
+        [XmlAttribute]
         public bool ButtonStateOver { get; set; }
+        [XmlAttribute]
         public bool ButtonStateUp { get; set; }
+        [XmlAttribute]
         public ushort CharacterID { get; set; }
+        [XmlAttribute]
         public ushort PlaceDepth { get; set; }
         public MatrixStruct PlaceMatrix { get; set; }
         public CXformWithAlphaStruct ColorTransform { get; set; }
         public FilterListStruct FilterList { get; set; }
         public BlendMode BlendMode { get; set; }
+
+        public ButtonRecordStruct()
+        {
+            BlendMode = BlendMode.Normal;
+        }
 
         private void FromStream(BitReader reader, TagType type, byte swfVersion)
         {

@@ -9,7 +9,7 @@ namespace SwfSharp.Structs
 {
     public class MorphFillStyleArrayStruct
     {
-        public IList<MorphFillStyleStruct> FillStyles { get; set; }
+        public List<MorphFillStyleStruct> FillStyles { get; set; }
 
         private void FromStream(BitReader reader)
         {

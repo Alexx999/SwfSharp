@@ -9,7 +9,7 @@ namespace SwfSharp
 {
     public class SwfFile : IDisposable
     {
-        private IList<SwfTag> _tags;
+        private List<SwfTag> _tags;
         private SwfHeader _header;
         private Stream _uncompStream;
 

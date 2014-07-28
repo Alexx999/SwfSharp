@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Structs;
 using SwfSharp.Utils;
 
@@ -9,23 +10,40 @@ namespace SwfSharp.Tags
 {
     public class DefineEditTextTag : SwfTag
     {
+        [XmlAttribute]
         public ushort CharacterID { get; set; }
         public RectStruct Bounds { get; set; }
+        [XmlAttribute]
         public bool HasText { get; set; }
+        [XmlAttribute]
         public bool WordWrap { get; set; }
+        [XmlAttribute]
         public bool Multiline { get; set; }
+        [XmlAttribute]
         public bool Password { get; set; }
+        [XmlAttribute]
         public bool ReadOnly { get; set; }
+        [XmlAttribute]
         public bool HasTextColor { get; set; }
+        [XmlAttribute]
         public bool HasMaxLength { get; set; }
+        [XmlAttribute]
         public bool HasFont { get; set; }
+        [XmlAttribute]
         public bool HasFontClass { get; set; }
+        [XmlAttribute]
         public bool AutoSize { get; set; }
+        [XmlAttribute]
         public bool HasLayout { get; set; }
+        [XmlAttribute]
         public bool NoSelect { get; set; }
+        [XmlAttribute]
         public bool Border { get; set; }
+        [XmlAttribute]
         public bool WasStatic { get; set; }
+        [XmlAttribute]
         public bool HTML { get; set; }
+        [XmlAttribute]
         public bool UseOutlines { get; set; }
         public ushort FontID { get; set; }
         public string FontClass { get; set; }

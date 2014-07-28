@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Sounds;
 using SwfSharp.Utils;
 
@@ -9,11 +10,17 @@ namespace SwfSharp.Tags
 {
     public class DefineSoundTag : SwfTag
     {
+        [XmlAttribute]
         public ushort SoundId { get; set; }
+        [XmlAttribute]
         public SoundFormat SoundFormat { get; set; }
+        [XmlAttribute]
         public SampleRate SoundRate { get; set; }
+        [XmlAttribute]
         public SampleSize SoundSize { get; set; }
+        [XmlAttribute]
         public SoundType SoundType { get; set; }
+        [XmlAttribute]
         public uint SoundSampleCount { get; set; }
         public byte[] SoundData { get; set; }
 

@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
     public class SetTabIndexTab : SwfTag
     {
+        [XmlAttribute]
         public ushort Depth { get; set; }
+        [XmlAttribute]
         public ushort TabIndex { get; set; }
 
         public SetTabIndexTab() : this(0)

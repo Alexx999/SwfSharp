@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using Ionic.Zlib;
 using SwfSharp.Structs;
 using SwfSharp.Utils;
@@ -11,10 +12,15 @@ namespace SwfSharp.Tags
 {
     public class DefineBitsLosslessTag : SwfTag
     {
+        [XmlAttribute]
         public ushort CharacterID { get; set; }
+        [XmlAttribute]
         public BitmapFormatType BitmapFormat { get; set; }
+        [XmlAttribute]
         public ushort BitmapWidth { get; set; }
+        [XmlAttribute]
         public ushort BitmapHeight { get; set; }
+        [XmlAttribute]
         public byte BitmapColorTableSize { get; set; }
         public byte[] ZlibBitmapData { get; set; }
         /*

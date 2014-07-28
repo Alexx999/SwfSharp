@@ -2,13 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Tags;
 using SwfSharp.Utils;
 
 namespace SwfSharp.ShapeRecords
 {
+    [XmlInclude(typeof(EndShapeRecord))]
+    [XmlInclude(typeof(StyleChangeRecord))]
+    [XmlInclude(typeof(StraightEdgeRecord))]
+    [XmlInclude(typeof(CurvedEdgeRecord))]
     public abstract class ShapeRecord
     {
+        [XmlIgnore]
         public ShapeRecordType RecordType { get; set; }
 
         public ShapeRecord(ShapeRecordType recordType)

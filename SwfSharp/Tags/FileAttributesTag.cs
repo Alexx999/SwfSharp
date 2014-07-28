@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
@@ -18,12 +19,19 @@ namespace SwfSharp.Tags
         {
         }
 
+        [XmlAttribute]
         public bool UseDirectBlit { get; set; }
+        [XmlAttribute]
         public bool UseGPU { get; set; }
+        [XmlAttribute]
         public bool HasMetadata { get; set; }
+        [XmlAttribute]
         public bool ActionScript3 { get; set; }
+        [XmlAttribute]
         public bool SuppressCrossDomainCaching { get; set; }
+        [XmlAttribute]
         public bool SwfRelativeUrls { get; set; }
+        [XmlAttribute]
         public bool UseNetwork { get; set; }
 
         internal override void FromStream(BitReader reader, byte swfVersion)

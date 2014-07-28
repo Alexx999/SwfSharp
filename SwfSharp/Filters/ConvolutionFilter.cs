@@ -13,7 +13,7 @@ namespace SwfSharp.Filters
         public byte MatrixY { get; set; }
         public float Divisor { get; set; }
         public float Bias { get; set; }
-        public IList<float> Matrix { get; set; }
+        public List<float> Matrix { get; set; }
         public RgbaStruct DefaultColor { get; set; }
         public bool Clamp { get; set; }
         public bool PreserveAlpha { get; set; }

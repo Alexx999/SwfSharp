@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
     public class ScriptLimitsTag : SwfTag
     {
+        [XmlAttribute]
         public ushort MaxRecursionDepth { get; set; }
+        [XmlAttribute]
         public ushort ScriptTimeoutSeconds { get; set; }
 
         public ScriptLimitsTag() : this(0)

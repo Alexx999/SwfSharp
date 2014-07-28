@@ -1,4 +1,5 @@
-﻿using SwfSharp.Utils;
+﻿using System.Xml.Serialization;
+using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
@@ -10,6 +11,7 @@ namespace SwfSharp.Tags
             Size = size;
         }
 
+        [XmlIgnore]
         public TagType TagType { get; set; }
 
         protected int Size { get; set; }

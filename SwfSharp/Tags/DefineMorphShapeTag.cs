@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Structs;
 using SwfSharp.Utils;
 
@@ -9,6 +10,7 @@ namespace SwfSharp.Tags
 {
     public class DefineMorphShapeTag : SwfTag
     {
+        [XmlAttribute]
         public ushort CharacterId { get; set; }
         public RectStruct StartBounds { get; set; }
         public RectStruct EndBounds { get; set; }

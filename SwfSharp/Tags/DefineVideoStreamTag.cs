@@ -2,18 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
     public class DefineVideoStreamTag : SwfTag
     {
+        [XmlAttribute]
         public ushort CharacterID { get; set; }
+        [XmlAttribute]
         public ushort NumFrames { get; set; }
+        [XmlAttribute]
         public ushort Width { get; set; }
+        [XmlAttribute]
         public ushort Height { get; set; }
+        [XmlAttribute]
         public DeblockingMode VideoFlagsDeblocking { get; set; }
+        [XmlAttribute]
         public bool VideoFlagsSmoothing { get; set; }
+        [XmlAttribute]
         public Codec CodecID { get; set; }
 
         public DefineVideoStreamTag() : this(0)

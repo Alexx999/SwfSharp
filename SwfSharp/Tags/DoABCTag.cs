@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
     public class DoABCTag : SwfTag
     {
+        [XmlAttribute]
         public uint Flags { get; set; }
+        [XmlAttribute]
         public string Name { get; set; }
         public byte[] ABCData { get; set; }
 

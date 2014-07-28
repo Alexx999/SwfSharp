@@ -9,8 +9,8 @@ namespace SwfSharp.Filters
 {
     public abstract class GradientGlowAndBevelFilter
     {
-        public IList<RgbaStruct> GradientColors { get; set; }
-        public IList<byte> GradientRatio { get; set; }
+        public List<RgbaStruct> GradientColors { get; set; }
+        public List<byte> GradientRatio { get; set; }
         public double BlurX { get; set; }
         public double BlurY { get; set; }
         public double Angle { get; set; }

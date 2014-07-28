@@ -1,10 +1,12 @@
 ﻿using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
     public class MetadataTag : SwfTag
     {
+        [XmlText]
         public string Metadata { get; set; }
 
         public MetadataTag() : this(0)

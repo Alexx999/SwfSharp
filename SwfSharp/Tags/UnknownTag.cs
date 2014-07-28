@@ -10,6 +10,13 @@ namespace SwfSharp.Tags
     {
         public byte[] Bytes { get; set; }
 
+        //Mostly for XML serialization
+        public new int TagType
+        {
+            get { return (int)base.TagType; }
+            set { base.TagType = (TagType)value; }
+        }
+
         public UnknownTag() : base((TagType) 255, 0)
         {
         }

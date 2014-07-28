@@ -10,7 +10,7 @@ namespace SwfSharp.Structs
 {
     public class TextRecordStruct
     {
-        public byte TextRecordType { get; private set; }
+        public byte TextRecordType { get; set; }
         public bool StyleFlagsHasFont { get; set; }
         public bool StyleFlagsHasColor { get; set; }
         public bool StyleFlagsHasYOffset { get; set; }
@@ -20,7 +20,7 @@ namespace SwfSharp.Structs
         public short XOffset { get; set; }
         public short YOffset { get; set; }
         public ushort TextHeight { get; set; }
-        public IList<GlyphEntryStruct> GlyphEntries { get; set; }
+        public List<GlyphEntryStruct> GlyphEntries { get; set; }
 
         private void FromStream(BitReader reader, TagType type, byte glyphBits, byte advanceBits)
         {

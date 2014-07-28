@@ -16,6 +16,9 @@ namespace SwfSharp.ShapeRecords
         public FillStyleArray FillStyles { get; set; }
         public LineStyleArray LineStyles { get; set; }
 
+        private StyleChangeRecord() : this(null)
+        {}
+
         public StyleChangeRecord(NonEdgeFlags nonEdgeFlags) : base(ShapeRecordType.StyleChange)
         {
             Flags = nonEdgeFlags;

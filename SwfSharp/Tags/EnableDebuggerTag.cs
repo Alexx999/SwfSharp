@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
     public class EnableDebuggerTag : SwfTag
     {
+        [XmlAttribute]
         public string Password { get; set; }
 
         public EnableDebuggerTag() : this(0)

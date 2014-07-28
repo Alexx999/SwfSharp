@@ -7,7 +7,7 @@ namespace SwfSharp.Tags
 {
     public class DoActionTag : SwfTag
     {
-        public IList<ActionRecordStruct> Actions { get; set; }
+        public List<ActionRecordStruct> Actions { get; set; }
 
         public DoActionTag() : this(0)
         {

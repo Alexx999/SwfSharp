@@ -9,7 +9,7 @@ namespace SwfSharp.Structs
 {
     public class MorphLineStyleArrayStruct
     {
-        public IList<MorphLineStyleStruct> LineStyles { get; set; }
+        public List<MorphLineStyleStruct> LineStyles { get; set; }
 
         private void FromStream(BitReader reader, TagType type)
         {

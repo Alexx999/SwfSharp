@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.ShapeRecords;
 using SwfSharp.Tags;
 using SwfSharp.Utils;
@@ -11,7 +12,11 @@ namespace SwfSharp.Structs
 {
     public class ShapeStruct
     {
-        public IList<ShapeRecord> ShapeRecords { get; set; }
+        [XmlArrayItem("EndShapeRecord", typeof(EndShapeRecord))]
+        [XmlArrayItem("StyleChangeRecord", typeof(StyleChangeRecord))]
+        [XmlArrayItem("StraightEdgeRecord", typeof(StraightEdgeRecord))]
+        [XmlArrayItem("CurvedEdgeRecord", typeof(CurvedEdgeRecord))]
+        public List<ShapeRecord> ShapeRecords { get; set; }
 
         internal virtual void FromStream(BitReader reader, TagType type)
         {

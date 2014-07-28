@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Structs;
 using SwfSharp.Utils;
 
@@ -9,6 +10,7 @@ namespace SwfSharp.Tags
 {
     public class DefineButtonCxformTag : SwfTag
     {
+        [XmlAttribute]
         public ushort ButtonId { get; set; }
         public CXformStruct ButtonColorTransform { get; set; }
 

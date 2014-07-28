@@ -8,7 +8,7 @@ namespace SwfSharp.Structs
 {
     public class AlphaColorMapDataStruct
     {
-        public IList<RgbaStruct> ColorTableRGB { get; set; }
+        public List<RgbaStruct> ColorTableRGB { get; set; }
         public byte[] ColormapPixelData { get; set; }
 
         private void FromStream(BitReader reader, byte bitmapColorTableSize, int dataSize)

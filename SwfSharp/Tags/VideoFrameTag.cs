@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
     public class VideoFrameTag : SwfTag
     {
+        [XmlAttribute]
         public ushort StreamID { get; set; }
+        [XmlAttribute]
         public ushort FrameNum { get; set; }
         public byte[] VideoData { get; set; }
 

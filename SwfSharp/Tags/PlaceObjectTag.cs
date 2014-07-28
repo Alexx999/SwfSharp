@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Structs;
 using SwfSharp.Utils;
 
@@ -9,7 +10,9 @@ namespace SwfSharp.Tags
 {
     public class PlaceObjectTag : SwfTag
     {
+        [XmlAttribute]
         public ushort CharacterId { get; set; }
+        [XmlAttribute]
         public ushort Depth { get; set; }
         public MatrixStruct Matrix { get; set; }
         public CXformStruct ColorTransform { get; set; }

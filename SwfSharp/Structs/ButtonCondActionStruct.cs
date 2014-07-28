@@ -20,7 +20,7 @@ namespace SwfSharp.Structs
         public bool CondIdleToOverUp { get; set; }
         public byte CondKeyPress { get; set; }
         public bool CondOverDownToIdle { get; set; }
-        public IList<ActionRecordStruct> Actions { get; set; }
+        public List<ActionRecordStruct> Actions { get; set; }
 
         private void FromStream(BitReader reader)
         {

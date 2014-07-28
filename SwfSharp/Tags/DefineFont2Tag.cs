@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Structs;
 using SwfSharp.Utils;
 
@@ -10,25 +11,35 @@ namespace SwfSharp.Tags
 {
     public class DefineFont2Tag : SwfTag
     {
+        [XmlAttribute]
         public ushort FontID { get; set; }
+        [XmlAttribute]
         public bool FontFlagsHasLayout { get; set; }
+        [XmlAttribute]
         public bool FontFlagsShiftJIS { get; set; }
+        [XmlAttribute]
         public bool FontFlagsSmallText { get; set; }
+        [XmlAttribute]
         public bool FontFlagsANSI { get; set; }
+        [XmlAttribute]
         public bool FontFlagsWideCodes { get; set; }
+        [XmlAttribute]
         public bool FontFlagsItalic { get; set; }
+        [XmlAttribute]
         public bool FontFlagsBold { get; set; }
+        [XmlAttribute]
         public byte LanguageCode { get; set; }
+        [XmlAttribute]
         public string FontName { get; set; }
-        public IList<ShapeStruct> GlyphShapeTable { get; set; }
-        public IList<ushort> CodeTable { get; set; }
+        public List<ShapeStruct> GlyphShapeTable { get; set; }
+        public List<ushort> CodeTable { get; set; }
         public ushort FontAscent { get; set; }
         public ushort FontDescent { get; set; }
         public short FontLeading { get; set; }
-        public IList<short> FontAdvanceTable { get; set; }
-        public IList<RectStruct> FontBoundsTable { get; set; }
+        public List<short> FontAdvanceTable { get; set; }
+        public List<RectStruct> FontBoundsTable { get; set; }
         public ushort KerningCount { get; set; }
-        public IList<KerningRecordStruct> FontKerningTable { get; set; }
+        public List<KerningRecordStruct> FontKerningTable { get; set; }
 
         public DefineFont2Tag() : this(0)
         {
@@ -59,8 +70,6 @@ namespace SwfSharp.Tags
             FontName = reader.ReadSizeString();
             var numGlyphs = reader.ReadUI16();
             if (numGlyphs == 0 && reader.AtTagEnd()) return;
-            //var offsetTableSize = numGlyphs*(fontFlagsWideOffsets ? 4 : 2);
-            //reader.ReadBytes(offsetTableSize);
             var offsets = new uint[numGlyphs];
             for (int i = 0; i < numGlyphs; i++)
             {

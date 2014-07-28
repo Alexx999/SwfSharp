@@ -2,21 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
     public class DefineFontInfoTag : SwfTag
     {
+        [XmlAttribute]
         public ushort FontID { get; set; }
+        [XmlAttribute]
         public string FontName { get; set; }
+        [XmlAttribute]
         public bool FontFlagsSmallText { get; set; }
+        [XmlAttribute]
         public bool FontFlagsShiftJIS { get; set; }
+        [XmlAttribute]
         public bool FontFlagsANSI { get; set; }
+        [XmlAttribute]
         public bool FontFlagsItalic { get; set; }
+        [XmlAttribute]
         public bool FontFlagsBold { get; set; }
+        [XmlAttribute]
         public bool FontFlagsWideCodes { get; set; }
-        public IList<ushort> CodeTable { get; set; }
+        public List<ushort> CodeTable { get; set; }
 
         public DefineFontInfoTag() : this(0)
         {

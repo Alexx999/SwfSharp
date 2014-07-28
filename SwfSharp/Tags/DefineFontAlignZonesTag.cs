@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Structs;
 using SwfSharp.Utils;
 
@@ -9,9 +10,11 @@ namespace SwfSharp.Tags
 {
     public class DefineFontAlignZonesTag : SwfTag
     {
+        [XmlAttribute]
         public ushort FontID { get; set; }
+        [XmlAttribute]
         public CSMTableHint CSMTableHint { get; set; }
-        public IList<ZoneRecordStruct> ZoneTable { get; set; }
+        public List<ZoneRecordStruct> ZoneTable { get; set; }
 
         public DefineFontAlignZonesTag() : this(0)
         {

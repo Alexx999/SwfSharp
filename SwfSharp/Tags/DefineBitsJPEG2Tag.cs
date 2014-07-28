@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
     public class DefineBitsJPEG2Tag : SwfTag
     {
+        [XmlAttribute]
         public ushort CharacterID { get; set; }
         public byte[] ImageData { get; set; }
 

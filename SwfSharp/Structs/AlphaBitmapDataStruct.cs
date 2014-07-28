@@ -10,7 +10,7 @@ namespace SwfSharp.Structs
 {
     public class AlphaBitmapDataStruct
     {
-        public IList<ArgbStruct> BitmapPixelData { get; set; }
+        public List<ArgbStruct> BitmapPixelData { get; set; }
 
         private void FromStream(BitReader reader, int width, int height)
         {

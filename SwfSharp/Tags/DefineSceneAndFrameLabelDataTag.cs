@@ -8,8 +8,8 @@ namespace SwfSharp.Tags
 {
     public class DefineSceneAndFrameLabelDataTag : SwfTag
     {
-        public IList<SceneData> Scenes { get; set; }
-        public IList<FrameData> Frames { get; set; }
+        public List<SceneData> Scenes { get; set; }
+        public List<FrameData> Frames { get; set; }
 
         public DefineSceneAndFrameLabelDataTag() : this(0)
         {

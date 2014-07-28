@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Structs;
 using SwfSharp.Utils;
 
@@ -9,12 +10,19 @@ namespace SwfSharp.Tags
 {
     public class PlaceObject3Tag : PlaceObject2Tag
     {
+        [XmlAttribute]
         public bool PlaceFlagOpaqueBackground { get; set; }
+        [XmlAttribute]
         public bool PlaceFlagHasVisible { get; set; }
+        [XmlAttribute]
         public bool PlaceFlagHasImage { get; set; }
+        [XmlAttribute]
         public bool PlaceFlagHasClassName { get; set; }
+        [XmlAttribute]
         public bool PlaceFlagHasCacheAsBitmap { get; set; }
+        [XmlAttribute]
         public bool PlaceFlagHasBlendMode { get; set; }
+        [XmlAttribute]
         public bool PlaceFlagHasFilterList { get; set; }
         public string ClassName { get; set; }
         public FilterListStruct SurfaceFilterList { get; set; }

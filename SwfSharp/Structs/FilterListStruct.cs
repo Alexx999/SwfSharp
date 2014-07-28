@@ -8,7 +8,7 @@ namespace SwfSharp.Structs
 {
     public class FilterListStruct
     {
-        public IList<FilterStruct> Filter { get; set; } 
+        public List<FilterStruct> Filter { get; set; } 
 
         private void FromStream(BitReader reader)
         {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Structs;
 using SwfSharp.Utils;
 
@@ -10,9 +11,10 @@ namespace SwfSharp.Tags
 {
     public class DefineFontTag : SwfTag
     {
+        [XmlAttribute]
         public ushort FontID { get; set; }
-        public IList<ushort> OffsetTable { get; set; }
-        public IList<ShapeStruct> GlyphShapeTable { get; set; }
+        public List<ushort> OffsetTable { get; set; }
+        public List<ShapeStruct> GlyphShapeTable { get; set; }
 
         public DefineFontTag() : this(0)
         {

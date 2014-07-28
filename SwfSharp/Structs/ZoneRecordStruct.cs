@@ -8,7 +8,7 @@ namespace SwfSharp.Structs
 {
     public class ZoneRecordStruct
     {
-        public IList<ZoneDataStruct> ZoneData { get; set; }
+        public List<ZoneDataStruct> ZoneData { get; set; }
         public bool ZoneMaskY { get; set; }
         public bool ZoneMaskX { get; set; }
 

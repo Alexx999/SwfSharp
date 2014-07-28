@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
@@ -50,8 +51,10 @@ namespace SwfSharp.Tags
                 TagId = tagId;
                 Name = name;
             }
-
+            
+            [XmlAttribute]
             public ushort TagId { get; set; }
+            [XmlAttribute]
             public string Name { get; set; }
         }
     }

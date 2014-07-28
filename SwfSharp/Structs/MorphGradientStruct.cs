@@ -5,7 +5,7 @@ namespace SwfSharp.Structs
 {
     public class MorphGradientStruct
     {
-        public IList<MorphGradRecordStruct> GradientRecords { get; set; }
+        public List<MorphGradRecordStruct> GradientRecords { get; set; }
 
         private void FromStream(BitReader reader)
         {

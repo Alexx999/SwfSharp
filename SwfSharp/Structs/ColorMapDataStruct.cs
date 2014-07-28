@@ -8,7 +8,7 @@ namespace SwfSharp.Structs
 {
     public class ColorMapDataStruct
     {
-        public IList<RgbStruct> ColorTableRGB { get; set; }
+        public List<RgbStruct> ColorTableRGB { get; set; }
         public byte[] ColormapPixelData { get; set; }
 
         private void FromStream(BitReader reader, byte bitmapColorTableSize, int dataSize)

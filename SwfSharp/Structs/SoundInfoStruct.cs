@@ -17,7 +17,7 @@ namespace SwfSharp.Structs
         public uint InPoint { get; set; }
         public uint OutPoint { get; set; }
         public ushort LoopCount { get; set; }
-        public IList<SoundEnvelopeStruct> EnvelopeRecords { get; set; }
+        public List<SoundEnvelopeStruct> EnvelopeRecords { get; set; }
 
         private void FromStream(BitReader reader)
         {

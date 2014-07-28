@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
     public class DefineSpriteTag : SwfTag
     {
+        [XmlAttribute]
         public ushort SpriteID { get; set; }
+        [XmlAttribute]
         public ushort FrameCount { get; set; }
-        public IList<SwfTag> ControlTags { get; set; }
+        public List<SwfTag> ControlTags { get; set; }
 
         public DefineSpriteTag() : this(0)
         {

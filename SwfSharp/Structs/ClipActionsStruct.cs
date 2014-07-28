@@ -8,7 +8,7 @@ namespace SwfSharp.Structs
     public class ClipActionsStruct
     {
         public ClipEventFlagsStruct AllEventFlags { get; set; }
-        public IList<ClipActionRecordStruct> ClipActionRecords { get; set; }
+        public List<ClipActionRecordStruct> ClipActionRecords { get; set; }
 
         private void FromStream(BitReader reader, byte swfVersion)
         {

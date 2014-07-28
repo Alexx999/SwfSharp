@@ -11,7 +11,7 @@ namespace SwfSharp.Structs
     {
         public ClipEventFlagsStruct EventFlags { get; set; }
         public byte KeyCode { get; set; }
-        public IList<ActionRecordStruct> Actions { get; set; } 
+        public List<ActionRecordStruct> Actions { get; set; } 
 
         private void FromStream(BitReader reader, byte swfVersion)
         {

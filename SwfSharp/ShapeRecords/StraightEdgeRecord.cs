@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml.Serialization;
 using SwfSharp.Tags;
 using SwfSharp.Utils;
 
@@ -6,9 +7,9 @@ namespace SwfSharp.ShapeRecords
 {
     public class StraightEdgeRecord : ShapeRecord
     {
-        public bool GeneralLineFlag { get; set; }
-        public bool VertLineFlag { get; set; }
+        [XmlAttribute]
         public int DeltaX { get; set; }
+        [XmlAttribute]
         public int DeltaY { get; set; }
 
         public StraightEdgeRecord() : base(ShapeRecordType.StraightEdge)
@@ -18,17 +19,18 @@ namespace SwfSharp.ShapeRecords
         private void FromStream(BitReader reader)
         {
             var numBits = reader.ReadBits(4) + 2;
-            GeneralLineFlag = reader.ReadBoolBit();
-            if (!GeneralLineFlag)
+            var generalLineFlag = reader.ReadBoolBit();
+            bool vertLineFlag = false;
+            if (!generalLineFlag)
             {
-                VertLineFlag = reader.ReadBoolBit();
+                vertLineFlag = reader.ReadBoolBit();
             }
 
-            if(GeneralLineFlag || !VertLineFlag)
+            if (generalLineFlag || !vertLineFlag)
             {
                 DeltaX = reader.ReadBitsSigned(numBits);
             }
-            if (GeneralLineFlag || VertLineFlag)
+            if (generalLineFlag || vertLineFlag)
             {
                 DeltaY = reader.ReadBitsSigned(numBits);
             }
@@ -49,12 +51,15 @@ namespace SwfSharp.ShapeRecords
             writer.WriteBits(1, 1);
             writer.WriteBits(1, 1);
 
+            var generalLineFlag = (DeltaX != 0) && (DeltaY != 0);
+            var vertLineFlag = (DeltaX == 0) && (DeltaY != 0);
+
             int[] data;
-            if (GeneralLineFlag)
+            if (generalLineFlag)
             {
                 data = new[] {DeltaX, DeltaY};
             }
-            else if (VertLineFlag)
+            else if (vertLineFlag)
             {
                 data = new[] { DeltaY };
             }
@@ -64,10 +69,10 @@ namespace SwfSharp.ShapeRecords
             }
             var numBits = (uint)Math.Max((int)BitWriter.MinBitsPerField(data) - 2, 0);
             writer.WriteBits(4, numBits);
-            writer.WriteBoolBit(GeneralLineFlag);
-            if (!GeneralLineFlag)
+            writer.WriteBoolBit(generalLineFlag);
+            if (!generalLineFlag)
             {
-                writer.WriteBoolBit(VertLineFlag);
+                writer.WriteBoolBit(vertLineFlag);
             }
 
             for (int i = 0; i < data.Length; i++)

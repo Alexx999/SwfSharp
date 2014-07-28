@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
     public class FrameLabelTag : SwfTag
     {
+        [XmlAttribute]
         public string Name { get; set; }
+        [XmlAttribute]
         public bool IsNamedAnchor { get; set; }
 
         public FrameLabelTag() : this(0)

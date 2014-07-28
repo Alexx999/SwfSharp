@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Sounds;
 using SwfSharp.Utils;
 
@@ -9,14 +10,23 @@ namespace SwfSharp.Tags
 {
     public class SoundStreamHeadTag : SwfTag
     {
+        [XmlAttribute]
         public SampleRate PlaybackSoundRate { get; set; }
+        [XmlAttribute]
         public SampleSize PlaybackSoundSize { get; set; }
+        [XmlAttribute]
         public SoundType PlaybackSoundType { get; set; }
+        [XmlAttribute]
         public SoundFormat StreamSoundCompression { get; set; }
+        [XmlAttribute]
         public SampleRate StreamSoundRate { get; set; }
+        [XmlAttribute]
         public SampleSize StreamSoundSize { get; set; }
+        [XmlAttribute]
         public SoundType StreamSoundType { get; set; }
+        [XmlAttribute]
         public ushort StreamSoundSampleCount { get; set; }
+        [XmlAttribute]
         public short LatencySeek { get; set; }
 
         public SoundStreamHeadTag() : this(0)

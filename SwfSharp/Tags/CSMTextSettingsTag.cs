@@ -2,16 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
     public class CSMTextSettingsTag : SwfTag
     {
+        [XmlAttribute]
         public ushort TextID { get; set; }
+        [XmlAttribute]
         public TextRenderType  UseFlashType { get; set; }
+        [XmlAttribute]
         public TextGridFit GridFit { get; set; }
+        [XmlAttribute]
         public float Thickness { get; set; }
+        [XmlAttribute]
         public float Sharpness { get; set; }
 
         public CSMTextSettingsTag() : this(0)
