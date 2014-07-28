@@ -45,7 +45,6 @@ namespace SwfSharp.Tags
         public short Leading { get; set; }
         public string VariableName { get; set; }
         public string InitialText { get; set; }
-        internal bool HasLayout { get; set; }
 
         public DefineEditTextTag() : this(0)
         {
@@ -73,7 +72,7 @@ namespace SwfSharp.Tags
             var hasFont = reader.ReadBoolBit();
             var hasFontClass = reader.ReadBoolBit();
             AutoSize = reader.ReadBoolBit();
-            HasLayout = reader.ReadBoolBit();
+            var hasLayout = reader.ReadBoolBit();
             NoSelect = reader.ReadBoolBit();
             Border = reader.ReadBoolBit();
             WasStatic = reader.ReadBoolBit();
@@ -99,7 +98,7 @@ namespace SwfSharp.Tags
             {
                 MaxLength = reader.ReadUI16();
             }
-            if (HasLayout)
+            if (hasLayout)
             {
                 Align = (AlignMode) reader.ReadUI8();
                 LeftMargin = reader.ReadUI16();
@@ -121,6 +120,8 @@ namespace SwfSharp.Tags
             var hasMaxLength = MaxLength != -1;
             var hasFont = FontID != -1;
             var hasFontClass = !string.IsNullOrEmpty(FontClass);
+            var hasLayout = (Align != AlignMode.Left || LeftMargin != 0 || RightMargin != 0 || Indent != 0 ||
+                             Leading != 0);
 
             writer.WriteUI16(CharacterID);
             Bounds.ToStream(writer);
@@ -135,7 +136,7 @@ namespace SwfSharp.Tags
             writer.WriteBoolBit(hasFont);
             writer.WriteBoolBit(hasFontClass);
             writer.WriteBoolBit(AutoSize);
-            writer.WriteBoolBit(HasLayout);
+            writer.WriteBoolBit(hasLayout);
             writer.WriteBoolBit(NoSelect);
             writer.WriteBoolBit(Border);
             writer.WriteBoolBit(WasStatic);
@@ -161,7 +162,7 @@ namespace SwfSharp.Tags
             {
                 writer.WriteUI16((ushort) MaxLength);
             }
-            if (HasLayout)
+            if (hasLayout)
             {
                 writer.WriteUI8((byte)Align);
                 writer.WriteUI16(LeftMargin);
