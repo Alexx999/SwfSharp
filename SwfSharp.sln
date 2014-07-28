@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwfTest", "SwfTest\SwfTest.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Half", "external\System.Half\System.Half.csproj", "{1C871681-737C-45F4-9CE4-045366491A46}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwfViewer", "SwfViewer\SwfViewer.csproj", "{3D1265C9-C139-441C-B636-0349174ECCB2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{1C871681-737C-45F4-9CE4-045366491A46}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C871681-737C-45F4-9CE4-045366491A46}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C871681-737C-45F4-9CE4-045366491A46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D1265C9-C139-441C-B636-0349174ECCB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D1265C9-C139-441C-B636-0349174ECCB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D1265C9-C139-441C-B636-0349174ECCB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D1265C9-C139-441C-B636-0349174ECCB2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
