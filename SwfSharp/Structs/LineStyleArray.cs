@@ -9,47 +9,48 @@ using SwfSharp.Utils;
 namespace SwfSharp.Structs
 {
     [Serializable]
-    public class LineStyleArray
+    public class LineStyleArray : List<LineStyleStruct>
     {
-        [XmlArrayItem("LineStyle", typeof(LineStyleStruct))]
-        [XmlArrayItem("LineStyle2", typeof(LineStyle2Struct))]
-        public List<LineStyleStruct> LineStyles { get; set; }
-
-        private void FromStream(BitReader reader, TagType type)
+        public LineStyleArray()
         {
-            int len = reader.ReadUI8();
-            if (len == byte.MaxValue && type > TagType.DefineShape)
-            {
-                len = reader.ReadUI16();
-            }
-            LineStyles = new List<LineStyleStruct>(len);
+        }
+
+        public LineStyleArray(int capacity)
+            : base(capacity)
+        {
+        }
+
+        private void FromStream(BitReader reader, TagType type, int len)
+        {
 
             for (int i = 0; i < len; i++)
             {
                 var style = type == TagType.DefineShape4 
                     ? LineStyle2Struct.CreateFromStream(reader, type) 
                     : LineStyleStruct.CreateFromStream(reader, type);
-                LineStyles.Add(style);
+                Add(style);
             }
         }
 
         internal static LineStyleArray CreateFromStream(BitReader reader, TagType type)
         {
-            var result = new LineStyleArray();
+            int len = reader.ReadExtendableCount();
 
-            result.FromStream(reader, type);
+            var result = new LineStyleArray(len);
+
+            result.FromStream(reader, type, len);
 
             return result;
         }
 
         internal byte ToStream(BitWriter writer, TagType type)
         {
-            writer.WriteExtendableCount(LineStyles.Count);
-            foreach (var lineStyle in LineStyles)
+            writer.WriteExtendableCount(Count);
+            foreach (var lineStyle in this)
             {
                 lineStyle.ToStream(writer, type);
             }
-            return (byte) BitWriter.GetBitsForValue((uint) LineStyles.Count);
+            return (byte) BitWriter.GetBitsForValue((uint)Count);
         }
     }
 }

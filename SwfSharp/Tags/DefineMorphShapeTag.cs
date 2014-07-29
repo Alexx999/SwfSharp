@@ -18,10 +18,25 @@ namespace SwfSharp.Tags
         public RectStruct StartBounds { get; set; }
         [XmlElement]
         public RectStruct EndBounds { get; set; }
-        [XmlElement]
+        [XmlArrayItem("MorphFillStyle")]
         public MorphFillStyleArrayStruct MorphFillStyles { get; set; }
-        [XmlElement]
+
+        [XmlIgnore]
+        public bool MorphFillStylesSpecified
+        {
+            get { return MorphFillStyles != null && MorphFillStyles.Count > 0; }
+        }
+
+        [XmlArrayItem("MorphLineStyle", typeof(MorphLineStyleStruct))]
+        [XmlArrayItem("MorphLineStyle2", typeof(MorphLineStyle2Struct))]
         public MorphLineStyleArrayStruct MorphLineStyles { get; set; }
+
+        [XmlIgnore]
+        public bool MorphLineStylesSpecified
+        {
+            get { return MorphLineStyles != null && MorphLineStyles.Count > 0; }
+        }
+
         [XmlElement]
         public ShapeStruct StartEdges { get; set; }
         [XmlElement]

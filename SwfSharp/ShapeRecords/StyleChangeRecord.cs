@@ -81,10 +81,25 @@ namespace SwfSharp.ShapeRecords
             get { return _lineStyle.HasValue; }
         }
 
-        [XmlElement]
+        [XmlElement("FillStyle")]
         public FillStyleArray FillStyles { get; set; }
-        [XmlElement]
+
+        [XmlIgnore]
+        public bool FillStylesSpecified
+        {
+            get { return FillStyles != null && FillStyles.Count > 0; }
+        }
+
+        [XmlElement("LineStyle", typeof(LineStyleStruct))]
+        [XmlElement("LineStyle2", typeof(LineStyle2Struct))]
         public LineStyleArray LineStyles { get; set; }
+
+        [XmlIgnore]
+        public bool LineStylesSpecified
+        {
+            get { return LineStyles != null && LineStyles.Count > 0; }
+        }
+
 
         public StyleChangeRecord() : this(new NonEdgeFlags())
         {}
@@ -92,6 +107,8 @@ namespace SwfSharp.ShapeRecords
         private StyleChangeRecord(NonEdgeFlags nonEdgeFlags) : base(ShapeRecordType.StyleChange)
         {
             Flags = nonEdgeFlags;
+            FillStyles = new FillStyleArray();
+            LineStyles = new LineStyleArray();
         }
 
         internal void FromStream(BitReader reader, ref byte numFillBits, ref byte numLineBits, TagType type)
@@ -145,7 +162,7 @@ namespace SwfSharp.ShapeRecords
             Flags.StateFillStyle1 = _fillStyle1.HasValue;
             Flags.StateLineStyle = _lineStyle.HasValue;
             Flags.StateNewStyles = canHaveNewStyles && LineStyles != null && FillStyles != null &&
-                                   ((LineStyles.LineStyles.Count > 0) || (FillStyles.FillStyles.Count > 0));
+                                   ((LineStyles.Count > 0) || (FillStyles.Count > 0));
 
             writer.WriteBits(1, 0);
             Flags.ToStream(writer);

@@ -9,39 +9,43 @@ using SwfSharp.Utils;
 namespace SwfSharp.Structs
 {
     [Serializable]
-    public class MorphFillStyleArrayStruct
+    public class MorphFillStyleArrayStruct : List<MorphFillStyleStruct>
     {
-        [XmlElement("MorphFillStyle")]
-        public List<MorphFillStyleStruct> FillStyles { get; set; }
-
-        private void FromStream(BitReader reader, TagType type)
+        public MorphFillStyleArrayStruct()
         {
-            int len = reader.ReadExtendableCount();
-            FillStyles = new List<MorphFillStyleStruct>(len);
+        }
 
+        public MorphFillStyleArrayStruct(int capacity)
+            : base(capacity)
+        {
+        }
+
+        private void FromStream(BitReader reader, TagType type, int len)
+        {
             for (int i = 0; i < len; i++)
             {
-                FillStyles.Add(MorphFillStyleStruct.CreateFromStream(reader, type));
+                Add(MorphFillStyleStruct.CreateFromStream(reader, type));
             }
         }
 
         internal static MorphFillStyleArrayStruct CreateFromStream(BitReader reader, TagType type)
         {
-            var result = new MorphFillStyleArrayStruct();
+            int len = reader.ReadExtendableCount();
+            var result = new MorphFillStyleArrayStruct(len);
 
-            result.FromStream(reader, type);
+            result.FromStream(reader, type, len);
 
             return result;
         }
 
         internal byte ToStream(BitWriter writer)
         {
-            writer.WriteExtendableCount(FillStyles.Count);
-            foreach (var fillStyle in FillStyles)
+            writer.WriteExtendableCount(Count);
+            foreach (var fillStyle in this)
             {
                 fillStyle.ToStream(writer);
             }
-            return (byte)BitWriter.GetBitsForValue((uint)FillStyles.Count);
+            return (byte)BitWriter.GetBitsForValue((uint)Count);
         }
     }
 }

@@ -9,39 +9,44 @@ using SwfSharp.Utils;
 namespace SwfSharp.Structs
 {
     [Serializable]
-    public class FillStyleArray
+    public class FillStyleArray : List<FillStyleStruct>
     {
-        [XmlElement("FillStyle")]
-        public List<FillStyleStruct> FillStyles { get; set; } 
-
-        private void FromStream(BitReader reader, TagType type)
+        public FillStyleArray()
         {
-            int len = reader.ReadExtendableCount();
-            FillStyles = new List<FillStyleStruct>(len);
+        }
 
+        public FillStyleArray(int capacity)
+            : base(capacity)
+        {
+        }
+
+        private void FromStream(BitReader reader, TagType type, int len)
+        {
             for (int i = 0; i < len; i++)
             {
-                FillStyles.Add(FillStyleStruct.CreateFromStream(reader, type));
+                Add(FillStyleStruct.CreateFromStream(reader, type));
             }
         }
 
         internal static FillStyleArray CreateFromStream(BitReader reader, TagType type)
         {
-            var result = new FillStyleArray();
+            int len = reader.ReadExtendableCount();
 
-            result.FromStream(reader, type);
+            var result = new FillStyleArray(len);
+
+            result.FromStream(reader, type, len);
 
             return result;
         }
 
         internal byte ToStream(BitWriter writer, TagType type)
         {
-            writer.WriteExtendableCount(FillStyles.Count);
-            foreach (var fillStyle in FillStyles)
+            writer.WriteExtendableCount(Count);
+            foreach (var fillStyle in this)
             {
                 fillStyle.ToStream(writer, type);
             }
-            return (byte) BitWriter.GetBitsForValue((uint)FillStyles.Count);
+            return (byte) BitWriter.GetBitsForValue((uint)Count);
         }
     }
 }

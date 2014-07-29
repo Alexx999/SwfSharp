@@ -9,44 +9,47 @@ using SwfSharp.Utils;
 namespace SwfSharp.Structs
 {
     [Serializable]
-    public class MorphLineStyleArrayStruct
+    public class MorphLineStyleArrayStruct : List<MorphLineStyleStruct>
     {
-        [XmlArrayItem("MorphLineStyle", typeof(MorphLineStyleStruct))]
-        [XmlArrayItem("MorphLineStyle2", typeof(MorphLineStyle2Struct))]
-        public List<MorphLineStyleStruct> LineStyles { get; set; }
-
-        private void FromStream(BitReader reader, TagType type)
+        public MorphLineStyleArrayStruct()
         {
-            int len = reader.ReadExtendableCount();
-            LineStyles = new List<MorphLineStyleStruct>(len);
+        }
 
+        public MorphLineStyleArrayStruct(int capacity)
+            : base(capacity)
+        {
+        }
+
+        private void FromStream(BitReader reader, TagType type, int len)
+        {
             for (int i = 0; i < len; i++)
             {
                 var style = type == TagType.DefineMorphShape2
                     ? MorphLineStyle2Struct.CreateFromStream(reader, type)
                     : MorphLineStyleStruct.CreateFromStream(reader);
-                LineStyles.Add(style);
+                Add(style);
             }
         }
 
         internal static MorphLineStyleArrayStruct CreateFromStream(BitReader reader, TagType type)
         {
-            var result = new MorphLineStyleArrayStruct();
+            int len = reader.ReadExtendableCount();
+            var result = new MorphLineStyleArrayStruct(len);
 
-            result.FromStream(reader, type);
+            result.FromStream(reader, type, len);
 
             return result;
         }
 
         internal byte ToStream(BitWriter writer)
         {
-            writer.WriteExtendableCount(LineStyles.Count);
+            writer.WriteExtendableCount(Count);
 
-            foreach (var style in LineStyles)
+            foreach (var style in this)
             {
                 style.ToStream(writer);
             }
-            return (byte)BitWriter.GetBitsForValue((uint)LineStyles.Count);
+            return (byte)BitWriter.GetBitsForValue((uint)Count);
         }
     }
 }

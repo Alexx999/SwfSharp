@@ -11,10 +11,30 @@ namespace SwfSharp.Structs
     [Serializable]
     public class ShapeWithStyleStruct : ShapeStruct
     {
-        [XmlElement]
+        [XmlArrayItem("FillStyle")]
         public FillStyleArray FillStyles { get; set; }
-        [XmlElement]
+
+        [XmlIgnore]
+        public bool FillStylesSpecified
+        {
+            get { return FillStyles != null && FillStyles.Count > 0; }
+        }
+
+        [XmlArrayItem("LineStyle", typeof(LineStyleStruct))]
+        [XmlArrayItem("LineStyle2", typeof(LineStyle2Struct))]
         public LineStyleArray LineStyles { get; set; }
+
+        [XmlIgnore]
+        public bool LineStylesSpecified
+        {
+            get { return LineStyles != null && LineStyles.Count > 0; }
+        }
+
+        public ShapeWithStyleStruct()
+        {
+            FillStyles = new FillStyleArray();
+            LineStyles = new LineStyleArray();
+        }
 
         internal override void FromStream(BitReader reader, TagType type)
         {
