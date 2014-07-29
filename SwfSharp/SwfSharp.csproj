@@ -91,6 +91,7 @@
     <Compile Include="Structs\MatrixStruct.cs" />
     <Compile Include="Structs\MorphFillStyleArrayStruct.cs" />
     <Compile Include="Structs\MorphFillStyleStruct.cs" />
+    <Compile Include="Structs\MorphFocalGradientStruct.cs" />
     <Compile Include="Structs\MorphGradientStruct.cs" />
     <Compile Include="Structs\MorphGradRecordStruct.cs" />
     <Compile Include="Structs\MorphLineStyle2Struct.cs" />

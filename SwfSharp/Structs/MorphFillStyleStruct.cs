@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
+using SwfSharp.Tags;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
@@ -10,17 +12,33 @@ namespace SwfSharp.Structs
     [Serializable]
     public class MorphFillStyleStruct
     {
+        private ushort? _bitmapId;
+
+        [XmlAttribute]
         public FillStyle FillStyleType { get; set; }
         public RgbaStruct StartColor { get; set; }
         public RgbaStruct EndColor { get; set; }
         public MatrixStruct StartGradientMatrix { get; set; }
         public MatrixStruct EndGradientMatrix { get; set; }
         public MorphGradientStruct Gradient { get; set; }
-        public ushort BitmapId { get; set; }
+
+        [XmlAttribute]
+        public ushort BitmapId
+        {
+            get { return _bitmapId.GetValueOrDefault(); }
+            set { _bitmapId = value; }
+        }
+
+        [XmlIgnore]
+        public bool BitmapIdSpecified
+        {
+            get { return _bitmapId.HasValue; }
+        }
+
         public MatrixStruct StartBitmapMatrix { get; set; }
         public MatrixStruct EndBitmapMatrix { get; set; }
 
-        private void FromStream(BitReader reader)
+        private void FromStream(BitReader reader, TagType type)
         {
             FillStyleType = (FillStyle)reader.ReadUI8();
 
@@ -33,8 +51,9 @@ namespace SwfSharp.Structs
                 }
                 case FillStyle.LinearGradient:
                 case FillStyle.RadialGradient:
+                case FillStyle.FocalRadialGradient:
                 {
-                    ReadGradient(reader);
+                    ReadGradient(reader, type);
                     break;
                 }
                 case FillStyle.ClippedBitmap:
@@ -54,16 +73,25 @@ namespace SwfSharp.Structs
 
         private void ReadBitmap(BitReader reader)
         {
-            BitmapId = reader.ReadUI16();
+            _bitmapId = reader.ReadUI16();
             StartBitmapMatrix = MatrixStruct.CreateFromStream(reader);
             EndBitmapMatrix = MatrixStruct.CreateFromStream(reader);
         }
 
-        private void ReadGradient(BitReader reader)
+        private void ReadGradient(BitReader reader, TagType type)
         {
             StartGradientMatrix = MatrixStruct.CreateFromStream(reader);
             EndGradientMatrix = MatrixStruct.CreateFromStream(reader);
-            Gradient = MorphGradientStruct.CreateFromStream(reader);
+
+            if (FillStyleType == FillStyle.FocalRadialGradient && type == TagType.DefineMorphShape2)
+            {
+                Gradient = MorphFocalGradientStruct.CreateFromStream(reader);
+            }
+            else
+            {
+
+                Gradient = MorphGradientStruct.CreateFromStream(reader);
+            }
         }
 
         private void ReadSolid(BitReader reader)
@@ -72,11 +100,11 @@ namespace SwfSharp.Structs
             EndColor = RgbaStruct.CreateFromStream(reader);
         }
 
-        internal static MorphFillStyleStruct CreateFromStream(BitReader reader)
+        internal static MorphFillStyleStruct CreateFromStream(BitReader reader, TagType type)
         {
             var result = new MorphFillStyleStruct();
 
-            result.FromStream(reader);
+            result.FromStream(reader, type);
 
             return result;
         }
@@ -94,6 +122,7 @@ namespace SwfSharp.Structs
                 }
                 case FillStyle.LinearGradient:
                 case FillStyle.RadialGradient:
+                case FillStyle.FocalRadialGradient:
                 {
                     WriteGradient(writer);
                     break;
@@ -115,7 +144,7 @@ namespace SwfSharp.Structs
 
         private void WriteBitmap(BitWriter writer)
         {
-            writer.WriteUI16(BitmapId);
+            writer.WriteUI16(_bitmapId.GetValueOrDefault());
             StartBitmapMatrix.ToStream(writer);
             EndBitmapMatrix.ToStream(writer);
         }
