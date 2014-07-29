@@ -11,6 +11,15 @@ namespace SwfSharp.Tags
     [Serializable]
     public class DefineEditTextTag : SwfTag
     {
+        private ushort? _fontID;
+        private ushort? _fontHeight;
+        private ushort? _maxLength;
+        private AlignMode? _align;
+        private ushort? _leftMargin;
+        private ushort? _rightMargin;
+        private ushort? _indent;
+        private short? _leading;
+
         [XmlAttribute]
         public ushort CharacterID { get; set; }
         public RectStruct Bounds { get; set; }
@@ -34,17 +43,119 @@ namespace SwfSharp.Tags
         public bool HTML { get; set; }
         [XmlAttribute]
         public bool UseOutlines { get; set; }
-        public int FontID { get; set; }
+
+        [XmlAttribute]
+        public ushort FontID
+        {
+            get { return _fontID.GetValueOrDefault(); }
+            set { _fontID = value; }
+        }
+
+        [XmlIgnore]
+        public bool FontIDSpecified
+        {
+            get { return _fontID.HasValue; }
+        }
+
         public string FontClass { get; set; }
-        public ushort FontHeight { get; set; }
+
+        [XmlAttribute]
+        public ushort FontHeight
+        {
+            get { return _fontHeight.GetValueOrDefault(); }
+            set { _fontHeight = value; }
+        }
+
+        [XmlIgnore]
+        public bool FontHeightSpecified
+        {
+            get { return _fontHeight.HasValue; }
+        }
+
         public RgbaStruct TextColor { get; set; }
-        public int MaxLength { get; set; }
-        public AlignMode Align { get; set; }
-        public ushort LeftMargin { get; set; }
-        public ushort RightMargin { get; set; }
-        public ushort Indent { get; set; }
-        public short Leading { get; set; }
+
+        [XmlAttribute]
+        public ushort MaxLength
+        {
+            get { return _maxLength.GetValueOrDefault(); }
+            set { _maxLength = value; }
+        }
+
+        [XmlIgnore]
+        public bool MaxLengthSpecified
+        {
+            get { return _maxLength.HasValue; }
+        }
+
+        [XmlAttribute]
+        public AlignMode Align
+        {
+            get { return _align.GetValueOrDefault(); }
+            set { _align = value; }
+        }
+
+        [XmlIgnore]
+        public bool AlignSpecified
+        {
+            get { return _align.HasValue; }
+        }
+
+        [XmlAttribute]
+        public ushort LeftMargin
+        {
+            get { return _leftMargin.GetValueOrDefault(); }
+            set { _leftMargin = value; }
+        }
+
+        [XmlIgnore]
+        public bool LeftMarginSpecified
+        {
+            get { return _leftMargin.HasValue; }
+        }
+
+        [XmlAttribute]
+        public ushort RightMargin
+        {
+            get { return _rightMargin.GetValueOrDefault(); }
+            set { _rightMargin = value; }
+        }
+
+        [XmlIgnore]
+        public bool RightMarginSpecified
+        {
+            get { return _rightMargin.HasValue; }
+        }
+
+        [XmlAttribute]
+        public ushort Indent
+        {
+            get { return _indent.GetValueOrDefault(); }
+            set { _indent = value; }
+        }
+
+        [XmlIgnore]
+        public bool IndentSpecified
+        {
+            get { return _indent.HasValue; }
+        }
+
+        [XmlAttribute]
+        public short Leading
+        {
+            get { return _leading.GetValueOrDefault(); }
+            set { _leading = value; }
+        }
+
+        [XmlIgnore]
+        public bool LeadingSpecified
+        {
+            get { return _leading.HasValue; }
+        }
+
+        [XmlAttribute]
         public string VariableName { get; set; }
+
+        [XmlText]
         public string InitialText { get; set; }
 
         public DefineEditTextTag() : this(0)
@@ -54,8 +165,6 @@ namespace SwfSharp.Tags
         public DefineEditTextTag(int size)
             : base(TagType.DefineEditText, size)
         {
-            FontID = -1;
-            MaxLength = -1;
         }
 
         internal override void FromStream(BitReader reader, byte swfVersion)
@@ -118,11 +227,11 @@ namespace SwfSharp.Tags
         {
             var hasText = !string.IsNullOrEmpty(InitialText);
             var hasTextColor = TextColor != null;
-            var hasMaxLength = MaxLength != -1;
-            var hasFont = FontID != -1;
+            var hasMaxLength = _maxLength.HasValue;
+            var hasFont = _fontID.HasValue;
             var hasFontClass = !string.IsNullOrEmpty(FontClass);
-            var hasLayout = (Align != AlignMode.Left || LeftMargin != 0 || RightMargin != 0 || Indent != 0 ||
-                             Leading != 0);
+            var hasLayout = (_align.HasValue && _leftMargin.HasValue && _rightMargin.HasValue && _indent.HasValue &&
+                             _leading.HasValue);
 
             writer.WriteUI16(CharacterID);
             Bounds.ToStream(writer);
@@ -145,7 +254,7 @@ namespace SwfSharp.Tags
             writer.WriteBoolBit(UseOutlines);
             if (hasFont)
             {
-                writer.WriteUI16((ushort) FontID);
+                writer.WriteUI16(_fontID.Value);
             }
             if (hasFontClass)
             {
@@ -153,7 +262,7 @@ namespace SwfSharp.Tags
             }
             if (hasFont || hasFontClass)
             {
-                writer.WriteUI16(FontHeight);
+                writer.WriteUI16(_fontHeight.GetValueOrDefault());
             }
             if (hasTextColor)
             {
@@ -161,15 +270,15 @@ namespace SwfSharp.Tags
             }
             if (hasMaxLength)
             {
-                writer.WriteUI16((ushort) MaxLength);
+                writer.WriteUI16(_maxLength.Value);
             }
             if (hasLayout)
             {
-                writer.WriteUI8((byte)Align);
-                writer.WriteUI16(LeftMargin);
-                writer.WriteUI16(RightMargin);
-                writer.WriteUI16(Indent);
-                writer.WriteSI16(Leading);
+                writer.WriteUI8((byte)_align.Value);
+                writer.WriteUI16(_leftMargin.Value);
+                writer.WriteUI16(_rightMargin.Value);
+                writer.WriteUI16(_indent.Value);
+                writer.WriteSI16(_leading.Value);
             }
             writer.WriteString(VariableName, swfVersion);
             if (hasText)

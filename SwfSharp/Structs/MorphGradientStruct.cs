@@ -9,7 +9,7 @@ namespace SwfSharp.Structs
     {
         public List<MorphGradRecordStruct> GradientRecords { get; set; }
 
-        private void FromStream(BitReader reader)
+        internal virtual void FromStream(BitReader reader)
         {
             var numGradients = reader.ReadUI8();
             GradientRecords = new List<MorphGradRecordStruct>(numGradients);
@@ -28,7 +28,7 @@ namespace SwfSharp.Structs
             return result;
         }
 
-        internal void ToStream(BitWriter writer)
+        internal virtual void ToStream(BitWriter writer)
         {
             writer.WriteUI8((byte) GradientRecords.Count);
             foreach (var record in GradientRecords)

@@ -12,10 +12,12 @@ namespace SwfSharp.Tags
     [Serializable]
     public class DefineFont2Tag : SwfTag
     {
+        private ushort? _fontAscent;
+        private ushort? _fontDescent;
+        private short? _fontLeading;
+
         [XmlAttribute]
         public ushort FontID { get; set; }
-        [XmlAttribute]
-        public bool FontFlagsHasLayout { get; set; }
         [XmlAttribute]
         public bool FontFlagsShiftJIS { get; set; }
         [XmlAttribute]
@@ -34,12 +36,48 @@ namespace SwfSharp.Tags
         public string FontName { get; set; }
         public List<ShapeStruct> GlyphShapeTable { get; set; }
         public List<ushort> CodeTable { get; set; }
-        public ushort FontAscent { get; set; }
-        public ushort FontDescent { get; set; }
-        public short FontLeading { get; set; }
+
+        [XmlAttribute]
+        public ushort FontAscent
+        {
+            get { return _fontAscent.GetValueOrDefault(); }
+            set { _fontAscent = value; }
+        }
+
+        [XmlIgnore]
+        public bool FontAscentSpecified
+        {
+            get { return _fontAscent.HasValue; }
+        }
+
+        [XmlAttribute]
+        public ushort FontDescent
+        {
+            get { return _fontDescent.GetValueOrDefault(); }
+            set { _fontDescent = value; }
+        }
+
+        [XmlIgnore]
+        public bool FontDescentSpecified
+        {
+            get { return _fontDescent.HasValue; }
+        }
+
+        [XmlAttribute]
+        public short FontLeading
+        {
+            get { return _fontLeading.GetValueOrDefault(); }
+            set { _fontLeading = value; }
+        }
+
+        [XmlIgnore]
+        public bool FontLeadingSpecified
+        {
+            get { return _fontLeading.HasValue; }
+        }
+
         public List<short> FontAdvanceTable { get; set; }
         public List<RectStruct> FontBoundsTable { get; set; }
-        public ushort KerningCount { get; set; }
         public List<KerningRecordStruct> FontKerningTable { get; set; }
 
         public DefineFont2Tag() : this(0)
@@ -59,7 +97,7 @@ namespace SwfSharp.Tags
         internal override void FromStream(BitReader reader, byte swfVersion)
         {
             FontID = reader.ReadUI16();
-            FontFlagsHasLayout = reader.ReadBoolBit();
+            var fontFlagsHasLayout = reader.ReadBoolBit();
             FontFlagsShiftJIS = reader.ReadBoolBit();
             FontFlagsSmallText = reader.ReadBoolBit();
             FontFlagsANSI = reader.ReadBoolBit();
@@ -88,11 +126,11 @@ namespace SwfSharp.Tags
             {
                 CodeTable.Add(FontFlagsWideCodes ? reader.ReadUI16() : reader.ReadUI8());
             }
-            if (!FontFlagsHasLayout) return;
+            if (!fontFlagsHasLayout) return;
 
-            FontAscent = reader.ReadUI16();
-            FontDescent = reader.ReadUI16();
-            FontLeading = reader.ReadSI16();
+            _fontAscent = reader.ReadUI16();
+            _fontDescent = reader.ReadUI16();
+            _fontLeading = reader.ReadSI16();
             FontAdvanceTable = new List<short>(numGlyphs);
             for (int i = 0; i < numGlyphs; i++)
             {
@@ -103,9 +141,9 @@ namespace SwfSharp.Tags
             {
                 FontBoundsTable.Add(RectStruct.CreateFromStream(reader));
             }
-            KerningCount = reader.ReadUI16();
-            FontKerningTable = new List<KerningRecordStruct>(KerningCount);
-            for (int i = 0; i < KerningCount; i++)
+            var kerningCount = reader.ReadUI16();
+            FontKerningTable = new List<KerningRecordStruct>(kerningCount);
+            for (int i = 0; i < kerningCount; i++)
             {
                 FontKerningTable.Add(KerningRecordStruct.CreateFromStream(reader, FontFlagsWideCodes));
             }
@@ -127,6 +165,9 @@ namespace SwfSharp.Tags
 
         internal override void ToStream(BitWriter writer, byte swfVersion)
         {
+            var fontFlagsHasLayout = _fontAscent.HasValue && _fontDescent.HasValue && _fontLeading.HasValue &&
+                                     FontAdvanceTable != null && FontBoundsTable != null && FontKerningTable != null;
+
             var numGlyphs = (ushort)(GlyphShapeTable == null ? 0 : GlyphShapeTable.Count);
             uint totalSize;
             uint[] offsets;
@@ -138,7 +179,7 @@ namespace SwfSharp.Tags
             bool useWideOffsets = (numGlyphs + 1)*2 + totalSize > ushort.MaxValue;
 
             writer.WriteUI16(FontID);
-            writer.WriteBoolBit(FontFlagsHasLayout);
+            writer.WriteBoolBit(fontFlagsHasLayout);
             writer.WriteBoolBit(FontFlagsShiftJIS);
             writer.WriteBoolBit(FontFlagsSmallText);
             writer.WriteBoolBit(FontFlagsANSI);
@@ -186,10 +227,10 @@ namespace SwfSharp.Tags
                     writer.WriteUI8((byte) CodeTable[i]);
                 }
             }
-            if (!FontFlagsHasLayout) return;
-            writer.WriteUI16(FontAscent);
-            writer.WriteUI16(FontDescent);
-            writer.WriteSI16(FontLeading);
+            if (!fontFlagsHasLayout) return;
+            writer.WriteUI16(_fontAscent.Value);
+            writer.WriteUI16(_fontDescent.Value);
+            writer.WriteSI16(_fontLeading.Value);
             for (int i = 0; i < numGlyphs; i++)
             {
                 writer.WriteSI16(FontAdvanceTable[i]);
@@ -198,8 +239,8 @@ namespace SwfSharp.Tags
             {
                 FontBoundsTable[i].ToStream(writer);
             }
-            writer.WriteUI16(KerningCount);
-            for (int i = 0; i < KerningCount; i++)
+            writer.WriteUI16((ushort) FontKerningTable.Count);
+            for (int i = 0; i < FontKerningTable.Count; i++)
             {
                 FontKerningTable[i].ToStream(writer, FontFlagsWideCodes);
             }

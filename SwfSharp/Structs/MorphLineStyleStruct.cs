@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
+using SwfSharp.Tags;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
@@ -9,7 +11,9 @@ namespace SwfSharp.Structs
     [Serializable]
     public class MorphLineStyleStruct
     {
+        [XmlAttribute]
         public ushort StartWidth { get; set; }
+        [XmlAttribute]
         public ushort EndWidth { get; set; }
         public RgbaStruct StartColor { get; set; }
         public RgbaStruct EndColor { get; set; }

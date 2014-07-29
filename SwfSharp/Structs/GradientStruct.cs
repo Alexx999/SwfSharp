@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using SwfSharp.Tags;
 using SwfSharp.Utils;
 
@@ -8,7 +9,9 @@ namespace SwfSharp.Structs
     [Serializable]
     public class GradientStruct
     {
+        [XmlAttribute]
         public SpreadMode SpreadMode { get; set; }
+        [XmlAttribute]
         public InterpolationMode InterpolationMode { get; set; }
         public List<GradRecordStruct> GradientRecords { get; set; }
 

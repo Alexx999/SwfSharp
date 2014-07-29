@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
@@ -6,31 +7,57 @@ namespace SwfSharp.Structs
     [Serializable]
     public class CXformWithAlphaStruct : CXformStruct
     {
-        public int AlphaMultTerm { get; set; }
-        public int AlphaAddTerm { get; set; }
+        private int? _alphaMultTerm;
+        private int? _alphaAddTerm;
+
+        [XmlAttribute]
+        public int AlphaMultTerm
+        {
+            get { return _alphaMultTerm.GetValueOrDefault(256); }
+            set { _alphaMultTerm = value; }
+        }
+
+        [XmlIgnore]
+        public bool AlphaMultTermSpecified
+        {
+            get { return _alphaMultTerm.HasValue; }
+        }
+
+        [XmlAttribute]
+        public int AlphaAddTerm
+        {
+            get { return _alphaAddTerm.GetValueOrDefault(); }
+            set { _alphaAddTerm = value; }
+        }
+
+        [XmlIgnore]
+        public bool AlphaAddTermSpecified
+        {
+            get { return _alphaAddTerm.HasValue; }
+        }
 
         private void FromStream(BitReader reader)
         {
             reader.Align();
 
-            HasAddTerms = reader.ReadBoolBit();
-            HasMultTerms = reader.ReadBoolBit();
+            var hasAddTerms = reader.ReadBoolBit();
+            var hasMultTerms = reader.ReadBoolBit();
 
             var nbits = reader.ReadBits(4);
 
-            if (HasMultTerms)
+            if (hasMultTerms)
             {
-                RedMultTerm = reader.ReadBitsSigned(nbits);
-                GreenMultTerm = reader.ReadBitsSigned(nbits);
-                BlueMultTerm = reader.ReadBitsSigned(nbits);
-                AlphaMultTerm = reader.ReadBitsSigned(nbits);
+                _redMultTerm = reader.ReadBitsSigned(nbits);
+                _greenMultTerm = reader.ReadBitsSigned(nbits);
+                _blueMultTerm = reader.ReadBitsSigned(nbits);
+                _alphaMultTerm = reader.ReadBitsSigned(nbits);
             }
-            if (HasAddTerms)
+            if (hasAddTerms)
             {
-                RedAddTerm = reader.ReadBitsSigned(nbits);
-                GreenAddTerm = reader.ReadBitsSigned(nbits);
-                BlueAddTerm = reader.ReadBitsSigned(nbits);
-                AlphaAddTerm = reader.ReadBitsSigned(nbits);
+                _redAddTerm = reader.ReadBitsSigned(nbits);
+                _greenAddTerm = reader.ReadBitsSigned(nbits);
+                _blueAddTerm = reader.ReadBitsSigned(nbits);
+                _alphaAddTerm = reader.ReadBitsSigned(nbits);
             }
         }
 
@@ -47,35 +74,38 @@ namespace SwfSharp.Structs
         {
             writer.Align();
 
-            writer.WriteBoolBit(HasAddTerms);
-            writer.WriteBoolBit(HasMultTerms);
+            var hasAddTerms = _redAddTerm.HasValue && _greenAddTerm.HasValue && _blueAddTerm.HasValue && _alphaAddTerm.HasValue;
+            var hasMultTerms = _redMultTerm.HasValue && _greenMultTerm.HasValue && _blueMultTerm.HasValue && _alphaMultTerm.HasValue;
+
+            writer.WriteBoolBit(hasAddTerms);
+            writer.WriteBoolBit(hasMultTerms);
 
             uint nbits = 0;
 
-            if (HasMultTerms)
+            if (hasMultTerms)
             {
-                nbits = BitWriter.MinBitsPerField(new[] {RedMultTerm, GreenMultTerm, BlueMultTerm, AlphaMultTerm});
+                nbits = BitWriter.MinBitsPerField(new[] { _redMultTerm.Value, _greenMultTerm.Value, _blueMultTerm.Value, _alphaMultTerm.Value });
             }
-            if (HasAddTerms)
+            if (hasAddTerms)
             {
-                nbits = Math.Max(BitWriter.MinBitsPerField(new[] { RedAddTerm, GreenAddTerm, BlueAddTerm, AlphaAddTerm }), nbits);
+                nbits = Math.Max(BitWriter.MinBitsPerField(new[] { _redAddTerm.Value, _greenAddTerm.Value, _blueAddTerm.Value, _alphaAddTerm.Value }), nbits);
             }
 
             writer.WriteBits(4, nbits);
 
-            if (HasMultTerms)
+            if (hasMultTerms)
             {
-                writer.WriteBitsSigned(nbits, RedMultTerm);
-                writer.WriteBitsSigned(nbits, GreenMultTerm);
-                writer.WriteBitsSigned(nbits, BlueMultTerm);
-                writer.WriteBitsSigned(nbits, AlphaMultTerm);
+                writer.WriteBitsSigned(nbits, _redMultTerm.Value);
+                writer.WriteBitsSigned(nbits, _greenMultTerm.Value);
+                writer.WriteBitsSigned(nbits, _blueMultTerm.Value);
+                writer.WriteBitsSigned(nbits, _alphaMultTerm.Value);
             }
-            if (HasAddTerms)
+            if (hasAddTerms)
             {
-                writer.WriteBitsSigned(nbits, RedAddTerm);
-                writer.WriteBitsSigned(nbits, GreenAddTerm);
-                writer.WriteBitsSigned(nbits, BlueAddTerm);
-                writer.WriteBitsSigned(nbits, AlphaAddTerm);
+                writer.WriteBitsSigned(nbits, _redAddTerm.Value);
+                writer.WriteBitsSigned(nbits, _greenAddTerm.Value);
+                writer.WriteBitsSigned(nbits, _blueAddTerm.Value);
+                writer.WriteBitsSigned(nbits, _alphaAddTerm.Value);
             }
         }
     }

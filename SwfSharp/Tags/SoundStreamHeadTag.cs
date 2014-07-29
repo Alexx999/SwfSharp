@@ -11,6 +11,8 @@ namespace SwfSharp.Tags
     [Serializable]
     public class SoundStreamHeadTag : SwfTag
     {
+        private short? _latencySeek;
+
         [XmlAttribute]
         public SampleRate PlaybackSoundRate { get; set; }
         [XmlAttribute]
@@ -27,8 +29,19 @@ namespace SwfSharp.Tags
         public SoundType StreamSoundType { get; set; }
         [XmlAttribute]
         public ushort StreamSoundSampleCount { get; set; }
+
         [XmlAttribute]
-        public short LatencySeek { get; set; }
+        public short LatencySeek
+        {
+            get { return _latencySeek.GetValueOrDefault(); }
+            set { _latencySeek = value; }
+        }
+
+        [XmlIgnore]
+        public bool LatencySeekSpecified
+        {
+            get { return _latencySeek.HasValue; }
+        }
 
         public SoundStreamHeadTag() : this(0)
         {
@@ -57,7 +70,7 @@ namespace SwfSharp.Tags
             StreamSoundSampleCount = reader.ReadUI16();
             if (StreamSoundCompression == SoundFormat.MP3)
             {
-                LatencySeek = reader.ReadSI16();
+                _latencySeek = reader.ReadSI16();
             }
         }
 
@@ -74,7 +87,7 @@ namespace SwfSharp.Tags
             writer.WriteUI16(StreamSoundSampleCount);
             if (StreamSoundCompression == SoundFormat.MP3)
             {
-                writer.WriteSI16(LatencySeek);
+                writer.WriteSI16(_latencySeek.GetValueOrDefault());
             }
         }
     }

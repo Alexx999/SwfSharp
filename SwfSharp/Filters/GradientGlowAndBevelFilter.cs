@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Structs;
 using SwfSharp.Utils;
 
@@ -12,15 +13,25 @@ namespace SwfSharp.Filters
     {
         public List<RgbaStruct> GradientColors { get; set; }
         public List<byte> GradientRatio { get; set; }
+        [XmlAttribute]
         public double BlurX { get; set; }
+        [XmlAttribute]
         public double BlurY { get; set; }
+        [XmlAttribute]
         public double Angle { get; set; }
+        [XmlAttribute]
         public double Distance { get; set; }
+        [XmlAttribute]
         public float Strength { get; set; }
+        [XmlAttribute]
         public bool InnerShadow { get; set; }
+        [XmlAttribute]
         public bool Knockout { get; set; }
+        [XmlAttribute]
         public bool CompositeSource { get; set; }
+        [XmlAttribute]
         public bool OnTop { get; set; }
+        [XmlAttribute]
         public byte Passes { get; set; }
 
         internal void FromStream(BitReader reader)

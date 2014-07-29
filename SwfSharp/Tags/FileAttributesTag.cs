@@ -10,15 +10,6 @@ namespace SwfSharp.Tags
     [Serializable]
     public class FileAttributesTag : SwfTag
     {
-        public FileAttributesTag()
-            : base(TagType.FileAttributes, 0)
-        {
-        }
-
-        public FileAttributesTag(int size)
-            : base(TagType.FileAttributes, size)
-        {
-        }
 
         [XmlAttribute]
         public bool UseDirectBlit { get; set; }
@@ -34,6 +25,16 @@ namespace SwfSharp.Tags
         public bool SwfRelativeUrls { get; set; }
         [XmlAttribute]
         public bool UseNetwork { get; set; }
+
+        public FileAttributesTag()
+            : base(TagType.FileAttributes, 0)
+        {
+        }
+
+        public FileAttributesTag(int size)
+            : base(TagType.FileAttributes, size)
+        {
+        }
 
         internal override void FromStream(BitReader reader, byte swfVersion)
         {

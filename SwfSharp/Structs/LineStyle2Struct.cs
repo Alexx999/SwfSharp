@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Tags;
 using SwfSharp.Utils;
 
@@ -10,15 +11,36 @@ namespace SwfSharp.Structs
     [Serializable]
     public class LineStyle2Struct : LineStyleStruct
     {
+        private float? _miterLimitFactor;
+
+        [XmlAttribute]
         public CapStyle StartCapStyle { get; set; }
+        [XmlAttribute]
         public JoinStyle JoinStyle { get; set; }
-        public bool HasFillFlag { get; set; }
+        [XmlAttribute]
         public bool NoHScaleFlag { get; set; }
+        [XmlAttribute]
         public bool NoVScaleFlag { get; set; }
+        [XmlAttribute]
         public bool PixelHintingFlag { get; set; }
+        [XmlAttribute]
         public bool NoClose { get; set; }
+        [XmlAttribute]
         public CapStyle EndCapStyle { get; set; }
-        public float MiterLimitFactor { get; set; }
+
+        [XmlAttribute]
+        public float MiterLimitFactor
+        {
+            get { return _miterLimitFactor.GetValueOrDefault(); }
+            set { _miterLimitFactor = value; }
+        }
+
+        [XmlIgnore]
+        public bool MiterLimitFactorSpecified
+        {
+            get { return _miterLimitFactor.HasValue; }
+        }
+
         public FillStyleStruct FillType { get; set; }
 
         private void FromStream(BitReader reader, TagType type)
@@ -26,7 +48,7 @@ namespace SwfSharp.Structs
             Width = reader.ReadUI16();
             StartCapStyle = (CapStyle) reader.ReadBits(2);
             JoinStyle = (JoinStyle) reader.ReadBits(2);
-            HasFillFlag = reader.ReadBoolBit();
+            var hasFillFlag = reader.ReadBoolBit();
             NoHScaleFlag = reader.ReadBoolBit();
             NoVScaleFlag = reader.ReadBoolBit();
             PixelHintingFlag = reader.ReadBoolBit();
@@ -35,9 +57,9 @@ namespace SwfSharp.Structs
             EndCapStyle = (CapStyle) reader.ReadBits(2);
             if (JoinStyle == JoinStyle.MiterJoin)
             {
-                MiterLimitFactor = reader.ReadFixed8();
+                _miterLimitFactor = reader.ReadFixed8();
             }
-            if (!HasFillFlag)
+            if (!hasFillFlag)
             {
                 Color = RgbaStruct.CreateFromStream(reader);
             }
@@ -58,10 +80,12 @@ namespace SwfSharp.Structs
 
         internal override void ToStream(BitWriter writer, TagType type)
         {
+            var hasFillFlag = FillType != null;
+
             writer.WriteUI16(Width);
             writer.WriteBits(2, (uint) StartCapStyle);
             writer.WriteBits(2, (uint) JoinStyle);
-            writer.WriteBoolBit(HasFillFlag);
+            writer.WriteBoolBit(hasFillFlag);
             writer.WriteBoolBit(NoHScaleFlag);
             writer.WriteBoolBit(NoVScaleFlag);
             writer.WriteBoolBit(PixelHintingFlag);
@@ -70,9 +94,9 @@ namespace SwfSharp.Structs
             writer.WriteBits(2, (uint) EndCapStyle);
             if (JoinStyle == JoinStyle.MiterJoin)
             {
-                writer.WriteFixed8(MiterLimitFactor);
+                writer.WriteFixed8(_miterLimitFactor.GetValueOrDefault());
             }
-            if (!HasFillFlag)
+            if (!hasFillFlag)
             {
                 Color.ToStream(writer);
             }

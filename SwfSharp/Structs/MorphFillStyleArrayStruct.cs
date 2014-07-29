@@ -12,22 +12,22 @@ namespace SwfSharp.Structs
     {
         public List<MorphFillStyleStruct> FillStyles { get; set; }
 
-        private void FromStream(BitReader reader)
+        private void FromStream(BitReader reader, TagType type)
         {
             int len = reader.ReadExtendableCount();
             FillStyles = new List<MorphFillStyleStruct>(len);
 
             for (int i = 0; i < len; i++)
             {
-                FillStyles.Add(MorphFillStyleStruct.CreateFromStream(reader));
+                FillStyles.Add(MorphFillStyleStruct.CreateFromStream(reader, type));
             }
         }
 
-        internal static MorphFillStyleArrayStruct CreateFromStream(BitReader reader)
+        internal static MorphFillStyleArrayStruct CreateFromStream(BitReader reader, TagType type)
         {
             var result = new MorphFillStyleArrayStruct();
 
-            result.FromStream(reader);
+            result.FromStream(reader, type);
 
             return result;
         }

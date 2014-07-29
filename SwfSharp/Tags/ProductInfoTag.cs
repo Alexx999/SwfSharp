@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
@@ -9,11 +10,17 @@ namespace SwfSharp.Tags
     [Serializable]
     public class ProductInfoTag : SwfTag
     {
+        [XmlAttribute]
         public ProductInfoProduct Product { get; set; }
+        [XmlAttribute]
         public ProductInfoEdition Edition { get; set; }
+        [XmlAttribute]
         public sbyte MajorVersion { get; set; }
+        [XmlAttribute]
         public sbyte MinorVersion { get; set; }
+        [XmlAttribute]
         public long Build { get; set; }
+        [XmlAttribute]
         public long CompileDate { get; set; }
 
         public ProductInfoTag() : this(0)

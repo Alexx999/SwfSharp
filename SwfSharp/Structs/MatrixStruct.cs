@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
@@ -9,18 +10,67 @@ namespace SwfSharp.Structs
     [Serializable]
     public class MatrixStruct
     {
-        public double ScaleX { get; set; }
-        public double ScaleY { get; set; }
-        public double RotateSkew0 { get; set; }
-        public double RotateSkew1 { get; set; }
-        public int TranslateX { get; set; }
-        public int TranslateY { get; set; }
+        private double? _scaleX;
+        private double? _scaleY;
+        private double? _rotateSkew0;
+        private double? _rotateSkew1;
 
-        public MatrixStruct()
+        [XmlAttribute]
+        public double ScaleX
         {
-            ScaleX = 1;
-            ScaleY = 1;
+            get { return _scaleX.GetValueOrDefault(); }
+            set { _scaleX = value; }
         }
+
+        [XmlIgnore]
+        public bool ScaleXSpecified
+        {
+            get { return _scaleX.HasValue; }
+        }
+
+        [XmlAttribute]
+        public double ScaleY
+        {
+            get { return _scaleY.GetValueOrDefault(); }
+            set { _scaleY = value; }
+        }
+
+        [XmlIgnore]
+        public bool ScaleYSpecified
+        {
+            get { return _scaleY.HasValue; }
+        }
+
+        [XmlAttribute]
+        public double RotateSkew0
+        {
+            get { return _rotateSkew0.GetValueOrDefault(); }
+            set { _rotateSkew0 = value; }
+        }
+
+        [XmlIgnore]
+        public bool RotateSkew0Specified
+        {
+            get { return _rotateSkew0.HasValue; }
+        }
+
+        [XmlAttribute]
+        public double RotateSkew1
+        {
+            get { return _rotateSkew1.GetValueOrDefault(); }
+            set { _rotateSkew1 = value; }
+        }
+
+        [XmlIgnore]
+        public bool RotateSkew1Specified
+        {
+            get { return _rotateSkew1.HasValue; }
+        }
+
+        [XmlAttribute]
+        public int TranslateX { get; set; }
+        [XmlAttribute]
+        public int TranslateY { get; set; }
 
         private void FromStream(BitReader reader)
         {
@@ -29,15 +79,15 @@ namespace SwfSharp.Structs
             if (hasScale)
             {
                 var scaleBits = reader.ReadBits(5);
-                ScaleX = reader.ReadFBits(scaleBits);
-                ScaleY = reader.ReadFBits(scaleBits);
+                _scaleX = reader.ReadFBits(scaleBits);
+                _scaleY = reader.ReadFBits(scaleBits);
             }
             var hasRotate = reader.ReadBoolBit();
             if (hasRotate)
             {
                 var rotateBits = reader.ReadBits(5);
-                RotateSkew0 = reader.ReadFBits(rotateBits);
-                RotateSkew1 = reader.ReadFBits(rotateBits);
+                _rotateSkew0 = reader.ReadFBits(rotateBits);
+                _rotateSkew1 = reader.ReadFBits(rotateBits);
             }
             var translateBits = reader.ReadBits(5);
             TranslateX = reader.ReadBitsSigned(translateBits);
@@ -56,17 +106,17 @@ namespace SwfSharp.Structs
         internal void ToStream(BitWriter writer)
         {
             writer.Align();
-            var hasScale = (ScaleX != 1) || (ScaleY != 1);
+            var hasScale = _scaleX.HasValue && _scaleY.HasValue;
             writer.WriteBoolBit(hasScale);
             if (hasScale)
             {
-                writer.WriteBitSizeAndData(5, new[] { ScaleX, ScaleY });
+                writer.WriteBitSizeAndData(5, new[] { _scaleX.Value, _scaleY.Value });
             }
-            var hasRotate = (RotateSkew0 != 0) || (RotateSkew1 != 0);
+            var hasRotate = _rotateSkew0.HasValue && _rotateSkew1.HasValue;
             writer.WriteBoolBit(hasRotate);
             if (hasRotate)
             {
-                writer.WriteBitSizeAndData(5, new[] { RotateSkew0, RotateSkew1 });
+                writer.WriteBitSizeAndData(5, new[] { _rotateSkew0.Value, _rotateSkew1.Value });
             }
             writer.WriteBitSizeAndData(5, new[] { TranslateX, TranslateY });
         }

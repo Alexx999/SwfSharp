@@ -1,4 +1,5 @@
 using System;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
@@ -6,7 +7,9 @@ namespace SwfSharp.Structs
     [Serializable]
     public class GlyphEntryStruct
     {
+        [XmlAttribute]
         public uint GlyphIndex { get; set; }
+        [XmlAttribute]
         public int GlyphAdvance { get; set; }
 
         private void FromStream(BitReader reader, byte glyphBits, byte advanceBits)

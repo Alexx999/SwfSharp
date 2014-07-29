@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Filters;
 using SwfSharp.Utils;
 
@@ -11,6 +12,7 @@ namespace SwfSharp.Structs
     [Serializable]
     public class FilterStruct
     {
+        [XmlAttribute]
         public FilterType FilterID { get; set; }
         public DropShadowFilter DropShadowFilter { get; set; }
         public BlurFilter BlurFilter { get; set; }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
@@ -10,8 +11,23 @@ namespace SwfSharp.Structs
     [Serializable]
     public class ClipActionRecordStruct
     {
+        private byte? _keyCode;
+
         public ClipEventFlagsStruct EventFlags { get; set; }
-        public byte KeyCode { get; set; }
+
+        [XmlAttribute]
+        public byte KeyCode
+        {
+            get { return _keyCode.GetValueOrDefault(); }
+            set { _keyCode = value; }
+        }
+
+        [XmlIgnore]
+        public bool KeyCodeSpecified
+        {
+            get { return _keyCode.HasValue; }
+        }
+
         public List<ActionRecordStruct> Actions { get; set; } 
 
         private void FromStream(BitReader reader, byte swfVersion)
@@ -21,7 +37,7 @@ namespace SwfSharp.Structs
             var startPos = reader.Position;
             if (EventFlags.ClipEventKeyPress)
             {
-                KeyCode = reader.ReadUI8();
+                _keyCode = reader.ReadUI8();
             }
             Actions = new List<ActionRecordStruct>();
 
@@ -56,7 +72,7 @@ namespace SwfSharp.Structs
             {
                 if (EventFlags.ClipEventKeyPress)
                 {
-                    writer.WriteUI8(KeyCode);
+                    writer.WriteUI8(_keyCode.GetValueOrDefault());
                 }
 
                 foreach (var action in Actions)

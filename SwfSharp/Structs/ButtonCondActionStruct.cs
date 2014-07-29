@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
@@ -10,16 +11,27 @@ namespace SwfSharp.Structs
     [Serializable]
     public class ButtonCondActionStruct
     {
+        [XmlAttribute]
         public ushort CondActionSize { get; set; }
+        [XmlAttribute]
         public bool CondIdleToOverDown { get; set; }
+        [XmlAttribute]
         public bool CondOutDownToIdle { get; set; }
+        [XmlAttribute]
         public bool CondOutDownToOverDown { get; set; }
+        [XmlAttribute]
         public bool CondOverDownToOutDown { get; set; }
+        [XmlAttribute]
         public bool CondOverDownToOverUp { get; set; }
+        [XmlAttribute]
         public bool CondOverUpToOverDown { get; set; }
+        [XmlAttribute]
         public bool CondOverUpToIdle { get; set; }
+        [XmlAttribute]
         public bool CondIdleToOverUp { get; set; }
+        [XmlAttribute]
         public byte CondKeyPress { get; set; }
+        [XmlAttribute]
         public bool CondOverDownToIdle { get; set; }
         public List<ActionRecordStruct> Actions { get; set; }
 

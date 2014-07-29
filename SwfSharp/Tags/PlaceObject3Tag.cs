@@ -11,25 +11,55 @@ namespace SwfSharp.Tags
     [Serializable]
     public class PlaceObject3Tag : PlaceObject2Tag
     {
-        [XmlAttribute]
-        public bool PlaceFlagOpaqueBackground { get; set; }
-        [XmlAttribute]
-        public bool PlaceFlagHasVisible { get; set; }
+        private BlendMode? _blendMode;
+        private byte? _bitmapCache;
+        private byte? _visible;
+
         [XmlAttribute]
         public bool PlaceFlagHasImage { get; set; }
         [XmlAttribute]
-        public bool PlaceFlagHasClassName { get; set; }
-        [XmlAttribute]
-        public bool PlaceFlagHasCacheAsBitmap { get; set; }
-        [XmlAttribute]
-        public bool PlaceFlagHasBlendMode { get; set; }
-        [XmlAttribute]
-        public bool PlaceFlagHasFilterList { get; set; }
         public string ClassName { get; set; }
         public FilterListStruct SurfaceFilterList { get; set; }
-        public BlendMode BlendMode { get; set; }
-        public byte BitmapCache { get; set; }
-        public byte Visible { get; set; }
+
+        [XmlAttribute]
+        public BlendMode BlendMode
+        {
+            get { return _blendMode.GetValueOrDefault(); }
+            set { _blendMode = value; }
+        }
+
+        [XmlIgnore]
+        public bool BlendModeSpecified
+        {
+            get { return _blendMode.HasValue; }
+        }
+
+        [XmlAttribute]
+        public byte BitmapCache
+        {
+            get { return _bitmapCache.GetValueOrDefault(); }
+            set { _bitmapCache = value; }
+        }
+
+        [XmlIgnore]
+        public bool BitmapCacheSpecified
+        {
+            get { return _bitmapCache.HasValue; }
+        }
+
+        [XmlAttribute]
+        public byte Visible
+        {
+            get { return _visible.GetValueOrDefault(); }
+            set { _visible = value; }
+        }
+
+        [XmlIgnore]
+        public bool VisibleSpecified
+        {
+            get { return _visible.HasValue; }
+        }
+
         public RgbaStruct BackgroundColor { get; set; }
 
         public PlaceObject3Tag() : this(0)
@@ -43,144 +73,158 @@ namespace SwfSharp.Tags
 
         internal override void FromStream(BitReader reader, byte swfVersion)
         {
-            PlaceFlagHasClipActions = reader.ReadBoolBit();
-            PlaceFlagHasClipDepth = reader.ReadBoolBit();
-            PlaceFlagHasName = reader.ReadBoolBit();
-            PlaceFlagHasRatio = reader.ReadBoolBit();
-            PlaceFlagHasColorTransform = reader.ReadBoolBit();
-            PlaceFlagHasMatrix = reader.ReadBoolBit();
-            PlaceFlagHasCharacter = reader.ReadBoolBit();
+            var placeFlagHasClipActions = reader.ReadBoolBit();
+            var placeFlagHasClipDepth = reader.ReadBoolBit();
+            var placeFlagHasName = reader.ReadBoolBit();
+            var placeFlagHasRatio = reader.ReadBoolBit();
+            var placeFlagHasColorTransform = reader.ReadBoolBit();
+            var placeFlagHasMatrix = reader.ReadBoolBit();
+            var placeFlagHasCharacter = reader.ReadBoolBit();
             PlaceFlagMove = reader.ReadBoolBit();
             reader.ReadBits(1);
-            PlaceFlagOpaqueBackground = reader.ReadBoolBit();
-            PlaceFlagHasVisible = reader.ReadBoolBit();
+            var placeFlagOpaqueBackground = reader.ReadBoolBit();
+            var placeFlagHasVisible = reader.ReadBoolBit();
             PlaceFlagHasImage = reader.ReadBoolBit();
-            PlaceFlagHasClassName = reader.ReadBoolBit();
-            PlaceFlagHasCacheAsBitmap = reader.ReadBoolBit();
-            PlaceFlagHasBlendMode = reader.ReadBoolBit();
-            PlaceFlagHasFilterList = reader.ReadBoolBit();
+            var placeFlagHasClassName = reader.ReadBoolBit();
+            var placeFlagHasCacheAsBitmap = reader.ReadBoolBit();
+            var placeFlagHasBlendMode = reader.ReadBoolBit();
+            var placeFlagHasFilterList = reader.ReadBoolBit();
             Depth = reader.ReadUI16();
-            if (PlaceFlagHasClassName)
+            if (placeFlagHasClassName)
             {
                 ClassName = reader.ReadString();
             }
-            if (PlaceFlagHasCharacter)
+            if (placeFlagHasCharacter)
             {
                 CharacterId = reader.ReadUI16();
             }
-            if (PlaceFlagHasMatrix)
+            if (placeFlagHasMatrix)
             {
                 Matrix = MatrixStruct.CreateFromStream(reader);
             }
-            if (PlaceFlagHasColorTransform)
+            if (placeFlagHasColorTransform)
             {
                 ColorTransform = CXformWithAlphaStruct.CreateFromStream(reader);
             }
-            if (PlaceFlagHasRatio)
+            if (placeFlagHasRatio)
             {
                 Ratio = reader.ReadUI16();
             }
-            if (PlaceFlagHasName)
+            if (placeFlagHasName)
             {
                 Name = reader.ReadString();
             }
-            if (PlaceFlagHasClipDepth)
+            if (placeFlagHasClipDepth)
             {
                 ClipDepth = reader.ReadUI16();
             }
-            if (PlaceFlagHasFilterList)
+            if (placeFlagHasFilterList)
             {
                 SurfaceFilterList = FilterListStruct.CreateFromStream(reader);
             }
-            if (PlaceFlagHasBlendMode)
+            if (placeFlagHasBlendMode)
             {
                 BlendMode = (BlendMode) reader.ReadUI8();
             }
-            if (PlaceFlagHasCacheAsBitmap)
+            if (placeFlagHasCacheAsBitmap)
             {
                 BitmapCache = reader.ReadUI8();
             }
-            if (PlaceFlagHasVisible)
+            if (placeFlagHasVisible)
             {
                 Visible = reader.ReadUI8();
             }
-            if (PlaceFlagOpaqueBackground)
+            if (placeFlagOpaqueBackground)
             {
                 BackgroundColor = RgbaStruct.CreateFromStream(reader);
             }
-            if (PlaceFlagHasClipActions)
+            if (placeFlagHasClipActions)
             {
                 ClipActions = ClipActionsStruct.CreateFromStream(reader, swfVersion);
             }
         }
         internal override void ToStream(BitWriter writer, byte swfVersion)
         {
-            writer.WriteBoolBit(PlaceFlagHasClipActions);
-            writer.WriteBoolBit(PlaceFlagHasClipDepth);
-            writer.WriteBoolBit(PlaceFlagHasName);
-            writer.WriteBoolBit(PlaceFlagHasRatio);
-            writer.WriteBoolBit(PlaceFlagHasColorTransform);
-            writer.WriteBoolBit(PlaceFlagHasMatrix);
-            writer.WriteBoolBit(PlaceFlagHasCharacter);
+            var placeFlagHasClipActions = ClipActions != null;
+            var placeFlagHasClipDepth = _clipDepth.HasValue;
+            var placeFlagHasName = !string.IsNullOrEmpty(Name);
+            var placeFlagHasRatio = _ratio.HasValue;
+            var placeFlagHasColorTransform = ColorTransform != null;
+            var placeFlagHasMatrix = Matrix != null;
+            var placeFlagHasCharacter = _characterId.HasValue;
+            var placeFlagOpaqueBackground = BackgroundColor != null;
+            var placeFlagHasVisible = _visible.HasValue;
+            var placeFlagHasClassName = !string.IsNullOrEmpty(ClassName);
+            var placeFlagHasCacheAsBitmap = _bitmapCache.HasValue;
+            var placeFlagHasBlendMode = _blendMode.HasValue;
+            var placeFlagHasFilterList = SurfaceFilterList != null;
+
+            writer.WriteBoolBit(placeFlagHasClipActions);
+            writer.WriteBoolBit(placeFlagHasClipDepth);
+            writer.WriteBoolBit(placeFlagHasName);
+            writer.WriteBoolBit(placeFlagHasRatio);
+            writer.WriteBoolBit(placeFlagHasColorTransform);
+            writer.WriteBoolBit(placeFlagHasMatrix);
+            writer.WriteBoolBit(placeFlagHasCharacter);
             writer.WriteBoolBit(PlaceFlagMove);
             writer.WriteBits(1, 0);
-            writer.WriteBoolBit(PlaceFlagOpaqueBackground);
-            writer.WriteBoolBit(PlaceFlagHasVisible);
+            writer.WriteBoolBit(placeFlagOpaqueBackground);
+            writer.WriteBoolBit(placeFlagHasVisible);
             writer.WriteBoolBit(PlaceFlagHasImage);
-            writer.WriteBoolBit(PlaceFlagHasClassName);
-            writer.WriteBoolBit(PlaceFlagHasCacheAsBitmap);
-            writer.WriteBoolBit(PlaceFlagHasBlendMode);
-            writer.WriteBoolBit(PlaceFlagHasFilterList);
+            writer.WriteBoolBit(placeFlagHasClassName);
+            writer.WriteBoolBit(placeFlagHasCacheAsBitmap);
+            writer.WriteBoolBit(placeFlagHasBlendMode);
+            writer.WriteBoolBit(placeFlagHasFilterList);
             writer.WriteUI16(Depth);
-            if (PlaceFlagHasClassName)
+            if (placeFlagHasClassName)
             {
                 writer.WriteString(ClassName, swfVersion);
             }
-            if (PlaceFlagHasCharacter)
+            if (placeFlagHasCharacter)
             {
-                writer.WriteUI16(CharacterId);
+                writer.WriteUI16(_characterId.Value);
             }
-            if (PlaceFlagHasMatrix)
+            if (placeFlagHasMatrix)
             {
                 Matrix.ToStream(writer);
             }
-            if (PlaceFlagHasColorTransform)
+            if (placeFlagHasColorTransform)
             {
                 ColorTransform.ToStream(writer);
             }
-            if (PlaceFlagHasRatio)
+            if (placeFlagHasRatio)
             {
-                writer.WriteUI16(Ratio);
+                writer.WriteUI16(_ratio.Value);
             }
-            if (PlaceFlagHasName)
+            if (placeFlagHasName)
             {
                 writer.WriteString(Name, swfVersion);
             }
-            if (PlaceFlagHasClipDepth)
+            if (placeFlagHasClipDepth)
             {
-                writer.WriteUI16(ClipDepth);
+                writer.WriteUI16(_clipDepth.Value);
             }
-            if (PlaceFlagHasFilterList)
+            if (placeFlagHasFilterList)
             {
                 SurfaceFilterList.ToStream(writer);
             }
-            if (PlaceFlagHasBlendMode)
+            if (placeFlagHasBlendMode)
             {
-                writer.WriteUI8((byte) BlendMode);
+                writer.WriteUI8((byte)_blendMode.Value);
             }
-            if (PlaceFlagHasCacheAsBitmap)
+            if (placeFlagHasCacheAsBitmap)
             {
-                writer.WriteUI8(BitmapCache);
+                writer.WriteUI8(_bitmapCache.Value);
             }
-            if (PlaceFlagHasVisible)
+            if (placeFlagHasVisible)
             {
-                writer.WriteUI8(Visible);
+                writer.WriteUI8(_visible.Value);
             }
-            if (PlaceFlagOpaqueBackground)
+            if (placeFlagOpaqueBackground)
             {
                 BackgroundColor.ToStream(writer);
             }
-            if (PlaceFlagHasClipActions)
+            if (placeFlagHasClipActions)
             {
                 ClipActions.ToStream(writer, swfVersion);
             }

@@ -10,21 +10,36 @@ namespace SwfSharp.Structs
     [Serializable]
     public class SoundInfoStruct
     {
+        private uint? _inPoint;
+        private uint? _outPoint;
+        private ushort? _loopCount;
+
         [XmlAttribute]
         public bool SyncStop { get; set; }
         [XmlAttribute]
         public bool SyncNoMultiple { get; set; }
+
         [XmlAttribute]
-        public bool HasEnvelope { get; set; }
+        public uint InPoint
+        {
+            get { return _inPoint.GetValueOrDefault(); }
+            set { _inPoint = value; }
+        }
+
         [XmlAttribute]
-        public bool HasLoops { get; set; }
+        public uint OutPoint
+        {
+            get { return _outPoint.GetValueOrDefault(); }
+            set { _outPoint = value; }
+        }
+
         [XmlAttribute]
-        public bool HasOutPoint { get; set; }
-        [XmlAttribute]
-        public bool HasInPoint { get; set; }
-        public uint InPoint { get; set; }
-        public uint OutPoint { get; set; }
-        public ushort LoopCount { get; set; }
+        public ushort LoopCount
+        {
+            get { return _loopCount.GetValueOrDefault(); }
+            set { _loopCount = value; }
+        }
+
         public List<SoundEnvelopeStruct> EnvelopeRecords { get; set; }
 
         private void FromStream(BitReader reader)
@@ -32,23 +47,23 @@ namespace SwfSharp.Structs
             reader.ReadBits(2);
             SyncStop = reader.ReadBoolBit();
             SyncNoMultiple = reader.ReadBoolBit();
-            HasEnvelope = reader.ReadBoolBit();
-            HasLoops = reader.ReadBoolBit();
-            HasOutPoint = reader.ReadBoolBit();
-            HasInPoint = reader.ReadBoolBit();
-            if (HasInPoint)
+            var hasEnvelope = reader.ReadBoolBit();
+            var hasLoops = reader.ReadBoolBit();
+            var hasOutPoint = reader.ReadBoolBit();
+            var hasInPoint = reader.ReadBoolBit();
+            if (hasInPoint)
             {
-                InPoint = reader.ReadUI32();
+                _inPoint = reader.ReadUI32();
             }
-            if (HasOutPoint)
+            if (hasOutPoint)
             {
-                OutPoint = reader.ReadUI32();
+                _outPoint = reader.ReadUI32();
             }
-            if (HasLoops)
+            if (hasLoops)
             {
-                LoopCount = reader.ReadUI16();
+                _loopCount = reader.ReadUI16();
             }
-            if (HasEnvelope)
+            if (hasEnvelope)
             {
                 var envPoints = reader.ReadUI8();
                 EnvelopeRecords = new List<SoundEnvelopeStruct>(envPoints);
@@ -70,26 +85,31 @@ namespace SwfSharp.Structs
 
         internal void ToStream(BitWriter writer)
         {
+            var hasEnvelope = EnvelopeRecords != null;
+            var hasLoops = _loopCount.HasValue;
+            var hasOutPoint = _outPoint.HasValue;
+            var hasInPoint = _inPoint.HasValue;
+
             writer.WriteBits(2, 0);
             writer.WriteBoolBit(SyncStop);
             writer.WriteBoolBit(SyncNoMultiple);
-            writer.WriteBoolBit(HasEnvelope);
-            writer.WriteBoolBit(HasLoops);
-            writer.WriteBoolBit(HasOutPoint);
-            writer.WriteBoolBit(HasInPoint);
-            if (HasInPoint)
+            writer.WriteBoolBit(hasEnvelope);
+            writer.WriteBoolBit(hasLoops);
+            writer.WriteBoolBit(hasOutPoint);
+            writer.WriteBoolBit(hasInPoint);
+            if (hasInPoint)
             {
-                writer.WriteUI32(InPoint);
+                writer.WriteUI32(_inPoint.Value);
             }
-            if (HasOutPoint)
+            if (hasOutPoint)
             {
-                writer.WriteUI32(OutPoint);
+                writer.WriteUI32(_outPoint.Value);
             }
-            if (HasLoops)
+            if (hasLoops)
             {
-                writer.WriteUI16(LoopCount);
+                writer.WriteUI16(_loopCount.Value);
             }
-            if (HasEnvelope)
+            if (hasEnvelope)
             {
                 writer.WriteUI8((byte) EnvelopeRecords.Count);
                 foreach (var record in EnvelopeRecords)

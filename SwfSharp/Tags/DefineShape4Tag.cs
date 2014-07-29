@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Structs;
 using SwfSharp.Utils;
 
@@ -11,8 +12,11 @@ namespace SwfSharp.Tags
     public class DefineShape4Tag : DefineShape3Tag
     {
         public RectStruct EdgeBounds { get; set; }
+        [XmlAttribute]
         public bool UsesFillWindingRule { get; set; }
+        [XmlAttribute]
         public bool UsesNonScalingStrokes { get; set; }
+        [XmlAttribute]
         public bool UsesScalingStrokes { get; set; }
 
         public DefineShape4Tag() : this(0)

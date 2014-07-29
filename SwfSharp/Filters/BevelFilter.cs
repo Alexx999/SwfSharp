@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Structs;
 using SwfSharp.Utils;
 
@@ -12,12 +13,19 @@ namespace SwfSharp.Filters
     {
         public RgbaStruct ShadowColor { get; set; }
         public RgbaStruct HighlightColor { get; set; }
+        [XmlAttribute]
         public double Angle { get; set; }
+        [XmlAttribute]
         public double Distance { get; set; }
+        [XmlAttribute]
         public float Strength { get; set; }
+        [XmlAttribute]
         public bool InnerShadow { get; set; }
+        [XmlAttribute]
         public bool Knockout { get; set; }
+        [XmlAttribute]
         public bool CompositeSource { get; set; }
+        [XmlAttribute]
         public bool OnTop { get; set; }
 
         private void FromStream(BitReader reader)

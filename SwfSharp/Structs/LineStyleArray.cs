@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Tags;
 using SwfSharp.Utils;
 
@@ -10,6 +11,8 @@ namespace SwfSharp.Structs
     [Serializable]
     public class LineStyleArray
     {
+        [XmlArrayItem("LineStyle", typeof(LineStyleStruct))]
+        [XmlArrayItem("LineStyle2", typeof(LineStyle2Struct))]
         public List<LineStyleStruct> LineStyles { get; set; }
 
         private void FromStream(BitReader reader, TagType type)

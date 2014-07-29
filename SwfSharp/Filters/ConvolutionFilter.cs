@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Structs;
 using SwfSharp.Utils;
 
@@ -10,13 +11,19 @@ namespace SwfSharp.Filters
     [Serializable]
     public class ConvolutionFilter
     {
+        [XmlAttribute]
         public byte MatrixX { get; set; }
+        [XmlAttribute]
         public byte MatrixY { get; set; }
+        [XmlAttribute]
         public float Divisor { get; set; }
+        [XmlAttribute]
         public float Bias { get; set; }
         public List<float> Matrix { get; set; }
         public RgbaStruct DefaultColor { get; set; }
+        [XmlAttribute]
         public bool Clamp { get; set; }
+        [XmlAttribute]
         public bool PreserveAlpha { get; set; }
 
         private void FromStream(BitReader reader)

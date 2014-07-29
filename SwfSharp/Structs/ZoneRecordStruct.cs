@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
@@ -10,7 +11,9 @@ namespace SwfSharp.Structs
     public class ZoneRecordStruct
     {
         public List<ZoneDataStruct> ZoneData { get; set; }
+        [XmlAttribute]
         public bool ZoneMaskY { get; set; }
+        [XmlAttribute]
         public bool ZoneMaskX { get; set; }
 
         private void FromStream(BitReader reader)

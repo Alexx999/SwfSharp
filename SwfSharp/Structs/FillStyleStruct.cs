@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Tags;
 using SwfSharp.Utils;
 
@@ -11,12 +12,28 @@ namespace SwfSharp.Structs
     [Serializable]
     public class FillStyleStruct
     {
+        private ushort? _bitmapId;
+
+        [XmlAttribute]
         public FillStyle FillStyleType { get; set; }
         public RgbaStruct Color { get; set; }
         public MatrixStruct GradientMatrix { get; set; }
         public GradientStruct Gradient { get; set; }
         public FocalGradientStruct FocalGradient { get; set; }
-        public ushort BitmapId { get; set; }
+
+        [XmlAttribute]
+        public ushort BitmapId
+        {
+            get { return _bitmapId.GetValueOrDefault(); }
+            set { _bitmapId = value; }
+        }
+
+        [XmlIgnore]
+        public bool BitmapIdSpecified
+        {
+            get { return _bitmapId.HasValue; }
+        }
+
         public MatrixStruct BitmapMatrix { get; set; }
 
         private void FromStream(BitReader reader, TagType type)
@@ -54,7 +71,7 @@ namespace SwfSharp.Structs
 
         private void ReadBitmap(BitReader reader)
         {
-            BitmapId = reader.ReadUI16();
+            _bitmapId = reader.ReadUI16();
             BitmapMatrix = MatrixStruct.CreateFromStream(reader);
         }
 
@@ -127,7 +144,7 @@ namespace SwfSharp.Structs
 
         private void WriteBitmap(BitWriter writer)
         {
-            writer.WriteUI16(BitmapId);
+            writer.WriteUI16(_bitmapId.GetValueOrDefault());
             BitmapMatrix.ToStream(writer);
         }
 

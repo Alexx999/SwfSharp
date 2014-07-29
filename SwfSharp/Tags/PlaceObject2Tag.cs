@@ -11,29 +11,56 @@ namespace SwfSharp.Tags
     [Serializable]
     public class PlaceObject2Tag : SwfTag
     {
-        [XmlAttribute]
-        public bool PlaceFlagHasClipActions { get; set; }
-        [XmlAttribute]
-        public bool PlaceFlagHasClipDepth { get; set; }
-        [XmlAttribute]
-        public bool PlaceFlagHasName { get; set; }
-        [XmlAttribute]
-        public bool PlaceFlagHasRatio { get; set; }
-        [XmlAttribute]
-        public bool PlaceFlagHasColorTransform { get; set; }
-        [XmlAttribute]
-        public bool PlaceFlagHasMatrix { get; set; }
-        [XmlAttribute]
-        public bool PlaceFlagHasCharacter { get; set; }
+        protected ushort? _characterId;
+        protected ushort? _ratio;
+        protected ushort? _clipDepth;
+
         [XmlAttribute]
         public bool PlaceFlagMove { get; set; }
+        [XmlAttribute]
         public ushort Depth { get; set; }
-        public ushort CharacterId { get; set; }
+
+        public ushort CharacterId
+        {
+            get { return _characterId.GetValueOrDefault(); }
+            set { _characterId = value; }
+        }
+
+        [XmlIgnore]
+        public bool CharacterIdSpecified
+        {
+            get { return _characterId.HasValue; }
+        }
+
         public MatrixStruct Matrix { get; set; }
         public CXformWithAlphaStruct ColorTransform { get; set; }
-        public ushort Ratio { get; set; }
+
+        public ushort Ratio
+        {
+            get { return _ratio.GetValueOrDefault(); }
+            set { _ratio = value; }
+        }
+
+        [XmlIgnore]
+        public bool RatioSpecified
+        {
+            get { return _ratio.HasValue; }
+        }
+
         public string Name { get; set; }
-        public ushort ClipDepth { get; set; }
+
+        public ushort ClipDepth
+        {
+            get { return _clipDepth.GetValueOrDefault(); }
+            set { _clipDepth = value; }
+        }
+
+        [XmlIgnore]
+        public bool ClipDepthSpecified
+        {
+            get { return _clipDepth.HasValue; }
+        }
+
         public ClipActionsStruct ClipActions { get; set; }
 
         public PlaceObject2Tag() : this(0)
@@ -41,7 +68,7 @@ namespace SwfSharp.Tags
         }
 
         public PlaceObject2Tag(int size)
-            : base(TagType.PlaceObject2, size)
+            : this(TagType.PlaceObject2, size)
         {
         }
 
@@ -52,40 +79,40 @@ namespace SwfSharp.Tags
 
         internal override void FromStream(BitReader reader, byte swfVersion)
         {
-            PlaceFlagHasClipActions = reader.ReadBoolBit();
-            PlaceFlagHasClipDepth = reader.ReadBoolBit();
-            PlaceFlagHasName = reader.ReadBoolBit();
-            PlaceFlagHasRatio = reader.ReadBoolBit();
-            PlaceFlagHasColorTransform = reader.ReadBoolBit();
-            PlaceFlagHasMatrix = reader.ReadBoolBit();
-            PlaceFlagHasCharacter = reader.ReadBoolBit();
+            var placeFlagHasClipActions = reader.ReadBoolBit();
+            var placeFlagHasClipDepth = reader.ReadBoolBit();
+            var placeFlagHasName = reader.ReadBoolBit();
+            var placeFlagHasRatio = reader.ReadBoolBit();
+            var placeFlagHasColorTransform = reader.ReadBoolBit();
+            var placeFlagHasMatrix = reader.ReadBoolBit();
+            var placeFlagHasCharacter = reader.ReadBoolBit();
             PlaceFlagMove = reader.ReadBoolBit();
             Depth = reader.ReadUI16();
-            if (PlaceFlagHasCharacter)
+            if (placeFlagHasCharacter)
             {
                 CharacterId = reader.ReadUI16();
             }
-            if (PlaceFlagHasMatrix)
+            if (placeFlagHasMatrix)
             {
                 Matrix = MatrixStruct.CreateFromStream(reader);
             }
-            if (PlaceFlagHasColorTransform)
+            if (placeFlagHasColorTransform)
             {
                 ColorTransform = CXformWithAlphaStruct.CreateFromStream(reader);
             }
-            if (PlaceFlagHasRatio)
+            if (placeFlagHasRatio)
             {
                 Ratio = reader.ReadUI16();
             }
-            if (PlaceFlagHasName)
+            if (placeFlagHasName)
             {
                 Name = reader.ReadString();
             }
-            if (PlaceFlagHasClipDepth)
+            if (placeFlagHasClipDepth)
             {
                 ClipDepth = reader.ReadUI16();
             }
-            if (PlaceFlagHasClipActions)
+            if (placeFlagHasClipActions)
             {
                 ClipActions = ClipActionsStruct.CreateFromStream(reader, swfVersion);
             }
@@ -93,40 +120,48 @@ namespace SwfSharp.Tags
 
         internal override void ToStream(BitWriter writer, byte swfVersion)
         {
-            writer.WriteBoolBit(PlaceFlagHasClipActions);
-            writer.WriteBoolBit(PlaceFlagHasClipDepth);
-            writer.WriteBoolBit(PlaceFlagHasName);
-            writer.WriteBoolBit(PlaceFlagHasRatio);
-            writer.WriteBoolBit(PlaceFlagHasColorTransform);
-            writer.WriteBoolBit(PlaceFlagHasMatrix);
-            writer.WriteBoolBit(PlaceFlagHasCharacter);
+            var placeFlagHasClipActions = ClipActions != null;
+            var placeFlagHasClipDepth = _clipDepth.HasValue;
+            var placeFlagHasName = !string.IsNullOrEmpty(Name);
+            var placeFlagHasRatio = _ratio.HasValue;
+            var placeFlagHasColorTransform = ColorTransform != null;
+            var placeFlagHasMatrix = Matrix != null;
+            var placeFlagHasCharacter = _characterId.HasValue;
+
+            writer.WriteBoolBit(placeFlagHasClipActions);
+            writer.WriteBoolBit(placeFlagHasClipDepth);
+            writer.WriteBoolBit(placeFlagHasName);
+            writer.WriteBoolBit(placeFlagHasRatio);
+            writer.WriteBoolBit(placeFlagHasColorTransform);
+            writer.WriteBoolBit(placeFlagHasMatrix);
+            writer.WriteBoolBit(placeFlagHasCharacter);
             writer.WriteBoolBit(PlaceFlagMove);
             writer.WriteUI16(Depth);
-            if (PlaceFlagHasCharacter)
+            if (placeFlagHasCharacter)
             {
-                writer.WriteUI16(CharacterId);
+                writer.WriteUI16(_characterId.Value);
             }
-            if (PlaceFlagHasMatrix)
+            if (placeFlagHasMatrix)
             {
                 Matrix.ToStream(writer);
             }
-            if (PlaceFlagHasColorTransform)
+            if (placeFlagHasColorTransform)
             {
                 ColorTransform.ToStream(writer);
             }
-            if (PlaceFlagHasRatio)
+            if (placeFlagHasRatio)
             {
-                writer.WriteUI16(Ratio);
+                writer.WriteUI16(_ratio.Value);
             }
-            if (PlaceFlagHasName)
+            if (placeFlagHasName)
             {
                 writer.WriteString(Name, swfVersion);
             }
-            if (PlaceFlagHasClipDepth)
+            if (placeFlagHasClipDepth)
             {
-                writer.WriteUI16(ClipDepth);
+                writer.WriteUI16(_clipDepth.Value);
             }
-            if (PlaceFlagHasClipActions)
+            if (placeFlagHasClipActions)
             {
                 ClipActions.ToStream(writer, swfVersion);
             }

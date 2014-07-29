@@ -41,7 +41,7 @@ namespace SwfSharp.Tags
             StartBounds = RectStruct.CreateFromStream(reader);
             EndBounds = RectStruct.CreateFromStream(reader);
             reader.ReadUI32();
-            MorphFillStyles = MorphFillStyleArrayStruct.CreateFromStream(reader);
+            MorphFillStyles = MorphFillStyleArrayStruct.CreateFromStream(reader, TagType);
             MorphLineStyles = MorphLineStyleArrayStruct.CreateFromStream(reader, TagType);
             StartEdges = ShapeStruct.CreateFromStream(reader, TagType);
             EndEdges = ShapeStruct.CreateFromStream(reader, TagType);

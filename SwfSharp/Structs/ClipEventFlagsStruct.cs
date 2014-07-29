@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
@@ -6,24 +7,43 @@ namespace SwfSharp.Structs
     [Serializable]
     public class ClipEventFlagsStruct
     {
+        [XmlAttribute]
         public bool ClipEventKeyUp { get; set; }
+        [XmlAttribute]
         public bool ClipEventKeyDown { get; set; }
+        [XmlAttribute]
         public bool ClipEventMouseUp { get; set; }
+        [XmlAttribute]
         public bool ClipEventMouseDown { get; set; }
+        [XmlAttribute]
         public bool ClipEventMouseMove { get; set; }
+        [XmlAttribute]
         public bool ClipEventUnload { get; set; }
+        [XmlAttribute]
         public bool ClipEventEnterFrame { get; set; }
+        [XmlAttribute]
         public bool ClipEventLoad { get; set; }
+        [XmlAttribute]
         public bool ClipEventDragOver { get; set; }
+        [XmlAttribute]
         public bool ClipEventRollOut { get; set; }
+        [XmlAttribute]
         public bool ClipEventRollOver { get; set; }
+        [XmlAttribute]
         public bool ClipEventReleaseOutside { get; set; }
+        [XmlAttribute]
         public bool ClipEventRelease { get; set; }
+        [XmlAttribute]
         public bool ClipEventPress { get; set; }
+        [XmlAttribute]
         public bool ClipEventInitialize { get; set; }
+        [XmlAttribute]
         public bool ClipEventData { get; set; }
+        [XmlAttribute]
         public bool ClipEventConstruct { get; set; }
+        [XmlAttribute]
         public bool ClipEventKeyPress { get; set; }
+        [XmlAttribute]
         public bool ClipEventDragOut { get; set; }
 
         private void FromStream(BitReader reader, byte swfVersion)

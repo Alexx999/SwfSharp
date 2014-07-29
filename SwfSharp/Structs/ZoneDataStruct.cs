@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
@@ -9,7 +10,9 @@ namespace SwfSharp.Structs
     [Serializable]
     public class ZoneDataStruct
     {
+        [XmlAttribute]
         public float AlignmentCoordinate { get; set; }
+        [XmlAttribute]
         public float Range { get; set; }
 
         private void FromStream(BitReader reader)

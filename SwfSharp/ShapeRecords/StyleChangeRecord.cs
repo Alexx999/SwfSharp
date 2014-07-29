@@ -9,17 +9,78 @@ namespace SwfSharp.ShapeRecords
     [Serializable]
     public class StyleChangeRecord : ShapeRecord
     {
+        private int? _moveDeltaX;
+        private int? _moveDeltaY;
+        private uint? _fillStyle0;
+        private uint? _fillStyle1;
+        private uint? _lineStyle;
         private NonEdgeFlags Flags { get; set; }
+
         [XmlAttribute]
-        public int MoveDeltaX { get; set; }
+        public int MoveDeltaX
+        {
+            get { return _moveDeltaX.GetValueOrDefault(); }
+            set { _moveDeltaX = value; }
+        }
+
+        [XmlIgnore]
+        public bool MoveDeltaXSpecified
+        {
+            get { return _moveDeltaX.HasValue; }
+        }
+
         [XmlAttribute]
-        public int MoveDeltaY { get; set; }
+        public int MoveDeltaY
+        {
+            get { return _moveDeltaY.GetValueOrDefault(); }
+            set { _moveDeltaY = value; }
+        }
+
+        [XmlIgnore]
+        public bool MoveDeltaYSpecified
+        {
+            get { return _moveDeltaY.HasValue; }
+        }
+
         [XmlAttribute]
-        public uint FillStyle0 { get; set; }
+        public uint FillStyle0
+        {
+            get { return _fillStyle0.GetValueOrDefault(); }
+            set { _fillStyle0 = value; }
+        }
+
+        [XmlIgnore]
+        public bool FillStyle0Specified
+        {
+            get { return _fillStyle0.HasValue; }
+        }
+
         [XmlAttribute]
-        public uint FillStyle1 { get; set; }
+        public uint FillStyle1
+        {
+            get { return _fillStyle1.GetValueOrDefault(); }
+            set { _fillStyle1 = value; }
+        }
+
+        [XmlIgnore]
+        public bool FillStyle1Specified
+        {
+            get { return _fillStyle1.HasValue; }
+        }
+
         [XmlAttribute]
-        public uint LineStyle { get; set; }
+        public uint LineStyle
+        {
+            get { return _lineStyle.GetValueOrDefault(); }
+            set { _lineStyle = value; }
+        }
+
+        [XmlIgnore]
+        public bool LineStyleSpecified
+        {
+            get { return _lineStyle.HasValue; }
+        }
+
         public FillStyleArray FillStyles { get; set; }
         public LineStyleArray LineStyles { get; set; }
 
@@ -36,20 +97,20 @@ namespace SwfSharp.ShapeRecords
             if (Flags.StateMoveTo)
             {
                 var moveBits = reader.ReadBits(5);
-                MoveDeltaX = reader.ReadBitsSigned(moveBits);
-                MoveDeltaY = reader.ReadBitsSigned(moveBits);
+                _moveDeltaX = reader.ReadBitsSigned(moveBits);
+                _moveDeltaY = reader.ReadBitsSigned(moveBits);
             }
             if (Flags.StateFillStyle0)
             {
-                FillStyle0 = reader.ReadBits(numFillBits);
+                _fillStyle0 = reader.ReadBits(numFillBits);
             }
             if (Flags.StateFillStyle1)
             {
-                FillStyle1 = reader.ReadBits(numFillBits);
+                _fillStyle1 = reader.ReadBits(numFillBits);
             }
             if (Flags.StateLineStyle)
             {
-                LineStyle = reader.ReadBits(numLineBits);
+                _lineStyle = reader.ReadBits(numLineBits);
             }
             var canHaveNewStyles = type == TagType.DefineShape2 || type == TagType.DefineShape3 ||
                                 type == TagType.DefineShape4;
@@ -77,10 +138,10 @@ namespace SwfSharp.ShapeRecords
             var canHaveNewStyles = type == TagType.DefineShape2 || type == TagType.DefineShape3 ||
                                 type == TagType.DefineShape4;
 
-            Flags.StateMoveTo = (MoveDeltaX != 0) || (MoveDeltaY != 0);
-            Flags.StateFillStyle0 = FillStyle0 != 0;
-            Flags.StateFillStyle1 = FillStyle1 != 0;
-            Flags.StateLineStyle = LineStyle != 0;
+            Flags.StateMoveTo = (_moveDeltaX.HasValue) || (_moveDeltaY.HasValue);
+            Flags.StateFillStyle0 = _fillStyle0.HasValue;
+            Flags.StateFillStyle1 = _fillStyle1.HasValue;
+            Flags.StateLineStyle = _lineStyle.HasValue;
             Flags.StateNewStyles = canHaveNewStyles && LineStyles != null && FillStyles != null &&
                                    ((LineStyles.LineStyles.Count > 0) || (FillStyles.FillStyles.Count > 0));
 
@@ -89,19 +150,19 @@ namespace SwfSharp.ShapeRecords
 
             if (Flags.StateMoveTo)
             {
-                writer.WriteBitSizeAndData(5, new[] { MoveDeltaX, MoveDeltaY });
+                writer.WriteBitSizeAndData(5, new[] { _moveDeltaX.GetValueOrDefault(), _moveDeltaY.GetValueOrDefault() });
             }
             if (Flags.StateFillStyle0)
             {
-                writer.WriteBits(numFillBits, FillStyle0);
+                writer.WriteBits(numFillBits, _fillStyle0.Value);
             }
             if (Flags.StateFillStyle1)
             {
-                writer.WriteBits(numFillBits, FillStyle1);
+                writer.WriteBits(numFillBits, _fillStyle1.Value);
             }
             if (Flags.StateLineStyle)
             {
-                writer.WriteBits(numLineBits, LineStyle);
+                writer.WriteBits(numLineBits, _lineStyle.Value);
             }
             if (Flags.StateNewStyles)
             {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
@@ -6,8 +7,11 @@ namespace SwfSharp.Structs
     [Serializable]
     public class SoundEnvelopeStruct
     {
+        [XmlAttribute]
         public uint Pos44 { get; set; }
+        [XmlAttribute]
         public ushort LeftLevel { get; set; }
+        [XmlAttribute]
         public ushort RightLevel { get; set; }
 
         private void FromStream(BitReader reader)

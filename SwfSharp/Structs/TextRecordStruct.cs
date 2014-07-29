@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Tags;
 using SwfSharp.Utils;
 
@@ -11,16 +12,68 @@ namespace SwfSharp.Structs
     [Serializable]
     public class TextRecordStruct
     {
+        private ushort? _fontID;
+        private short? _xOffset;
+        private short? _yOffset;
+        private ushort? _textHeight;
+
+        [XmlAttribute]
         public byte TextRecordType { get; set; }
-        public bool StyleFlagsHasFont { get; set; }
-        public bool StyleFlagsHasColor { get; set; }
-        public bool StyleFlagsHasYOffset { get; set; }
-        public bool StyleFlagsHasXOffset { get; set; }
-        public ushort FontID { get; set; }
+
+        [XmlAttribute]
+        public ushort FontID
+        {
+            get { return _fontID.GetValueOrDefault(); }
+            set { _fontID = value; }
+        }
+
+        [XmlIgnore]
+        public bool FontIDSpecified
+        {
+            get { return _fontID.HasValue; }
+        }
+
         public RgbaStruct TextColor { get; set; }
-        public short XOffset { get; set; }
-        public short YOffset { get; set; }
-        public ushort TextHeight { get; set; }
+
+        [XmlAttribute]
+        public short XOffset
+        {
+            get { return _xOffset.GetValueOrDefault(); }
+            set { _xOffset = value; }
+        }
+
+        [XmlIgnore]
+        public bool XOffsetSpecified
+        {
+            get { return _xOffset.HasValue; }
+        }
+
+        [XmlAttribute]
+        public short YOffset
+        {
+            get { return _yOffset.GetValueOrDefault(); }
+            set { _yOffset = value; }
+        }
+
+        [XmlIgnore]
+        public bool YOffsetSpecified
+        {
+            get { return _yOffset.HasValue; }
+        }
+
+        [XmlAttribute]
+        public ushort TextHeight
+        {
+            get { return _textHeight.GetValueOrDefault(); }
+            set { _textHeight = value; }
+        }
+
+        [XmlIgnore]
+        public bool TextHeightSpecified
+        {
+            get { return _textHeight.HasValue; }
+        }
+
         public List<GlyphEntryStruct> GlyphEntries { get; set; }
 
         private void FromStream(BitReader reader, TagType type, byte glyphBits, byte advanceBits)
@@ -28,36 +81,36 @@ namespace SwfSharp.Structs
             reader.Align();
             TextRecordType = (byte) reader.ReadBits(1);
             reader.ReadBits(3);
-            StyleFlagsHasFont = reader.ReadBoolBit();
-            StyleFlagsHasColor = reader.ReadBoolBit();
-            StyleFlagsHasYOffset = reader.ReadBoolBit();
-            StyleFlagsHasXOffset = reader.ReadBoolBit();
+            var styleFlagsHasFont = reader.ReadBoolBit();
+            var styleFlagsHasColor = reader.ReadBoolBit();
+            var styleFlagsHasYOffset = reader.ReadBoolBit();
+            var styleFlagsHasXOffset = reader.ReadBoolBit();
             if (TextRecordType == 0)
             {
                 return;
             }
 
-            if (StyleFlagsHasFont)
+            if (styleFlagsHasFont)
             {
-                FontID = reader.ReadUI16();
+                _fontID = reader.ReadUI16();
             }
-            if (StyleFlagsHasColor)
+            if (styleFlagsHasColor)
             {
                 TextColor = type == TagType.DefineText2 
                     ? RgbaStruct.CreateFromStream(reader) 
                     : RgbaStruct.CreateFromRgbStream(reader);
             }
-            if (StyleFlagsHasXOffset)
+            if (styleFlagsHasXOffset)
             {
-                XOffset = reader.ReadSI16();
+                _xOffset = reader.ReadSI16();
             }
-            if (StyleFlagsHasYOffset)
+            if (styleFlagsHasYOffset)
             {
-                YOffset = reader.ReadSI16();
+                _yOffset = reader.ReadSI16();
             }
-            if (StyleFlagsHasFont)
+            if (styleFlagsHasFont)
             {
-                TextHeight = reader.ReadUI16();
+                _textHeight = reader.ReadUI16();
             }
             var glyphCount = reader.ReadUI8();
             GlyphEntries = new List<GlyphEntryStruct>(glyphCount);
@@ -78,19 +131,24 @@ namespace SwfSharp.Structs
 
         internal void ToStream(BitWriter writer, TagType type, byte glyphBits, byte advanceBits)
         {
+            var styleFlagsHasFont = _fontID.HasValue && _textHeight.HasValue;
+            var styleFlagsHasColor = TextColor != null;
+            var styleFlagsHasYOffset = _yOffset.HasValue;
+            var styleFlagsHasXOffset = _xOffset.HasValue;
+
             writer.Align();
             writer.WriteBits(1, 1);
             writer.WriteBits(3, 0);
-            writer.WriteBoolBit(StyleFlagsHasFont);
-            writer.WriteBoolBit(StyleFlagsHasColor);
-            writer.WriteBoolBit(StyleFlagsHasYOffset);
-            writer.WriteBoolBit(StyleFlagsHasXOffset);
+            writer.WriteBoolBit(styleFlagsHasFont);
+            writer.WriteBoolBit(styleFlagsHasColor);
+            writer.WriteBoolBit(styleFlagsHasYOffset);
+            writer.WriteBoolBit(styleFlagsHasXOffset);
 
-            if (StyleFlagsHasFont)
+            if (styleFlagsHasFont)
             {
-                writer.WriteUI16(FontID);
+                writer.WriteUI16(_fontID.Value);
             }
-            if (StyleFlagsHasColor)
+            if (styleFlagsHasColor)
             {
                 if (type == TagType.DefineText2)
                 {
@@ -101,17 +159,17 @@ namespace SwfSharp.Structs
                     TextColor.ToRgbStream(writer);
                 }
             }
-            if (StyleFlagsHasXOffset)
+            if (styleFlagsHasXOffset)
             {
-                writer.WriteSI16(XOffset);
+                writer.WriteSI16(_xOffset.Value);
             }
-            if (StyleFlagsHasYOffset)
+            if (styleFlagsHasYOffset)
             {
-                writer.WriteSI16(YOffset);
+                writer.WriteSI16(_yOffset.Value);
             }
-            if (StyleFlagsHasFont)
+            if (styleFlagsHasFont)
             {
-                writer.WriteUI16(TextHeight);
+                writer.WriteUI16(_textHeight.Value);
             }
             writer.WriteUI8((byte) GlyphEntries.Count);
 

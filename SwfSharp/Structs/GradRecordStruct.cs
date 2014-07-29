@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml.Serialization;
 using SwfSharp.Tags;
 using SwfSharp.Utils;
 
@@ -7,6 +8,7 @@ namespace SwfSharp.Structs
     [Serializable]
     public class GradRecordStruct
     {
+        [XmlAttribute]
         public byte Ratio { get; set; }
         public RgbaStruct Color { get; set; }
 

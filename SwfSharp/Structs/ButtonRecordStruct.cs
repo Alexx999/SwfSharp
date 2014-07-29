@@ -11,10 +11,8 @@ namespace SwfSharp.Structs
     [Serializable]
     public class ButtonRecordStruct
     {
-        [XmlAttribute]
-        public bool ButtonHasBlendMode { get; set; }
-        [XmlAttribute]
-        public bool ButtonHasFilterList { get; set; }
+        private BlendMode? _blendMode;
+
         [XmlAttribute]
         public bool ButtonStateHitTest { get; set; }
         [XmlAttribute]
@@ -30,21 +28,30 @@ namespace SwfSharp.Structs
         public MatrixStruct PlaceMatrix { get; set; }
         public CXformWithAlphaStruct ColorTransform { get; set; }
         public FilterListStruct FilterList { get; set; }
-        public BlendMode BlendMode { get; set; }
 
-        public ButtonRecordStruct()
+        [XmlAttribute]
+        public BlendMode BlendMode
         {
-            BlendMode = BlendMode.Normal;
+            get { return _blendMode.GetValueOrDefault(); }
+            set { _blendMode = value; }
+        }
+
+        [XmlIgnore]
+        public bool BlendModeSpecified
+        {
+            get { return _blendMode.HasValue; }
         }
 
         private void FromStream(BitReader reader, TagType type, byte swfVersion)
         {
+            bool buttonHasBlendMode = false;
+            bool buttonHasFilterList = false;
             reader.Align();
             if (swfVersion >= 8)
             {
                 reader.ReadBits(2);
-                ButtonHasBlendMode = reader.ReadBoolBit();
-                ButtonHasFilterList = reader.ReadBoolBit();
+                buttonHasBlendMode = reader.ReadBoolBit();
+                buttonHasFilterList = reader.ReadBoolBit();
             }
             else
             {
@@ -61,11 +68,11 @@ namespace SwfSharp.Structs
             if(type < TagType.DefineButton2) return;
 
             ColorTransform = CXformWithAlphaStruct.CreateFromStream(reader);
-            if (ButtonHasFilterList)
+            if (buttonHasFilterList)
             {
                 FilterList = FilterListStruct.CreateFromStream(reader);
             }
-            if (ButtonHasBlendMode)
+            if (buttonHasBlendMode)
             {
                 BlendMode = BlendModeHelper.GetBlendMode(reader.ReadUI8());
             }
@@ -82,12 +89,16 @@ namespace SwfSharp.Structs
 
         internal void ToStream(BitWriter writer, TagType type, byte swfVersion)
         {
+            bool buttonHasBlendMode = false;
+            bool buttonHasFilterList = false;
             writer.Align();
             if (swfVersion >= 8)
             {
+                buttonHasBlendMode = _blendMode.HasValue;
+                buttonHasFilterList = FilterList != null;
                 writer.WriteBits(2, 0);
-                writer.WriteBoolBit(ButtonHasBlendMode);
-                writer.WriteBoolBit(ButtonHasFilterList);
+                writer.WriteBoolBit(buttonHasBlendMode);
+                writer.WriteBoolBit(buttonHasFilterList);
             }
             else
             {
@@ -104,13 +115,13 @@ namespace SwfSharp.Structs
             if (type < TagType.DefineButton2) return;
 
             ColorTransform.ToStream(writer);
-            if (ButtonHasFilterList)
+            if (buttonHasFilterList)
             {
                 FilterList.ToStream(writer);
             }
-            if (ButtonHasBlendMode)
+            if (buttonHasBlendMode)
             {
-                writer.WriteUI8((byte) BlendMode);
+                writer.WriteUI8((byte)_blendMode.Value);
             }
         }
     }

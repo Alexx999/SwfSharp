@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
@@ -9,8 +10,11 @@ namespace SwfSharp.Structs
     [Serializable]
     public class KerningRecordStruct
     {
+        [XmlAttribute]
         public ushort FontKerningCode1 { get; set; }
+        [XmlAttribute]
         public ushort FontKerningCode2 { get; set; }
+        [XmlAttribute]
         public short FontKerningAdjustment { get; set; }
 
         private void FromStream(BitReader reader, bool wide)

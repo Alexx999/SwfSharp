@@ -39,7 +39,7 @@ namespace SwfSharp.Tags
             UsesNonScalingStrokes = reader.ReadBoolBit();
             UsesScalingStrokes = reader.ReadBoolBit();
             reader.ReadUI32();
-            MorphFillStyles = MorphFillStyleArrayStruct.CreateFromStream(reader);
+            MorphFillStyles = MorphFillStyleArrayStruct.CreateFromStream(reader, TagType);
             MorphLineStyles = MorphLineStyleArrayStruct.CreateFromStream(reader, TagType);
             StartEdges = ShapeStruct.CreateFromStream(reader, TagType);
             EndEdges = ShapeStruct.CreateFromStream(reader, TagType);

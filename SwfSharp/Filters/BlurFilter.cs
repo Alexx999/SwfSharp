@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Filters
@@ -9,8 +10,11 @@ namespace SwfSharp.Filters
     [Serializable]
     public class BlurFilter
     {
+        [XmlAttribute]
         public double BlurX { get; set; }
+        [XmlAttribute]
         public double BlurY { get; set; }
+        [XmlAttribute]
         public byte Passes { get; set; }
 
         private void FromStream(BitReader reader)

@@ -13,6 +13,8 @@ namespace SwfSharp.Tags
     [Serializable]
     public class DefineBitsLossless2Tag : SwfTag
     {
+        private byte? _bitmapColorTableSize;
+
         [XmlAttribute]
         public ushort CharacterID { get; set; }
         [XmlAttribute]
@@ -21,8 +23,20 @@ namespace SwfSharp.Tags
         public ushort BitmapWidth { get; set; }
         [XmlAttribute]
         public ushort BitmapHeight { get; set; }
+
         [XmlAttribute]
-        public byte BitmapColorTableSize { get; set; }
+        public byte BitmapColorTableSize
+        {
+            get { return _bitmapColorTableSize.GetValueOrDefault(); }
+            set { _bitmapColorTableSize = value; }
+        }
+
+        [XmlIgnore]
+        public bool BitmapColorTableSizeSpecified
+        {
+            get { return _bitmapColorTableSize.HasValue; }
+        }
+
         public byte[] ZlibBitmapData { get; set; }
         /*
         public AlphaColorMapDataStruct ColorMapData { get; set; }
@@ -46,7 +60,7 @@ namespace SwfSharp.Tags
             BitmapHeight = reader.ReadUI16();
             if (BitmapFormat == BitmapFormatType2.Colormap8)
             {
-                BitmapColorTableSize = reader.ReadUI8();
+                _bitmapColorTableSize = reader.ReadUI8();
             }
             ZlibBitmapData = reader.ReadBytes((int) reader.TagBytesRemaining);
             /*
@@ -77,7 +91,7 @@ namespace SwfSharp.Tags
             writer.WriteUI16(BitmapHeight);
             if (BitmapFormat == BitmapFormatType2.Colormap8)
             {
-                writer.WriteUI8(BitmapColorTableSize);
+                writer.WriteUI8(_bitmapColorTableSize.GetValueOrDefault());
             }
             writer.WriteBytes(ZlibBitmapData);
         }

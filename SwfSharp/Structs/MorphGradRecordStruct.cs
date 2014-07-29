@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
@@ -6,8 +7,10 @@ namespace SwfSharp.Structs
     [Serializable]
     public class MorphGradRecordStruct
     {
+        [XmlAttribute]
         public byte StartRatio { get; set; }
         public RgbaStruct StartColor { get; set; }
+        [XmlAttribute]
         public byte EndRatio { get; set; }
         public RgbaStruct EndColor { get; set; }
 

@@ -8,10 +8,34 @@ namespace SwfSharp.ShapeRecords
     [Serializable]
     public class StraightEdgeRecord : ShapeRecord
     {
+        private int? _deltaX;
+        private int? _deltaY;
+
         [XmlAttribute]
-        public int DeltaX { get; set; }
+        public int DeltaX
+        {
+            get { return _deltaX.GetValueOrDefault(); }
+            set { _deltaX = value; }
+        }
+
+        [XmlIgnore]
+        public bool DeltaXSpecified
+        {
+            get { return _deltaX.HasValue; }
+        }
+
         [XmlAttribute]
-        public int DeltaY { get; set; }
+        public int DeltaY
+        {
+            get { return _deltaY.GetValueOrDefault(); }
+            set { _deltaY = value; }
+        }
+
+        [XmlIgnore]
+        public bool DeltaYSpecified
+        {
+            get { return _deltaY.HasValue; }
+        }
 
         public StraightEdgeRecord() : base(ShapeRecordType.StraightEdge)
         {
@@ -29,11 +53,11 @@ namespace SwfSharp.ShapeRecords
 
             if (generalLineFlag || !vertLineFlag)
             {
-                DeltaX = reader.ReadBitsSigned(numBits);
+                _deltaX = reader.ReadBitsSigned(numBits);
             }
             if (generalLineFlag || vertLineFlag)
             {
-                DeltaY = reader.ReadBitsSigned(numBits);
+                _deltaY = reader.ReadBitsSigned(numBits);
             }
         }
 
@@ -52,21 +76,21 @@ namespace SwfSharp.ShapeRecords
             writer.WriteBits(1, 1);
             writer.WriteBits(1, 1);
 
-            var generalLineFlag = (DeltaX != 0) && (DeltaY != 0);
-            var vertLineFlag = (DeltaX == 0) && (DeltaY != 0);
+            var generalLineFlag = _deltaX.HasValue && _deltaY.HasValue;
+            var vertLineFlag = !_deltaX.HasValue && _deltaY.HasValue;
 
             int[] data;
             if (generalLineFlag)
             {
-                data = new[] {DeltaX, DeltaY};
+                data = new[] { _deltaX.Value, _deltaY.Value };
             }
             else if (vertLineFlag)
             {
-                data = new[] { DeltaY };
+                data = new[] { _deltaY.Value };
             }
             else
             {
-                data = new[] { DeltaX };
+                data = new[] { _deltaX.Value };
             }
             var numBits = (uint)Math.Max((int)BitWriter.MinBitsPerField(data) - 2, 0);
             writer.WriteBits(4, numBits);
