@@ -34,7 +34,9 @@ namespace SwfSharp.Tags
         public byte LanguageCode { get; set; }
         [XmlAttribute]
         public string FontName { get; set; }
+        [XmlArrayItem("Shape")]
         public List<ShapeStruct> GlyphShapeTable { get; set; }
+        [XmlArrayItem("Code")]
         public List<ushort> CodeTable { get; set; }
 
         [XmlAttribute]
@@ -76,8 +78,11 @@ namespace SwfSharp.Tags
             get { return _fontLeading.HasValue; }
         }
 
+        [XmlArrayItem("Advance")]
         public List<short> FontAdvanceTable { get; set; }
+        [XmlArrayItem("Bounds")]
         public List<RectStruct> FontBoundsTable { get; set; }
+        [XmlArrayItem("KerningRecord")]
         public List<KerningRecordStruct> FontKerningTable { get; set; }
 
         public DefineFont2Tag() : this(0)

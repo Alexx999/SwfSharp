@@ -20,6 +20,7 @@ namespace SwfSharp.Tags
         [XmlAttribute]
         public ushort Depth { get; set; }
 
+        [XmlAttribute]
         public ushort CharacterId
         {
             get { return _characterId.GetValueOrDefault(); }
@@ -32,7 +33,9 @@ namespace SwfSharp.Tags
             get { return _characterId.HasValue; }
         }
 
+        [XmlElement]
         public MatrixStruct Matrix { get; set; }
+        [XmlElement]
         public CXformWithAlphaStruct ColorTransform { get; set; }
 
         public ushort Ratio

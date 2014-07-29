@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Tags;
 using SwfSharp.Utils;
 
@@ -11,6 +12,7 @@ namespace SwfSharp.Structs
     [Serializable]
     public class AlphaBitmapDataStruct
     {
+        [XmlElement]
         public List<ArgbStruct> BitmapPixelData { get; set; }
 
         private void FromStream(BitReader reader, int width, int height)

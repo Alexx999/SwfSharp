@@ -12,7 +12,9 @@ namespace SwfSharp.Tags
     [Serializable]
     public class DefineMorphShape2Tag : DefineMorphShapeTag
     {
+        [XmlElement]
         public RectStruct StartEdgeBounds { get; set; }
+        [XmlElement]
         public RectStruct EndEdgeBounds { get; set; }
         [XmlAttribute]
         public bool UsesNonScalingStrokes { get; set; }

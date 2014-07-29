@@ -14,6 +14,7 @@ namespace SwfSharp.Tags
         public uint Flags { get; set; }
         [XmlAttribute]
         public string Name { get; set; }
+        [XmlElement]
         public byte[] ABCData { get; set; }
 
         public DoABCTag() : this(0)

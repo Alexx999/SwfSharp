@@ -9,9 +9,11 @@ namespace SwfSharp.Structs
     {
         [XmlAttribute]
         public byte StartRatio { get; set; }
+        [XmlElement]
         public RgbaStruct StartColor { get; set; }
         [XmlAttribute]
         public byte EndRatio { get; set; }
+        [XmlElement]
         public RgbaStruct EndColor { get; set; }
 
         private void FromStream(BitReader reader)

@@ -41,6 +41,7 @@ namespace SwfSharp.Structs
             get { return _miterLimitFactor.HasValue; }
         }
 
+        [XmlElement]
         public FillStyleStruct FillType { get; set; }
 
         private void FromStream(BitReader reader, TagType type)

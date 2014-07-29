@@ -15,6 +15,7 @@ namespace SwfSharp.Tags
         public ushort FontID { get; set; }
         [XmlAttribute]
         public CSMTableHint CSMTableHint { get; set; }
+        [XmlElement("ZoneRecord")]
         public List<ZoneRecordStruct> ZoneTable { get; set; }
 
         public DefineFontAlignZonesTag() : this(0)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
@@ -7,6 +8,7 @@ namespace SwfSharp.Structs
     [Serializable]
     public class MorphGradientStruct
     {
+        [XmlElement("MorphGradRecord")]
         public List<MorphGradRecordStruct> GradientRecords { get; set; }
 
         internal virtual void FromStream(BitReader reader)

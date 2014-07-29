@@ -13,6 +13,7 @@ namespace SwfSharp.Structs
     {
         [XmlAttribute]
         public ushort Width { get; set; }
+        [XmlElement]
         public RgbaStruct Color { get; set; }
 
         private void FromStream(BitReader reader, TagType type)

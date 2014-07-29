@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Xml.Serialization;
 using SwfSharp.Structs;
 using SwfSharp.Utils;
 
@@ -9,6 +10,7 @@ namespace SwfSharp.Tags
     [Serializable]
     public class DoActionTag : SwfTag
     {
+        [XmlElement("ActionRecord")]
         public List<ActionRecordStruct> Actions { get; set; }
 
         public DoActionTag() : this(0)

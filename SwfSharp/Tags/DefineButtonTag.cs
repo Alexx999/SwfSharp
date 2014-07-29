@@ -14,6 +14,7 @@ namespace SwfSharp.Tags
     {
         [XmlAttribute]
         public ushort ButtonId { get; set; }
+        [XmlElement("ButtonRecord")]
         public List<ButtonRecordStruct> Characters { get; set; }
 
         public DefineButtonTag() : this(0)

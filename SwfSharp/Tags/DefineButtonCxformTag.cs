@@ -13,6 +13,7 @@ namespace SwfSharp.Tags
     {
         [XmlAttribute]
         public ushort ButtonId { get; set; }
+        [XmlElement]
         public CXformStruct ButtonColorTransform { get; set; }
 
         public DefineButtonCxformTag() : this(0)

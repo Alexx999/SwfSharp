@@ -13,13 +13,21 @@ namespace SwfSharp.Tags
     {
         [XmlAttribute]
         public ushort ButtonId { get; set; }
+        [XmlAttribute]
         public ushort ButtonSoundChar0 { get; set; }
+        [XmlElement]
         public SoundInfoStruct ButtonSoundInfo0 { get; set; }
+        [XmlAttribute]
         public ushort ButtonSoundChar1 { get; set; }
+        [XmlElement]
         public SoundInfoStruct ButtonSoundInfo1 { get; set; }
+        [XmlAttribute]
         public ushort ButtonSoundChar2 { get; set; }
+        [XmlElement]
         public SoundInfoStruct ButtonSoundInfo2 { get; set; }
+        [XmlAttribute]
         public ushort ButtonSoundChar3 { get; set; }
+        [XmlElement]
         public SoundInfoStruct ButtonSoundInfo3 { get; set; }
 
         public DefineButtonSoundTag() : this(0)

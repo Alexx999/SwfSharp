@@ -37,6 +37,7 @@ namespace SwfSharp.Tags
             get { return _bitmapColorTableSize.HasValue; }
         }
 
+        [XmlElement]
         public byte[] ZlibBitmapData { get; set; }
         /*
         public AlphaColorMapDataStruct ColorMapData { get; set; }

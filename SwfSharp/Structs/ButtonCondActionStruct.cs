@@ -33,6 +33,7 @@ namespace SwfSharp.Structs
         public byte CondKeyPress { get; set; }
         [XmlAttribute]
         public bool CondOverDownToIdle { get; set; }
+        [XmlElement("ActionRecord")]
         public List<ActionRecordStruct> Actions { get; set; }
 
         private void FromStream(BitReader reader)

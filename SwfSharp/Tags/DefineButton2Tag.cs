@@ -16,7 +16,9 @@ namespace SwfSharp.Tags
         public ushort ButtonId { get; set; }
         [XmlAttribute]
         public bool TrackAsMenu { get; set; }
+        [XmlArrayItem("ButtonRecord")]
         public List<ButtonRecordStruct> Characters { get; set; }
+        [XmlArrayItem("ButtonCondAction")]
         public List<ButtonCondActionStruct> Actions { get; set; }
 
         public DefineButton2Tag() : this(0)

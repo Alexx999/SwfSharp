@@ -19,6 +19,7 @@ namespace SwfSharp.Tags
         public bool PlaceFlagHasImage { get; set; }
         [XmlAttribute]
         public string ClassName { get; set; }
+        [XmlElement]
         public FilterListStruct SurfaceFilterList { get; set; }
 
         [XmlAttribute]
@@ -60,6 +61,7 @@ namespace SwfSharp.Tags
             get { return _visible.HasValue; }
         }
 
+        [XmlElement]
         public RgbaStruct BackgroundColor { get; set; }
 
         public PlaceObject3Tag() : this(0)

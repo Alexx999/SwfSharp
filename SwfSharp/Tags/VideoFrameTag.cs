@@ -14,6 +14,7 @@ namespace SwfSharp.Tags
         public ushort StreamID { get; set; }
         [XmlAttribute]
         public ushort FrameNum { get; set; }
+        [XmlElement]
         public byte[] VideoData { get; set; }
 
         public VideoFrameTag() : this(0)

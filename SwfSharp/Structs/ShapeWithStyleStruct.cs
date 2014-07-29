@@ -11,7 +11,9 @@ namespace SwfSharp.Structs
     [Serializable]
     public class ShapeWithStyleStruct : ShapeStruct
     {
+        [XmlElement]
         public FillStyleArray FillStyles { get; set; }
+        [XmlElement]
         public LineStyleArray LineStyles { get; set; }
 
         internal override void FromStream(BitReader reader, TagType type)

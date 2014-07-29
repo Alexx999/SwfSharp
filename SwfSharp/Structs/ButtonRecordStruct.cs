@@ -25,8 +25,11 @@ namespace SwfSharp.Structs
         public ushort CharacterID { get; set; }
         [XmlAttribute]
         public ushort PlaceDepth { get; set; }
+        [XmlElement]
         public MatrixStruct PlaceMatrix { get; set; }
+        [XmlElement]
         public CXformWithAlphaStruct ColorTransform { get; set; }
+        [XmlElement]
         public FilterListStruct FilterList { get; set; }
 
         [XmlAttribute]

@@ -12,6 +12,7 @@ namespace SwfSharp.Tags
     {
         [XmlAttribute]
         public ushort Tag { get; set; }
+        [XmlElement]
         public byte[] Data { get; set; }
 
         public DefineBinaryDataTag() : this(0)

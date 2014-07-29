@@ -16,9 +16,13 @@ namespace SwfSharp.Structs
 
         [XmlAttribute]
         public FillStyle FillStyleType { get; set; }
+        [XmlElement]
         public RgbaStruct Color { get; set; }
+        [XmlElement]
         public MatrixStruct GradientMatrix { get; set; }
+        [XmlElement]
         public GradientStruct Gradient { get; set; }
+        [XmlElement]
         public FocalGradientStruct FocalGradient { get; set; }
 
         [XmlAttribute]
@@ -34,6 +38,7 @@ namespace SwfSharp.Structs
             get { return _bitmapId.HasValue; }
         }
 
+        [XmlElement]
         public MatrixStruct BitmapMatrix { get; set; }
 
         private void FromStream(BitReader reader, TagType type)

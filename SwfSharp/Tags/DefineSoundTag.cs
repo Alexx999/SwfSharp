@@ -23,6 +23,7 @@ namespace SwfSharp.Tags
         public SoundType SoundType { get; set; }
         [XmlAttribute]
         public uint SoundSampleCount { get; set; }
+        [XmlElement]
         public byte[] SoundData { get; set; }
 
         public DefineSoundTag() : this(0)

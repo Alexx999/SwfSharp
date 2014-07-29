@@ -13,7 +13,9 @@ namespace SwfSharp.Tags
     {
         [XmlAttribute]
         public ushort ShapeId { get; set; }
+        [XmlElement]
         public RectStruct ShapeBounds { get; set; }
+        [XmlElement]
         public ShapeWithStyleStruct Shapes { get; set; }
 
         public DefineShapeTag() : this(0)

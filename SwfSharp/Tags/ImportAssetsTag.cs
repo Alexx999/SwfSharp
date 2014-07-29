@@ -12,6 +12,7 @@ namespace SwfSharp.Tags
     {
         [XmlAttribute]
         public string URL { get; set; }
+        [XmlElement("Import")]
         public List<ImportRecord> Records { get; set; }
 
         public ImportAssetsTag() : this(0)

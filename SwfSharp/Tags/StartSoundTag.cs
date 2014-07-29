@@ -13,6 +13,7 @@ namespace SwfSharp.Tags
     {
         [XmlAttribute]
         public ushort SoundId { get; set; }
+        [XmlElement]
         public SoundInfoStruct SoundInfo { get; set; }
 
         public StartSoundTag() : this(0)

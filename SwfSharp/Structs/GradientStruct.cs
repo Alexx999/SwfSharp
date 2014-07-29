@@ -13,6 +13,7 @@ namespace SwfSharp.Structs
         public SpreadMode SpreadMode { get; set; }
         [XmlAttribute]
         public InterpolationMode InterpolationMode { get; set; }
+        [XmlElement("GradRecord")]
         public List<GradRecordStruct> GradientRecords { get; set; }
 
         internal virtual void FromStream(BitReader reader, TagType type)

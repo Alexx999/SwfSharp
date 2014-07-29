@@ -12,6 +12,7 @@ namespace SwfSharp.Structs
     {
         [XmlAttribute]
         public byte ActionCode { get; set; }
+        [XmlElement]
         public byte[] Data { get; set; }
 
         private void FromStream(BitReader reader)

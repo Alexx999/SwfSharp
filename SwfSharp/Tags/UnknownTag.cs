@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
@@ -9,6 +10,7 @@ namespace SwfSharp.Tags
     [Serializable]
     public class UnknownTag : SwfTag
     {
+        [XmlElement]
         public byte[] Bytes { get; set; }
 
         //Mostly for XML serialization

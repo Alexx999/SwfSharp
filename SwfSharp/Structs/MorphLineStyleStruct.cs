@@ -15,7 +15,9 @@ namespace SwfSharp.Structs
         public ushort StartWidth { get; set; }
         [XmlAttribute]
         public ushort EndWidth { get; set; }
+        [XmlElement]
         public RgbaStruct StartColor { get; set; }
+        [XmlElement]
         public RgbaStruct EndColor { get; set; }
 
         private void FromStream(BitReader reader)

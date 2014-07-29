@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
@@ -9,6 +10,7 @@ namespace SwfSharp.Structs
     [Serializable]
     public class FilterListStruct
     {
+        [XmlElement("Filter")]
         public List<FilterStruct> Filter { get; set; } 
 
         private void FromStream(BitReader reader)

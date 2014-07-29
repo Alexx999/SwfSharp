@@ -10,6 +10,7 @@ namespace SwfSharp.Structs
     [Serializable]
     public class ZoneRecordStruct
     {
+        [XmlElement("ZoneData")]
         public List<ZoneDataStruct> ZoneData { get; set; }
         [XmlAttribute]
         public bool ZoneMaskY { get; set; }

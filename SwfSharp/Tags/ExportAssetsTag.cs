@@ -8,6 +8,7 @@ namespace SwfSharp.Tags
     [Serializable]
     public class ExportAssetsTag : SwfTag
     {
+        [XmlElement("Export")]
         public List<ExportRecord> Records { get; set; }
 
         public ExportAssetsTag() : this(0)

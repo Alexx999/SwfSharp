@@ -14,13 +14,21 @@ namespace SwfSharp.Structs
     {
         [XmlAttribute]
         public FilterType FilterID { get; set; }
+        [XmlElement]
         public DropShadowFilter DropShadowFilter { get; set; }
+        [XmlElement]
         public BlurFilter BlurFilter { get; set; }
+        [XmlElement]
         public GlowFilter GlowFilter { get; set; }
+        [XmlElement]
         public BevelFilter BevelFilter { get; set; }
+        [XmlElement]
         public GradientGlowFilter GradientGlowFilter { get; set; }
+        [XmlElement]
         public ConvolutionFilter ConvolutionFilter { get; set; }
+        [XmlElement]
         public ColorMatrixFilter ColorMatrixFilter { get; set; }
+        [XmlElement]
         public GradientBevelFilter GradientBevelFilter { get; set; }
 
         private void FromStream(BitReader reader)

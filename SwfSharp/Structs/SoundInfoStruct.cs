@@ -40,6 +40,7 @@ namespace SwfSharp.Structs
             set { _loopCount = value; }
         }
 
+        [XmlElement("SoundEnvelope")]
         public List<SoundEnvelopeStruct> EnvelopeRecords { get; set; }
 
         private void FromStream(BitReader reader)

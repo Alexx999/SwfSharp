@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
@@ -9,6 +10,7 @@ namespace SwfSharp.Tags
     [Serializable]
     public class EnableTelemetryTag : SwfTag
     {
+        [XmlElement]
         public byte[] PasswordHash { get; set; }
 
         public EnableTelemetryTag() : this(0)

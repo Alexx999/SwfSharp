@@ -18,6 +18,7 @@ namespace SwfSharp.Tags
         public bool FontFlagsBold { get; set; }
         [XmlAttribute]
         public string FontName { get; set; }
+        [XmlElement]
         public byte[] FontData { get; set; }
 
         public DefineFont4Tag() : this(0)

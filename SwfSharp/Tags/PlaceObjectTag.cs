@@ -15,7 +15,9 @@ namespace SwfSharp.Tags
         public ushort CharacterId { get; set; }
         [XmlAttribute]
         public ushort Depth { get; set; }
+        [XmlElement]
         public MatrixStruct Matrix { get; set; }
+        [XmlElement]
         public CXformStruct ColorTransform { get; set; }
 
         public PlaceObjectTag() : this(0)

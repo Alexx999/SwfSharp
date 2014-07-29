@@ -33,6 +33,7 @@ namespace SwfSharp.Structs
             get { return _fontID.HasValue; }
         }
 
+        [XmlElement]
         public RgbaStruct TextColor { get; set; }
 
         [XmlAttribute]
@@ -74,6 +75,7 @@ namespace SwfSharp.Structs
             get { return _textHeight.HasValue; }
         }
 
+        [XmlArrayItem("GlyphEntry")]
         public List<GlyphEntryStruct> GlyphEntries { get; set; }
 
         private void FromStream(BitReader reader, TagType type, byte glyphBits, byte advanceBits)

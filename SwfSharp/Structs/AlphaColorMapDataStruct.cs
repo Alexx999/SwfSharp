@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
@@ -9,7 +10,9 @@ namespace SwfSharp.Structs
     [Serializable]
     public class AlphaColorMapDataStruct
     {
+        [XmlArrayItem("Color")]
         public List<RgbaStruct> ColorTableRGB { get; set; }
+        [XmlElement]
         public byte[] ColormapPixelData { get; set; }
 
         private void FromStream(BitReader reader, byte bitmapColorTableSize, int dataSize)

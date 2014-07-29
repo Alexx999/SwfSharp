@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml.Serialization;
 using SwfSharp.Structs;
 using SwfSharp.Utils;
 
@@ -7,6 +8,7 @@ namespace SwfSharp.Tags
     [Serializable]
     public class SetBackgroundColorTag : SwfTag
     {
+        [XmlElement]
         public RgbStruct BackgroundColor { get; set; }
 
         public SetBackgroundColorTag() : this(0)

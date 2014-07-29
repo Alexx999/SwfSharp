@@ -10,7 +10,9 @@ namespace SwfSharp.Tags
     [Serializable]
     public class DefineSceneAndFrameLabelDataTag : SwfTag
     {
+        [XmlArrayItem("Scene")]
         public List<SceneData> Scenes { get; set; }
+        [XmlArrayItem("Frame")]
         public List<FrameData> Frames { get; set; }
 
         public DefineSceneAndFrameLabelDataTag() : this(0)

@@ -14,8 +14,11 @@ namespace SwfSharp.Tags
     {
         [XmlAttribute]
         public ushort CharacterID { get; set; }
+        [XmlElement]
         public RectStruct TextBounds { get; set; }
+        [XmlElement]
         public MatrixStruct TextMatrix { get; set; }
+        [XmlArrayItem("TextRecord")]
         public List<TextRecordStruct> TextRecords { get; set; }
 
         public DefineTextTag() : this(0)

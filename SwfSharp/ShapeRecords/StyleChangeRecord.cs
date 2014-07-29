@@ -81,7 +81,9 @@ namespace SwfSharp.ShapeRecords
             get { return _lineStyle.HasValue; }
         }
 
+        [XmlElement]
         public FillStyleArray FillStyles { get; set; }
+        [XmlElement]
         public LineStyleArray LineStyles { get; set; }
 
         public StyleChangeRecord() : this(new NonEdgeFlags())

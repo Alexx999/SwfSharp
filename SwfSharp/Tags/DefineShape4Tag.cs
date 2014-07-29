@@ -11,6 +11,7 @@ namespace SwfSharp.Tags
     [Serializable]
     public class DefineShape4Tag : DefineShape3Tag
     {
+        [XmlElement]
         public RectStruct EdgeBounds { get; set; }
         [XmlAttribute]
         public bool UsesFillWindingRule { get; set; }

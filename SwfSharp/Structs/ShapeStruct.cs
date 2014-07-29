@@ -13,10 +13,10 @@ namespace SwfSharp.Structs
     [Serializable]
     public class ShapeStruct
     {
-        [XmlArrayItem("EndShape", typeof(EndShapeRecord))]
-        [XmlArrayItem("StyleChange", typeof(StyleChangeRecord))]
-        [XmlArrayItem("StraightEdge", typeof(StraightEdgeRecord))]
-        [XmlArrayItem("CurvedEdge", typeof(CurvedEdgeRecord))]
+        [XmlElement("EndShape", typeof(EndShapeRecord))]
+        [XmlElement("StyleChange", typeof(StyleChangeRecord))]
+        [XmlElement("StraightEdge", typeof(StraightEdgeRecord))]
+        [XmlElement("CurvedEdge", typeof(CurvedEdgeRecord))]
         public List<ShapeRecord> ShapeRecords { get; set; }
 
         internal virtual void FromStream(BitReader reader, TagType type)

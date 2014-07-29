@@ -14,6 +14,7 @@ namespace SwfSharp.Tags
     {
         [XmlAttribute]
         public ushort FontID { get; set; }
+        [XmlElement("Shape")]
         public List<ShapeStruct> GlyphShapeTable { get; set; }
 
         public DefineFontTag() : this(0)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Xml.Serialization;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
@@ -9,7 +10,9 @@ namespace SwfSharp.Structs
     [Serializable]
     public class ClipActionsStruct
     {
+        [XmlElement]
         public ClipEventFlagsStruct AllEventFlags { get; set; }
+        [XmlArrayItem("ClipActionRecord")]
         public List<ClipActionRecordStruct> ClipActionRecords { get; set; }
 
         private void FromStream(BitReader reader, byte swfVersion)

@@ -14,11 +14,17 @@ namespace SwfSharp.Tags
     {
         [XmlAttribute]
         public ushort CharacterId { get; set; }
+        [XmlElement]
         public RectStruct StartBounds { get; set; }
+        [XmlElement]
         public RectStruct EndBounds { get; set; }
+        [XmlElement]
         public MorphFillStyleArrayStruct MorphFillStyles { get; set; }
+        [XmlElement]
         public MorphLineStyleArrayStruct MorphLineStyles { get; set; }
+        [XmlElement]
         public ShapeStruct StartEdges { get; set; }
+        [XmlElement]
         public ShapeStruct EndEdges { get; set; }
 
         public DefineMorphShapeTag() : this(0)

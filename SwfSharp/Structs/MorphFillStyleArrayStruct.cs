@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Tags;
 using SwfSharp.Utils;
 
@@ -10,6 +11,7 @@ namespace SwfSharp.Structs
     [Serializable]
     public class MorphFillStyleArrayStruct
     {
+        [XmlElement("MorphFillStyle")]
         public List<MorphFillStyleStruct> FillStyles { get; set; }
 
         private void FromStream(BitReader reader, TagType type)

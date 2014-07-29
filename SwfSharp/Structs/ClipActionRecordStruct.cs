@@ -13,6 +13,7 @@ namespace SwfSharp.Structs
     {
         private byte? _keyCode;
 
+        [XmlElement]
         public ClipEventFlagsStruct EventFlags { get; set; }
 
         [XmlAttribute]
@@ -28,6 +29,7 @@ namespace SwfSharp.Structs
             get { return _keyCode.HasValue; }
         }
 
+        [XmlArrayItem("ActionRecord")]
         public List<ActionRecordStruct> Actions { get; set; } 
 
         private void FromStream(BitReader reader, byte swfVersion)
