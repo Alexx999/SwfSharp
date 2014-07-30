@@ -20,7 +20,19 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <ListView Width="220" x:Name="TagsList" ItemsSource="{Binding Tags}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBox Grid.Row="0" Grid.Column="0"  x:Name="FilterTextBox">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="TextChanged">
+                    <command:EventToCommand  Command="{Binding FilterStringChangedCommand}"
+                                             CommandParameter="{Binding Text, ElementName=FilterTextBox}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </TextBox>
+        <ListView Width="220" Grid.Row="1" Grid.Column="0" x:Name="TagsList" ItemsSource="{Binding Tags}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Label Content="{Binding TagType, Converter={StaticResource TagTypeConverter}}"/>
@@ -33,6 +45,6 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </ListView>
-        <avalonedit:TextEditor Grid.Column="1" IsReadOnly="True" VerticalScrollBarVisibility="Auto" FontFamily="Consolas" SyntaxHighlighting="XML" Document="{Binding Tag, Converter={StaticResource TagConverter}}"/>
+        <avalonedit:TextEditor Grid.Column="1" Grid.Row ="0" Grid.RowSpan="2" IsReadOnly="True" VerticalScrollBarVisibility="Auto" FontFamily="Consolas" SyntaxHighlighting="XML" Document="{Binding Tag, Converter={StaticResource TagConverter}}"/>
     </Grid>
 </UserControl>
