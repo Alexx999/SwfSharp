@@ -242,9 +242,9 @@ namespace SwfSharp.Utils
                 : _swf5Encoding.GetBytes(data);
         }
 
-        public void WriteString(string name, byte swfVersion)
+        public void WriteString(string data, byte swfVersion)
         {
-            WriteStringBytes(name, swfVersion);
+            WriteStringBytes(data, swfVersion);
             WriteUI8(0);
         }
 
