@@ -7,10 +7,8 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.ShapeRecords
 {
-    [Serializable]
-    class ShapeRecordFactory
+    internal static class ShapeRecordFactory
     {
-
         public static ShapeRecord ReadTag(ref byte numFillBits, ref byte numLineBits, TagType type, BitReader reader)
         {
             var isEdgeRecord = reader.ReadBoolBit();

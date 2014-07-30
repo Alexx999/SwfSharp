@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
+using SwfSharp.Actions;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
@@ -30,7 +31,7 @@ namespace SwfSharp.Structs
         }
 
         [XmlArrayItem("ActionRecord")]
-        public List<ActionRecordStruct> Actions { get; set; } 
+        public List<ActionBase> Actions { get; set; } 
 
         private void FromStream(BitReader reader, byte swfVersion)
         {
@@ -41,11 +42,11 @@ namespace SwfSharp.Structs
             {
                 _keyCode = reader.ReadUI8();
             }
-            Actions = new List<ActionRecordStruct>();
+            Actions = new List<ActionBase>();
 
             while (reader.Position < startPos + actionRecordSize)
             {
-                var record = ActionRecordStruct.CreateFromStream(reader);
+                var record = ActionFactory.ReadAction(reader);
                 Actions.Add(record);
             }
         }
@@ -62,12 +63,12 @@ namespace SwfSharp.Structs
         internal void ToStream(BitWriter writer, byte swfVersion)
         {
             EventFlags.ToStream(writer, swfVersion);
-            var ms = GetDataStream();
+            var ms = GetDataStream(swfVersion);
             writer.WriteUI32((uint) ms.Length);
             writer.WriteBytes(ms.GetBuffer(), 0, (int) ms.Position);
         }
 
-        private MemoryStream GetDataStream()
+        private MemoryStream GetDataStream(byte swfVersion)
         {
             var result = new MemoryStream();
             using (var writer = new BitWriter(result, true))
@@ -79,7 +80,7 @@ namespace SwfSharp.Structs
 
                 foreach (var action in Actions)
                 {
-                    action.ToStream(writer);
+                    action.ToStream(writer, swfVersion);
                 }
             }
             return result;

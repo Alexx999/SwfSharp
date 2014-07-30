@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
+using SwfSharp.Actions;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Structs
@@ -34,7 +35,7 @@ namespace SwfSharp.Structs
         [XmlAttribute]
         public bool CondOverDownToIdle { get; set; }
         [XmlElement("ActionRecord")]
-        public List<ActionRecordStruct> Actions { get; set; }
+        public List<ActionBase> Actions { get; set; }
 
         private void FromStream(BitReader reader)
         {
@@ -49,12 +50,12 @@ namespace SwfSharp.Structs
             CondIdleToOverUp = reader.ReadBoolBit();
             CondKeyPress = (byte)reader.ReadBits(7);
             CondOverDownToIdle = reader.ReadBoolBit();
-            Actions = new List<ActionRecordStruct>();
+            Actions = new List<ActionBase>();
             var nextFlag = reader.ReadUI8();
             while (nextFlag != 0)
             {
                 reader.Seek(-1, SeekOrigin.Current);
-                Actions.Add(ActionRecordStruct.CreateFromStream(reader));
+                Actions.Add(ActionFactory.ReadAction(reader));
                 nextFlag = reader.ReadUI8();
             }
         }
@@ -68,7 +69,7 @@ namespace SwfSharp.Structs
             return result;
         }
 
-        internal void ToStream(BitWriter writer)
+        internal void ToStream(BitWriter writer, byte swfVersion)
         {
             writer.WriteUI16(CondActionSize);
             writer.WriteBoolBit(CondIdleToOverDown);
@@ -83,7 +84,7 @@ namespace SwfSharp.Structs
             writer.WriteBoolBit(CondOverDownToIdle);
             foreach (var action in Actions)
             {
-                action.ToStream(writer);
+                action.ToStream(writer, swfVersion);
             }
             writer.WriteUI8(0);
         }

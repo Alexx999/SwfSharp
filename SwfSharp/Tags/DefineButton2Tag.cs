@@ -83,7 +83,7 @@ namespace SwfSharp.Tags
             if (actionOffset == 0) return;
             foreach (var action in Actions)
             {
-                action.ToStream(writer);
+                action.ToStream(writer, swfVersion);
             }
         }
     }

@@ -5,38 +5,39 @@ using System.Text;
 using System.Xml.Serialization;
 using SwfSharp.Utils;
 
-namespace SwfSharp.Structs
+namespace SwfSharp.Actions
 {
     [Serializable]
-    public class ActionRecordStruct
+    public class ActionUnknown : ActionBase
     {
+        private ActionUnknown()
+        {}
+
+        public ActionUnknown(ActionType actionCode) : base(actionCode)
+        {}
+
         [XmlAttribute]
-        public byte ActionCode { get; set; }
+        public new byte ActionCode
+        {
+            get { return (byte) base.ActionCode; }
+            set { base.ActionCode = (ActionType) value; }
+        }
+
         [XmlElement]
         public byte[] Data { get; set; }
 
-        private void FromStream(BitReader reader)
+        internal override void FromStream(BitReader reader)
         {
-            ActionCode = reader.ReadUI8();
             if (ActionCode < 0x80) return;
             var length = reader.ReadUI16();
             Data = reader.ReadBytes(length);
         }
 
-        internal static ActionRecordStruct CreateFromStream(BitReader reader)
-        {
-            var result = new ActionRecordStruct();
-
-            result.FromStream(reader);
-
-            return result;
-        }
-
-        internal void ToStream(BitWriter writer)
+        internal override void ToStream(BitWriter writer, byte swfVersion)
         {
             writer.WriteUI8(ActionCode);
             if (ActionCode < 0x80) return;
-            writer.WriteUI16((ushort) Data.Length);
+            writer.WriteUI16((ushort)Data.Length);
             writer.WriteBytes(Data);
         }
     }

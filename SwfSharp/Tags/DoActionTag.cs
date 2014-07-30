@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
+using SwfSharp.Actions;
 using SwfSharp.Structs;
 using SwfSharp.Utils;
 
@@ -10,8 +11,8 @@ namespace SwfSharp.Tags
     [Serializable]
     public class DoActionTag : SwfTag
     {
-        [XmlElement("ActionRecord")]
-        public List<ActionRecordStruct> Actions { get; set; }
+        [XmlElement("ActionUnknown", typeof(ActionUnknown))]
+        public List<ActionBase> Actions { get; set; }
 
         public DoActionTag() : this(0)
         {
@@ -29,12 +30,12 @@ namespace SwfSharp.Tags
 
         internal override void FromStream(BitReader reader, byte swfVersion)
         {
-            Actions = new List<ActionRecordStruct>();
+            Actions = new List<ActionBase>();
             var nextFlag = reader.ReadUI8();
             while (nextFlag != 0)
             {
                 reader.Seek(-1, SeekOrigin.Current);
-                Actions.Add(ActionRecordStruct.CreateFromStream(reader));
+                Actions.Add(ActionFactory.ReadAction(reader));
                 nextFlag = reader.ReadUI8();
             }
         }
@@ -43,7 +44,7 @@ namespace SwfSharp.Tags
         {
             foreach (var action in Actions)
             {
-                action.ToStream(writer);
+                action.ToStream(writer, swfVersion);
             }
             writer.WriteUI8(0);
         }
