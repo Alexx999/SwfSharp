@@ -365,5 +365,10 @@ namespace SwfSharp.Utils
             var value = (uint)(data * 65536.0);
             WriteUI32(value);
         }
+
+        public void WriteDouble(double data)
+        {
+            _writer.Write(data);
+        }
     }
 }
