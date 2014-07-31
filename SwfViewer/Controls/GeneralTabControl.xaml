@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModels="clr-namespace:SwfViewer.ViewModels"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:command="http://www.galasoft.ch/mvvmlight"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance viewModels:GeneralTabViewModel}">
@@ -69,7 +71,14 @@
             <ListView ItemsSource="{Binding Exports}" Grid.Row="1"  Grid.Column="0" Grid.ColumnSpan="2"/>
             <Label Content="Total tags:" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Right"/>
             <Label Content="{Binding TotalTags}" Visibility="{Binding Visibility}" Grid.Column="3" Grid.Row="0"/>
-            <ListView ItemsSource="{Binding Tags}" Grid.Row="1"  Grid.Column="2" Grid.ColumnSpan="2"/>
+            <ListView x:Name="TagsListView" ItemsSource="{Binding Tags}" Grid.Row="1"  Grid.Column="2" Grid.ColumnSpan="2">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <command:EventToCommand  Command="{Binding TagsDoubleClickCommand}"
+                                             CommandParameter="{Binding SelectedItem, ElementName=TagsListView}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ListView>
         </Grid>
     </Grid>
 </UserControl>

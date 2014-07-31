@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
+using GalaSoft.MvvmLight.Command;
 using SwfSharp;
 using SwfSharp.Tags;
 
@@ -8,11 +10,21 @@ namespace SwfViewer.ViewModels
 {
     class GeneralTabViewModel : SecondaryViewModel
     {
+        private List<string> _exports; 
+        private List<TagGroup> _tags; 
         private FileAttributesTag _fileAttributes;
         private int _frameCount;
+        private RelayCommand<TagGroup> _tagsDoubleClickCommand;
+
 
         public GeneralTabViewModel(MainViewModel mainViewModel) : base (mainViewModel)
         {
+            _tagsDoubleClickCommand = new RelayCommand<TagGroup>(TagsDoubleClick);
+        }
+
+        private void TagsDoubleClick(TagGroup group)
+        {
+            Debug.WriteLine(group.Type.ToString());
         }
 
         public Visibility Visibility
@@ -104,13 +116,7 @@ namespace SwfViewer.ViewModels
 
         public int TotalExports
         {
-            get
-            {
-                return _swf == null
-                    ? 0
-                    : _swf.Tags.Where(t => t.TagType == TagType.ExportAssets)
-                        .Sum(t => ((ExportAssetsTag) t).Records.Count);
-            }
+            get { return _swf == null ? 0 : _exports.Count; }
         }
 
         public int TotalTags
@@ -120,30 +126,44 @@ namespace SwfViewer.ViewModels
 
         public IList<string> Exports
         {
-            get
-            {
-                return _swf == null
-                    ? new List<string>(0)
-                    : _swf.Tags.Where(t => t.TagType == TagType.ExportAssets)
-                        .SelectMany(t => ((ExportAssetsTag) t).Records.Select(r => r.Name))
-                        .ToList();
-            }
+            get { return _exports; }
         }
 
-        public IList<string> Tags
+        public List<TagGroup> Tags
         {
-            get
-            {
-                return _swf == null
-                    ? new List<string>(0)
-                    : _swf.Tags.GroupBy(t => t.TagType).Select(group => string.Format("{0} ({1}) \u2013 total {2}", group.Key, (int)group.Key, group.Count())).ToList();
-            }
+            get { return _tags; }
+        }
+
+        public RelayCommand<TagGroup> TagsDoubleClickCommand
+        {
+            get { return _tagsDoubleClickCommand; }
         }
 
         protected override void Refresh()
         {
+            _exports = _swf.Tags.Where(t => t.TagType == TagType.ExportAssets)
+                        .SelectMany(t => ((ExportAssetsTag) t).Records.Select(r => r.Name))
+                        .ToList();
+            _tags = _swf.Tags.GroupBy(t => t.TagType).Select(group => new TagGroup(group.Key, group.Count())).ToList();
             _fileAttributes = _swf.Tags.FirstOrDefault(tag => tag.TagType == TagType.FileAttributes) as FileAttributesTag;
             _frameCount = _swf.Tags.Count(tag => tag.TagType == TagType.ShowFrame);
+        }
+
+        internal class TagGroup
+        {
+            public TagType Type;
+            public int Count;
+
+            public TagGroup(TagType type, int count)
+            {
+                Type = type;
+                Count = count;
+            }
+
+            public override string ToString()
+            {
+                return string.Format("{0} ({1}) \u2013 total {2}", Type, (int) Type, Count);
+            }
         }
     }
 }
