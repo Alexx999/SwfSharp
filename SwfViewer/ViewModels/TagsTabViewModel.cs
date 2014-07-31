@@ -16,7 +16,6 @@ namespace SwfViewer.ViewModels
         private static IList<SwfTag> _emptyTags = new List<SwfTag>(0);
         private static TagTypeInternal[] _enumValues;
         private RelayCommand<SwfTag> _selectionChangedCommand;
-        private RelayCommand<string> _filterStringChangedCommand;
         private string _filter = "";
         private IList<SwfTag> _tags;
         private SwfTag _tag;
@@ -24,15 +23,19 @@ namespace SwfViewer.ViewModels
         public TagsTabViewModel(MainViewModel mainViewModel) : base(mainViewModel)
         {
             _selectionChangedCommand = new RelayCommand<SwfTag>(SelectionChanged);
-            _filterStringChangedCommand = new RelayCommand<string>(FilterChanged);
             Tag = null;
             Tags = _emptyTags;
         }
 
-        private void FilterChanged(string filter)
+        public string Filter
         {
-            _filter = filter.ToUpperInvariant();
-            FilterTags();
+            get { return _filter; }
+            set
+            {
+                _filter = value;
+                FilterTags();
+                OnPropertyChanged();
+            }
         }
 
         private void SelectionChanged(SwfTag tag)
@@ -53,11 +56,6 @@ namespace SwfViewer.ViewModels
         public RelayCommand<SwfTag> SelectionChangedCommand
         {
             get { return _selectionChangedCommand; }
-        }
-
-        public RelayCommand<string> FilterStringChangedCommand
-        {
-            get { return _filterStringChangedCommand; }
         }
 
         public SwfTag Tag
@@ -84,8 +82,8 @@ namespace SwfViewer.ViewModels
                 Tags = _swf.Tags;
                 return;
             }
-
-            var itemsToShow = GetEnumValues().Where(e => e.Name.Contains(_filter)).ToList();
+            var filterVal = _filter.ToUpperInvariant();
+            var itemsToShow = GetEnumValues().Where(e => e.Name.Contains(filterVal)).ToList();
             var enumValues = itemsToShow.Select(e => e.Value).ToList();
             Tags = _swf.Tags.Where(tag => enumValues.Contains(tag.TagType)).ToList();
         }

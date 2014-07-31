@@ -6,9 +6,11 @@ namespace SwfViewer.ViewModels
     internal abstract class SecondaryViewModel : BaseViewModel
     {
         protected SwfFile _swf;
+        protected MainViewModel MainViewModel;
 
         protected SecondaryViewModel(MainViewModel mainViewModel)
         {
+            MainViewModel = mainViewModel;
             mainViewModel.PropertyChanged +=
                 (sender, args) => { if (args.PropertyName == "Swf") Swf = mainViewModel.Swf; };
         }

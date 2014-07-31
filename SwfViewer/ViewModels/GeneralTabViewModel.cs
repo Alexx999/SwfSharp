@@ -23,7 +23,7 @@ namespace SwfViewer.ViewModels
 
         private void TagsDoubleClick(TagGroup group)
         {
-            Debug.WriteLine(group.Type.ToString());
+            MainViewModel.ShowTagsAndFilter(group.Type.ToString());
         }
 
         public Visibility Visibility

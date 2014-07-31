@@ -8,6 +8,8 @@ namespace SwfViewer.ViewModels
 {
     class MainViewModel : BaseViewModel
     {
+        private const int GeneralTabIndex = 0;
+        private const int TagsTabIndex = 1;
         private readonly RelayCommand _openFileCommand;
         private readonly RelayCommand _saveFileCommand;
         private readonly RelayCommand _quitCommand;
@@ -16,6 +18,7 @@ namespace SwfViewer.ViewModels
         private GeneralTabViewModel _generalTabTabViewModel;
         private TagsTabViewModel _tagsTabViewModel;
         private SwfFile _swf;
+        private int _currentTab;
 
         public SwfFile Swf
         {
@@ -26,7 +29,6 @@ namespace SwfViewer.ViewModels
                 OnPropertyChanged();
             }
         }
-
 
         public RelayCommand SaveFileCommand
         {
@@ -63,6 +65,16 @@ namespace SwfViewer.ViewModels
             get { return _tagsTabViewModel; }
         }
 
+        public int CurrentTab
+        {
+            get { return _currentTab; }
+            set
+            {
+                _currentTab = value;
+                OnPropertyChanged();
+            }
+        }
+
         public MainViewModel()
         {
             _aboutCommand = new RelayCommand(About);
@@ -72,6 +84,12 @@ namespace SwfViewer.ViewModels
             _saveFileCommand = new RelayCommand(SaveFile, () => _swf != null);
             _generalTabTabViewModel = new GeneralTabViewModel(this);
             _tagsTabViewModel = new TagsTabViewModel(this);
+        }
+
+        public void ShowTagsAndFilter(string filter)
+        {
+            _tagsTabViewModel.Filter = filter;
+            CurrentTab = TagsTabIndex;
         }
 
         private void SaveFile()

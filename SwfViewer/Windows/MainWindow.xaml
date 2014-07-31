@@ -25,7 +25,7 @@
                 </MenuItem>
             </Menu>
         </DockPanel>
-        <TabControl Grid.Row="1">
+        <TabControl Grid.Row="1" SelectedIndex="{Binding CurrentTab}">
             <TabItem Header="General" DataContext="{Binding GeneralTabTabViewModel}">
                 <controls:GeneralTabControl/>
             </TabItem>
