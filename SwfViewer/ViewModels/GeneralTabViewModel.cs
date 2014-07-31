@@ -13,7 +13,6 @@ namespace SwfViewer.ViewModels
         private List<string> _exports; 
         private List<TagGroup> _tags; 
         private FileAttributesTag _fileAttributes;
-        private int _frameCount;
         private RelayCommand<TagGroup> _tagsDoubleClickCommand;
 
 
@@ -88,7 +87,7 @@ namespace SwfViewer.ViewModels
 
         public int FrameCount
         {
-            get { return _frameCount; }
+            get { return _swf == null ? 0 : _swf.Header.FrameCount; }
         }
 
         public uint Size
@@ -146,7 +145,6 @@ namespace SwfViewer.ViewModels
                         .ToList();
             _tags = _swf.Tags.GroupBy(t => t.TagType).Select(group => new TagGroup(group.Key, group.Count())).ToList();
             _fileAttributes = _swf.Tags.FirstOrDefault(tag => tag.TagType == TagType.FileAttributes) as FileAttributesTag;
-            _frameCount = _swf.Tags.Count(tag => tag.TagType == TagType.ShowFrame);
         }
 
         internal class TagGroup
