@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using SwfSharp.Structs;
 using SwfSharp.Utils;
 
@@ -11,11 +12,17 @@ namespace SwfSharp
     [Serializable]
     public class SwfHeader
     {
+        [XmlAttribute]
         public byte Version { get; set; }
+        [XmlAttribute]
         public SwfFileCompression Compression { get; set; }
+        [XmlAttribute]
         public uint FileSize { get; set; }
+        [XmlElement]
         public RectStruct Rect { get; set; }
+        [XmlAttribute]
         public float FrameRate { get; set; }
+        [XmlAttribute]
         public ushort FrameCount { get; set; }
 
         internal void FromCompressedStream(BitReader reader)

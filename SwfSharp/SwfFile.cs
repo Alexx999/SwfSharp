@@ -11,6 +11,10 @@ namespace SwfSharp
     [Serializable]
     public class SwfFile : IDisposable
     {
+        private List<SwfTag> _tags;
+        private SwfHeader _header;
+        private Stream _uncompStream;
+
         [XmlArrayItem("CSMTextSettings", typeof(CSMTextSettingsTag))]
         [XmlArrayItem("DebugID", typeof(DebugIDTag))]
         [XmlArrayItem("DefineBinaryData", typeof(DefineBinaryDataTag))]
@@ -79,9 +83,19 @@ namespace SwfSharp
         [XmlArrayItem("SymbolClass", typeof(SymbolClassTag))]
         [XmlArrayItem("Unknown", typeof(UnknownTag))]
         [XmlArrayItem("VideoFrame", typeof(VideoFrameTag))]
-        private List<SwfTag> _tags;
-        private SwfHeader _header;
-        private Stream _uncompStream;
+        public List<SwfTag> Tags
+        {
+            get { return _tags; }
+            private set { _tags = value; }
+        }
+
+        [XmlElement]
+        public SwfHeader Header
+        {
+            get { return _header; }
+            private set { _header = value; }
+        }
+
 
         private SwfFile()
         {
@@ -224,16 +238,6 @@ namespace SwfSharp
             }
             result.Position = 0;
             return result;
-        }
-
-        public IList<SwfTag> Tags
-        {
-            get { return _tags; }
-        }
-
-        public SwfHeader Header
-        {
-            get { return _header; }
         }
 
         public void Dispose()
