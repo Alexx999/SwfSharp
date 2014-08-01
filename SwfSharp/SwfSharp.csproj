@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ABC\ABCFile.cs" />
+    <Compile Include="ABC\CpoolInfo.cs" />
     <Compile Include="Actions\ActionAdd.cs" />
     <Compile Include="Actions\ActionAdd2.cs" />
     <Compile Include="Actions\ActionAnd.cs" />

@@ -224,6 +224,11 @@ namespace SwfSharp.Utils
             return result;
         }
 
+        public int ReadEncodedS32()
+        {
+            return (int)ReadEncodedU32();
+        }
+
         public string ReadString()
         {
             var ms = new MemoryStream();

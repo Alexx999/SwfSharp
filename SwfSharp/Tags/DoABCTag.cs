@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
+using SwfSharp.ABC;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
@@ -15,7 +16,7 @@ namespace SwfSharp.Tags
         [XmlAttribute]
         public string Name { get; set; }
         [XmlElement]
-        public byte[] ABCData { get; set; }
+        public ABCFile ABCData { get; set; }
 
         public DoABCTag() : this(0)
         {
@@ -30,14 +31,14 @@ namespace SwfSharp.Tags
         {
             Flags = reader.ReadUI32();
             Name = reader.ReadString();
-            ABCData = reader.ReadBytes((int) reader.TagBytesRemaining);
+            ABCData = ABCFile.CreateFromStream(reader, (int) reader.TagBytesRemaining);
         }
 
         internal override void ToStream(BitWriter writer, byte swfVersion)
         {
             writer.WriteUI32(Flags);
             writer.WriteString(Name, swfVersion);
-            writer.WriteBytes(ABCData);
+            ABCData.ToStream(writer);
         }
     }
 }
