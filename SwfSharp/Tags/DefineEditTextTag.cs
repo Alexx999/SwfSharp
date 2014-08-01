@@ -155,7 +155,7 @@ namespace SwfSharp.Tags
         [XmlAttribute]
         public string VariableName { get; set; }
 
-        [XmlText]
+        [XmlElement]
         public string InitialText { get; set; }
 
         public DefineEditTextTag() : this(0)
