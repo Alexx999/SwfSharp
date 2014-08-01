@@ -22,7 +22,6 @@ namespace SwfViewer.ViewModels
         public TagsTabViewModel(MainViewModel mainViewModel) : base(mainViewModel)
         {
             _selectionChangedCommand = new RelayCommand<SwfTag>(SelectionChanged);
-            Tag = null;
         }
 
         public string Filter
