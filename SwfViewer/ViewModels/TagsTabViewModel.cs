@@ -13,7 +13,6 @@ namespace SwfViewer.ViewModels
 {
     class TagsTabViewModel : SecondaryViewModel
     {
-        private static IList<SwfTag> _emptyTags = new List<SwfTag>(0);
         private static TagTypeInternal[] _enumValues;
         private RelayCommand<SwfTag> _selectionChangedCommand;
         private string _filter = "";
@@ -24,7 +23,6 @@ namespace SwfViewer.ViewModels
         {
             _selectionChangedCommand = new RelayCommand<SwfTag>(SelectionChanged);
             Tag = null;
-            Tags = _emptyTags;
         }
 
         public string Filter
