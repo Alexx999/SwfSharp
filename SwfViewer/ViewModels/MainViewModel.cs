@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Microsoft.Win32;
 using SwfSharp;
@@ -6,7 +7,7 @@ using SwfViewer.Windows;
 
 namespace SwfViewer.ViewModels
 {
-    class MainViewModel : BaseViewModel
+    class MainViewModel : ViewModelBase
     {
         private const int GeneralTabIndex = 0;
         private const int TagsTabIndex = 1;
@@ -26,7 +27,7 @@ namespace SwfViewer.ViewModels
             set
             {
                 _swf = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -71,7 +72,7 @@ namespace SwfViewer.ViewModels
             set
             {
                 _currentTab = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 

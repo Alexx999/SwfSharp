@@ -1,9 +1,10 @@
 ﻿using System;
+using GalaSoft.MvvmLight;
 using SwfSharp;
 
 namespace SwfViewer.ViewModels
 {
-    internal abstract class SecondaryViewModel : BaseViewModel
+    internal abstract class SecondaryViewModel : ViewModelBase
     {
         protected SwfFile _swf;
         protected MainViewModel MainViewModel;
@@ -22,7 +23,7 @@ namespace SwfViewer.ViewModels
             {
                 _swf = value;
                 Refresh();
-                OnPropertyChanged("");
+                RaisePropertyChanged("");
             }
         }
 

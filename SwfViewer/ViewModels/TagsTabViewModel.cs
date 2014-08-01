@@ -32,7 +32,7 @@ namespace SwfViewer.ViewModels
             {
                 _filter = value;
                 FilterTags();
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -47,7 +47,7 @@ namespace SwfViewer.ViewModels
             set
             {
                 _tags = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -62,7 +62,7 @@ namespace SwfViewer.ViewModels
             private set
             {
                 _tag = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 

@@ -104,7 +104,6 @@
     <Compile Include="TagConverter.cs" />
     <Compile Include="TagTypeConverter.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\GeneralTabViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\SecondaryViewModel.cs" />
