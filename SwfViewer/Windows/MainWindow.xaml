@@ -15,9 +15,9 @@
         <DockPanel>
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="_File">
-                    <MenuItem Header="_Open" InputGestureText="Ctrl-O" Command="{Binding OpenFileCommand}"/>
-                    <MenuItem Header="_Save" InputGestureText="Ctrl-S" Command="{Binding SaveFileCommand}"/>
-                    <MenuItem Header="_Close" InputGestureText="Alt-F4" Command="{Binding QuitCommand}"/>
+                    <MenuItem Header="_Open" InputGestureText="Ctrl+O" Command="{Binding OpenFileCommand}"/>
+                    <MenuItem Header="_Save" InputGestureText="Ctrl+S" Command="{Binding SaveFileCommand}"/>
+                    <MenuItem Header="_Close" InputGestureText="Alt+F4" Command="{Binding QuitCommand}"/>
                 </MenuItem>
                 <MenuItem Header="_Help">
                     <MenuItem Header="_How to use" InputGestureText="F1" Command="{Binding HelpCommand}" Visibility="Collapsed"/>
