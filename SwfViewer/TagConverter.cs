@@ -42,7 +42,14 @@ namespace SwfViewer
             if (value == null) return string.Empty;
             var stopwatch = Stopwatch.StartNew();
             var builder = new StringBuilder();
-            var xws = new XmlWriterSettings { OmitXmlDeclaration = true, Indent = true, Encoding = Encoding.UTF8, NamespaceHandling = NamespaceHandling.OmitDuplicates };
+            var xws = new XmlWriterSettings
+            {
+                OmitXmlDeclaration = true,
+                Indent = true,
+                Encoding = Encoding.UTF8,
+                NamespaceHandling = NamespaceHandling.OmitDuplicates,
+                CheckCharacters = false
+            };
             var xtw = XmlWriter.Create(builder, xws);
             var ser = _serializerCache.GetOrAdd(value.GetType(), SerializerFactory);
             ser.Serialize(xtw, value, _namespaces);
