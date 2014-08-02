@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -22,12 +23,16 @@ namespace SwfTest
 
             foreach (var file in files)
             {
+                var sw = Stopwatch.StartNew();
                 swfs[file] = SwfFile.FromFile(file);
+                Debug.WriteLine("File {0} opened in {1}ms", file, sw.ElapsedMilliseconds);
             }
 
             foreach (var swfFile in swfs)
             {
+                var sw = Stopwatch.StartNew();
                 swfFile.Value.ToFile(swfFile.Key + "unp");
+                Debug.WriteLine("File {0} saved in in {1}ms", swfFile.Key, sw.ElapsedMilliseconds);
             }
         }
 
