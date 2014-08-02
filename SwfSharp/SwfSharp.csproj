@@ -46,6 +46,7 @@
     <Compile Include="ABC\ABCFile.cs" />
     <Compile Include="ABC\CpoolInfo.cs" />
     <Compile Include="ABC\CpoolList.cs" />
+    <Compile Include="ABC\MethodInfo.cs" />
     <Compile Include="ABC\Multiname.cs" />
     <Compile Include="ABC\MultinameInfo.cs" />
     <Compile Include="ABC\MultinameKind.cs" />
@@ -281,6 +282,7 @@
     <Compile Include="Tags\ImportAssetsTag.cs" />
     <Compile Include="Tags\JPEGTablesTag.cs" />
     <Compile Include="Tags\MetadataTag.cs" />
+    <Compile Include="Tags\NameCharacterTag.cs" />
     <Compile Include="Tags\PlaceObject2Tag.cs" />
     <Compile Include="Tags\PlaceObject3Tag.cs" />
     <Compile Include="Tags\PlaceObjectTag.cs" />

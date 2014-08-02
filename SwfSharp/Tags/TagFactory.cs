@@ -162,6 +162,10 @@ namespace SwfSharp.Tags
                 {
                     return new DefineSpriteTag(size);
                 }
+                case TagType.NameCharacter:
+                {
+                    return new NameCharacterTag(size);
+                }
                 case TagType.ProductInfo:
                 {
                     return new ProductInfoTag(size);

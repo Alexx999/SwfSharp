@@ -64,6 +64,7 @@ namespace SwfSharp.Tags
         [XmlElement("ImportAssets2", typeof(ImportAssets2Tag))]
         [XmlElement("JPEGTables", typeof(JPEGTablesTag))]
         [XmlElement("Metadata", typeof(MetadataTag))]
+        [XmlElement("NameCharacter", typeof(NameCharacterTag))]
         [XmlElement("PlaceObject", typeof(PlaceObjectTag))]
         [XmlElement("PlaceObject2", typeof(PlaceObject2Tag))]
         [XmlElement("PlaceObject3", typeof(PlaceObject3Tag))]
