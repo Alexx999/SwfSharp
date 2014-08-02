@@ -16,6 +16,8 @@ namespace SwfSharp.ABC
         public ushort MajorVersion { get; set; }
         [XmlElement]
         public CpoolInfo ConstantPool { get; set; }
+        [XmlArrayItem("Method")]
+        public List<MethodInfo> Methods { get; set; }
         [XmlElement]
         public byte[] Data { get; set; }
 
@@ -25,6 +27,12 @@ namespace SwfSharp.ABC
             MinorVersion = reader.ReadUI16();
             MajorVersion = reader.ReadUI16();
             ConstantPool = CpoolInfo.CreateFromStream(reader);
+            var methodCount = reader.ReadEncodedS32();
+            Methods = new List<MethodInfo>(methodCount);
+            for (int i = 0; i < methodCount; i++)
+            {
+                Methods.Add(MethodInfo.CreateFromStream(reader, ConstantPool));
+            }
             Data = reader.ReadBytes(dataSize - (int)(reader.Position - pos));
         }
 
@@ -40,6 +48,11 @@ namespace SwfSharp.ABC
             writer.WriteUI16(MinorVersion);
             writer.WriteUI16(MajorVersion);
             ConstantPool.ToStream(writer);
+            writer.WriteEncodedS32(Methods.Count);
+            foreach (var method in Methods)
+            {
+                method.ToStream(writer, ConstantPool);
+            }
             writer.WriteBytes(Data);
         }
     }
