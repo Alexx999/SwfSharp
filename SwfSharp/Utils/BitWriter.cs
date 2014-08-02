@@ -370,5 +370,17 @@ namespace SwfSharp.Utils
         {
             _writer.Write(data);
         }
+
+        public void WriteEncodedS32(int data)
+        {
+            WriteEncodedU32((uint) data);
+        }
+
+        public void WriteABCString(string data)
+        {
+            var bytes = GetStringBytes(data, 9);
+            WriteEncodedS32(bytes.Length);
+            WriteBytes(bytes);
+        }
     }
 }

@@ -45,6 +45,18 @@
   <ItemGroup>
     <Compile Include="ABC\ABCFile.cs" />
     <Compile Include="ABC\CpoolInfo.cs" />
+    <Compile Include="ABC\CpoolList.cs" />
+    <Compile Include="ABC\Multiname.cs" />
+    <Compile Include="ABC\MultinameInfo.cs" />
+    <Compile Include="ABC\MultinameKind.cs" />
+    <Compile Include="ABC\MultinameL.cs" />
+    <Compile Include="ABC\NamespaceInfo.cs" />
+    <Compile Include="ABC\NamespaceKind.cs" />
+    <Compile Include="ABC\NsSet.cs" />
+    <Compile Include="ABC\QName.cs" />
+    <Compile Include="ABC\RTQName.cs" />
+    <Compile Include="ABC\RTQNameL.cs" />
+    <Compile Include="ABC\TypeName.cs" />
     <Compile Include="Actions\ActionAdd.cs" />
     <Compile Include="Actions\ActionAdd2.cs" />
     <Compile Include="Actions\ActionAnd.cs" />

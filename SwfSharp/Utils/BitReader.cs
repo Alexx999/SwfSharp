@@ -324,5 +324,10 @@ namespace SwfSharp.Utils
             }
             return len;
         }
+
+        public string ReadABCString()
+        {
+            return ReadString(ReadEncodedS32());
+        }
     }
 }
