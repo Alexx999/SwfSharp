@@ -36,9 +36,9 @@ namespace SwfSharp.ABC
             return result;
         }
 
-        internal override void ToStream(BitWriter writer, IList<string> strings, IList<NamespaceInfo> namespaces, IList<NsSet> nsSets)
+        internal override void ToStream(BitWriter writer, IList<string> strings, IList<NamespaceInfo> namespaces, IList<NsSet> nsSets, IList<MultinameInfo> multinames)
         {
-            base.ToStream(writer, strings, namespaces, nsSets);
+            base.ToStream(writer, strings, namespaces, nsSets, multinames);
             writer.WriteEncodedS32(strings.IndexOf(Name));
             writer.WriteEncodedS32(nsSets.IndexOf(NsSet));
         }

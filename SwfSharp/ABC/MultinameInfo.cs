@@ -16,7 +16,7 @@ namespace SwfSharp.ABC
             Kind = kind;
         }
 
-        internal static MultinameInfo CreateFromStream(BitReader reader, IList<string> strings, IList<NamespaceInfo> namespaces, IList<NsSet> nsSets)
+        internal static MultinameInfo CreateFromStream(BitReader reader, IList<string> strings, IList<NamespaceInfo> namespaces, IList<NsSet> nsSets, IList<MultinameInfo> multinames)
         {
             MultinameInfo result;
             var kind = (MultinameKind)reader.ReadUI8();
@@ -54,7 +54,7 @@ namespace SwfSharp.ABC
                 }
                 case MultinameKind.TypeName:
                 {
-                    result = TypeName.CreateFromStream(reader, strings);
+                    result = TypeName.CreateFromStream(reader, multinames);
                     break;
                 }
                 default:
@@ -65,7 +65,7 @@ namespace SwfSharp.ABC
             return result;
         }
 
-        internal virtual void ToStream(BitWriter writer, IList<string> strings, IList<NamespaceInfo> namespaces, IList<NsSet> nsSets)
+        internal virtual void ToStream(BitWriter writer, IList<string> strings, IList<NamespaceInfo> namespaces, IList<NsSet> nsSets, IList<MultinameInfo> multinames)
         {
             writer.WriteUI8((byte)Kind);
         }

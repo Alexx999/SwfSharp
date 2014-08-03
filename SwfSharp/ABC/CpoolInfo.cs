@@ -153,12 +153,12 @@ namespace SwfSharp.ABC
 
             var multinameCount = reader.ReadEncodedU32();
             if (multinameCount > 0) multinameCount--;
-            Multinames = new List<MultinameInfo>((int) multinameCount);
+            Multinames = new List<MultinameInfo>((int)multinameCount);
+            ActualMultinames = new CpoolList<MultinameInfo>(null, Multinames);
             for (int i = 0; i < multinameCount; i++)
             {
-                Multinames.Add(MultinameInfo.CreateFromStream(reader, NamespaceStrings, ActualNamespaces, ActualNsSets));
+                Multinames.Add(MultinameInfo.CreateFromStream(reader, NamespaceStrings, ActualNamespaces, ActualNsSets, ActualMultinames));
             }
-            ActualMultinames = new CpoolList<MultinameInfo>(null, Multinames);
         }
 
         internal static CpoolInfo CreateFromStream(BitReader reader)
@@ -223,7 +223,7 @@ namespace SwfSharp.ABC
             writer.WriteEncodedS32(multinameCount);
             foreach (var multiname in Multinames)
             {
-                multiname.ToStream(writer, NamespaceStrings, ActualNamespaces, ActualNsSets);
+                multiname.ToStream(writer, NamespaceStrings, ActualNamespaces, ActualNsSets, ActualMultinames);
             }
         }
     }
