@@ -7,7 +7,7 @@ using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
 {
-    [Serializable]
+    [Serializable, Obsolete]
     public class NameCharacterTag : SwfTag
     {
         [XmlAttribute]

@@ -1,10 +1,14 @@
-﻿namespace SwfSharp.Tags
+﻿using System;
+
+namespace SwfSharp.Tags
 {
     public enum TagType
     {
         End = 0,
         ShowFrame = 1,
         DefineShape = 2,
+        [Obsolete]
+        FreeCharacter = 3,
         PlaceObject = 4,
         RemoveObject = 5,
         DefineBits = 6,
@@ -17,6 +21,8 @@
         DefineFontInfo = 13,
         DefineSound = 14,
         StartSound = 15,
+        [Obsolete]
+        StopSound = 16,
         DefineButtonSound = 17,
         SoundStreamHead = 18,
         SoundStreamBlock = 19,
@@ -25,21 +31,60 @@
         DefineShape2 = 22,
         DefineButtonCxform = 23,
         Protect = 24,
+        [Obsolete]
+        PathsArePostScript = 25,
         PlaceObject2 = 26,
         RemoveObject2 = 28,
+        [Obsolete]
+        SyncFrame = 29,
+        [Obsolete]
+        FreeAll = 31,
         DefineShape3 = 32,
         DefineText2 = 33,
         DefineButton2 = 34,
+        [Obsolete]
+        MoveObject = 34,
         DefineBitsJPEG3 = 35,
         DefineBitsLossless2 = 36,
         DefineEditText = 37,
+        [Obsolete]
+        DefineButtonCxform2 = 37,
+        [Obsolete]
+        DefineMouseTarget = 38,
+        [Obsolete]
+        DefineVideo = 38,
         DefineSprite = 39,
+        [Obsolete]
         NameCharacter = 40,
         ProductInfo = 41,
+        [Obsolete]
+        NameObject = 41,
+        [Obsolete]
+        DefineTextFormat = 42,
         FrameLabel = 43,
+        [Obsolete]
+        DefineButton2Obsolete = 44,
+        [Obsolete]
+        DefineBehavior = 44,
         SoundStreamHead2 = 45,
         DefineMorphShape = 46,
+        [Obsolete]
+        FrameTag = 47,
         DefineFont2 = 48,
+        [Obsolete]
+        GenCommand = 49,
+        [Obsolete]
+        DefineCommandObj = 50,
+        [Obsolete]
+        CharacterSet = 51,
+        [Obsolete]
+        FontRef = 52,
+        [Obsolete]
+        DefineFunction = 53,
+        [Obsolete]
+        PlaceFunction = 54,
+        [Obsolete]
+        GenTagObject = 55,
         ExportAssets = 56,
         ImportAssets = 57,
         EnableDebugger = 58,
@@ -51,6 +96,8 @@
         EnableDebugger2 = 64,
         ScriptLimits = 65,
         SetTabIndex = 66,
+        [Obsolete]
+        DefineShape4Obsolete = 67,
         FileAttributes = 69,
         PlaceObject3 = 70,
         ImportAssets2 = 71,
