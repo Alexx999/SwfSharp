@@ -242,6 +242,10 @@ namespace SwfSharp.Tags
                 {
                     return new ImportAssets2Tag(size);
                 }
+                case TagType.DoABC:
+                {
+                    return new DoABCTag(size);
+                }
                 case TagType.DefineFontAlignZones:
                 {
                     return new DefineFontAlignZonesTag(size);
@@ -266,9 +270,9 @@ namespace SwfSharp.Tags
                 {
                     return new DefineScalingGridTag(size);
                 }
-                case TagType.DoABC:
+                case TagType.DoABC2:
                 {
-                    return new DoABCTag(size);
+                    return new DoABC2Tag(size);
                 }
                 case TagType.DefineShape4:
                 {

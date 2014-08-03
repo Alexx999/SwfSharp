@@ -51,6 +51,7 @@ namespace SwfSharp
         [XmlArrayItem("DefineText2", typeof(DefineText2Tag))]
         [XmlArrayItem("DefineVideoStream", typeof(DefineVideoStreamTag))]
         [XmlArrayItem("DoABC", typeof(DoABCTag))]
+        [XmlArrayItem("DoABC2", typeof(DoABC2Tag))]
         [XmlArrayItem("DoAction", typeof(DoActionTag))]
         [XmlArrayItem("DoInitAction", typeof(DoInitActionTag))]
         [XmlArrayItem("EnableDebugger", typeof(EnableDebuggerTag))]

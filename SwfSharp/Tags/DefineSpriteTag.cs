@@ -51,6 +51,7 @@ namespace SwfSharp.Tags
         [XmlElement("DefineText2", typeof(DefineText2Tag))]
         [XmlElement("DefineVideoStream", typeof(DefineVideoStreamTag))]
         [XmlElement("DoABC", typeof(DoABCTag))]
+        [XmlElement("DoABC2", typeof(DoABC2Tag))]
         [XmlElement("DoAction", typeof(DoActionTag))]
         [XmlElement("DoInitAction", typeof(DoInitActionTag))]
         [XmlElement("EnableDebugger", typeof(EnableDebuggerTag))]
