@@ -10,9 +10,11 @@ namespace SwfSharp.ABC
     [Serializable]
     public class MethodInfo
     {
-        [XmlElement()]
+        [XmlElement("ReturnType", typeof(QName), Namespace = "QName")]
+        [XmlElement("ReturnType", typeof(TypeName), Namespace = "TypeName")]
         public MultinameInfo ReturnType { get; set; }
-        [XmlArrayItem("Multiname")]
+        [XmlArrayItem("Param", typeof(QName), Namespace = "QName")]
+        [XmlArrayItem("Param", typeof(TypeName), Namespace = "TypeName")]
         public List<MultinameInfo> Paramethers { get; set; }
         [XmlAttribute]
         public string Name { get; set; }

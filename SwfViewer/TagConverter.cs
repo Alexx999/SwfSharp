@@ -18,12 +18,13 @@ using SwfSharp.Tags;
 namespace SwfViewer
 {
     [ValueConversion(typeof(SwfTag), typeof(String))]
+    [ValueConversion(typeof(SwfTag), typeof(TextDocument))]
     class TagConverter : IValueConverter
     {
         private const int MaxLineLen = 8000;
         private static ConcurrentDictionary<Type, XmlSerializer> _serializerCache = new ConcurrentDictionary<Type, XmlSerializer>();
         private static Type[] _additionalTypes;
-        private static XmlSerializerNamespaces _namespaces = new XmlSerializerNamespaces(new[] { new XmlQualifiedName() });
+        private static XmlSerializerNamespaces _namespaces = new XmlSerializerNamespaces(new[] { new XmlQualifiedName(string.Empty, "http://www.w3.org/2001/XMLSchema-instance") });
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
