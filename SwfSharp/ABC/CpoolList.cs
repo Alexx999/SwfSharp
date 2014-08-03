@@ -61,7 +61,14 @@ namespace SwfSharp.ABC
         }
         public int IndexOf(T item)
         {
-            if (item.Equals(_zeroItem))
+            if (item == null)
+            {
+                if (_zeroItem == null)
+                {
+                    return 0;
+                }
+            }
+            else if (item.Equals(_zeroItem))
             {
                 return 0;
             }
