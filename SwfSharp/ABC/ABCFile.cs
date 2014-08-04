@@ -16,6 +16,8 @@ namespace SwfSharp.ABC
         public CpoolInfo ConstantPool { get; set; }
         [XmlArrayItem("Method")]
         public List<MethodInfo> Methods { get; set; }
+        [XmlArrayItem("Metadata")]
+        public List<MetadataInfo> Metadata { get; set; }
         [XmlElement]
         public byte[] Data { get; set; }
 
@@ -30,6 +32,12 @@ namespace SwfSharp.ABC
             for (int i = 0; i < methodCount; i++)
             {
                 Methods.Add(MethodInfo.CreateFromStream(reader, ConstantPool));
+            }
+            var methadataCount = reader.ReadEncodedS32();
+            Metadata = new List<MetadataInfo>(methadataCount);
+            for (int i = 0; i < methadataCount; i++)
+            {
+                Metadata.Add(MetadataInfo.CreateFromStream(reader, ConstantPool));
             }
             Data = reader.ReadBytes(dataSize - (int)(reader.Position - pos));
         }
@@ -50,6 +58,11 @@ namespace SwfSharp.ABC
             foreach (var method in Methods)
             {
                 method.ToStream(writer, ConstantPool);
+            }
+            writer.WriteEncodedS32(Metadata.Count);
+            foreach (var metadataInfo in Metadata)
+            {
+                metadataInfo.ToStream(writer, ConstantPool);
             }
             writer.WriteBytes(Data);
         }

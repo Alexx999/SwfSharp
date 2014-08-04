@@ -46,6 +46,7 @@
     <Compile Include="ABC\ABCFile.cs" />
     <Compile Include="ABC\CpoolInfo.cs" />
     <Compile Include="ABC\CpoolList.cs" />
+    <Compile Include="ABC\MetadataInfo.cs" />
     <Compile Include="ABC\MethodInfo.cs" />
     <Compile Include="ABC\Multiname.cs" />
     <Compile Include="ABC\MultinameInfo.cs" />
