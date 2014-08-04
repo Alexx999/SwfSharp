@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
 using System.Xml.Serialization;
 using SwfSharp.Structs;
 using SwfSharp.Utils;
@@ -56,9 +53,9 @@ namespace SwfSharp.Tags
             writer.WriteUI16(CharacterID);
             TextBounds.ToStream(writer);
             TextMatrix.ToStream(writer);
-            var glyphs = TextRecords.SelectMany(t => t.GlyphEntries).ToList();
-            var glyphBits = (byte)(glyphs.Count == 0 ? 0 : glyphs.Max(g => BitWriter.GetBitsForValue(g.GlyphIndex)));
-            var advanceBits = (byte)(glyphs.Count == 0 ? 0 : glyphs.Max(g => BitWriter.GetBitsForValue(g.GlyphAdvance)));
+            var glyphs = GetAllGlyphs();
+            var glyphBits = GetMaxGlyphIndexBits(glyphs);
+            var advanceBits = GetMaxAdvanceBits(glyphs);
             writer.WriteUI8(glyphBits);
             writer.WriteUI8(advanceBits);
             foreach (var textRecord in TextRecords)
@@ -66,6 +63,46 @@ namespace SwfSharp.Tags
                 textRecord.ToStream(writer, TagType, glyphBits, advanceBits);
             }
             writer.WriteUI8(0);
+        }
+
+        private byte GetMaxGlyphIndexBits(List<GlyphEntryStruct> glyphs)
+        {
+            if (glyphs == null || glyphs.Count == 0) return 0;
+            byte currMaxBits = 0;
+            foreach (var glyph in glyphs)
+            {
+                var bitsRequired = BitWriter.GetBitsForValue(glyph.GlyphIndex);
+                if (bitsRequired > currMaxBits)
+                {
+                    currMaxBits = bitsRequired;
+                }
+            }
+            return currMaxBits;
+        }
+
+        private byte GetMaxAdvanceBits(List<GlyphEntryStruct> glyphs)
+        {
+            if (glyphs == null || glyphs.Count == 0) return 0;
+            byte currMaxBits = 0;
+            foreach (var glyph in glyphs)
+            {
+                var bitsRequired = BitWriter.GetBitsForValue(glyph.GlyphAdvance);
+                if (bitsRequired > currMaxBits)
+                {
+                    currMaxBits = bitsRequired;
+                }
+            }
+            return currMaxBits;
+        }
+
+        private List<GlyphEntryStruct> GetAllGlyphs()
+        {
+            var result = new List<GlyphEntryStruct>();
+            foreach (var textRecord in TextRecords)
+            {
+                result.AddRange(textRecord.GlyphEntries);
+            }
+            return result;
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 
 namespace SwfSharp.Utils
@@ -101,39 +100,57 @@ namespace SwfSharp.Utils
             _writer = null;
             if (disposing && !_keepOpen)
             {
-                writer.Dispose();
+                ((IDisposable)writer).Dispose();
             }
             GC.SuppressFinalize(this);
         }
 
-        public static uint MinBitsPerField(IEnumerable<int> values)
+        public static byte MinBitsPerField(IEnumerable<int> values)
         {
-            return values.Max(v => GetBitsForValue(v));
+            byte maxBits = 0;
+            foreach (var value in values)
+            {
+                var bits = GetBitsForValue(value);
+                if (bits > maxBits)
+                {
+                    maxBits = bits;
+                }
+            }
+            return maxBits;
         }
 
-        public static uint MinBitsPerField(IEnumerable<uint> values)
+        public static byte MinBitsPerField(IEnumerable<uint> values)
         {
-            return values.Max(v => GetBitsForValue(v));
+            byte maxBits = 0;
+            foreach (var value in values)
+            {
+                var bits = GetBitsForValue(value);
+                if (bits > maxBits)
+                {
+                    maxBits = bits;
+                }
+            }
+            return maxBits;
         }
 
-        public static uint GetBitsForValue(int value)
+        public static byte GetBitsForValue(int value)
         {
             if (value == 0) return 0;
 
-            return value > 0 ? GetBitsForFieldPos((uint) value) + 1 : GetBitsForFieldNeg(value) + 1;
+            return (byte) (value > 0 ? GetBitsForFieldPos((uint) value) + 1 : GetBitsForFieldNeg(value) + 1);
         }
 
-        public static uint GetBitsForValue(uint value)
+        public static byte GetBitsForValue(uint value)
         {
             if (value == 0) return 0;
             return GetBitsForFieldPos(value);
         }
 
-        private static uint GetBitsForFieldNeg(int value)
+        private static byte GetBitsForFieldNeg(int value)
         {
             if (value == -1) return 1;
             const uint mask = 0x80000000;
-            var bits = 32U;
+            byte bits = 32;
             while ((value & mask) != 0 && bits > 0)
             {
                 value <<= 1;
@@ -142,10 +159,10 @@ namespace SwfSharp.Utils
             return bits;
         }
 
-        private static uint GetBitsForFieldPos(uint value)
+        private static byte GetBitsForFieldPos(uint value)
         {
             const uint mask = 0x80000000;
-            var bits = 32U;
+            byte bits = 32;
             while ((value & mask) == 0 && bits > 0)
             {
                 value <<= 1;

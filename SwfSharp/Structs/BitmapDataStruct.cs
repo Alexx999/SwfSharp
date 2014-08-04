@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Xml.Serialization;
 using SwfSharp.Tags;
 using SwfSharp.Utils;
@@ -17,24 +15,15 @@ namespace SwfSharp.Structs
 
         private void FromStream(BitReader reader, DefineBitsLosslessTag.BitmapFormatType bitmapFormat, int width, int height)
         {
-            Func<BitReader, RgbStruct> creator;
-            int structSize;
-            if (bitmapFormat == DefineBitsLosslessTag.BitmapFormatType.RGB15)
-            {
-                creator = RgbStruct.CreateFromRGB15Stream;
-                structSize = 2;
-            }
-            else
-            {
-                creator = RgbStruct.CreateFromRGB24Stream;
-                structSize = 4;
-            }
+            int structSize = bitmapFormat == DefineBitsLosslessTag.BitmapFormatType.RGB15 ? 2 : 4;
             BitmapPixelData = new List<RgbStruct>(width*height);
             for (int i = 0; i < height; i++)
             {
                 for (int j = 0; j < width; j++)
                 {
-                    BitmapPixelData.Add(creator(reader));
+                    BitmapPixelData.Add(bitmapFormat == DefineBitsLosslessTag.BitmapFormatType.RGB15
+                        ? RgbStruct.CreateFromRGB15Stream(reader)
+                        : RgbStruct.CreateFromRGB24Stream(reader));
                 }
                 var actualByteWidth = width*structSize;
                 var tgtByteWidth = (long)Math.Ceiling(actualByteWidth / 4.0)*4;

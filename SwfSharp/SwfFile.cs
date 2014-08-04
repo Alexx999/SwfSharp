@@ -147,7 +147,12 @@ namespace SwfSharp
             using (var writer = new BitWriter(stream, keepOpen))
             {
                 _header.ToUncompressedStream(writer);
-                dataStream.CopyTo(stream);
+                var buffer = new byte[1024];
+                int bytesRead;
+                while ((bytesRead = dataStream.Read(buffer, 0, 1024)) != 0)
+                {
+                    stream.Write(buffer, 0, bytesRead);
+                }
             }
         }
 
@@ -233,13 +238,13 @@ namespace SwfSharp
         }
         private Stream GeZlibDecodeStream(Stream source)
         {
-            var result = new MemoryStream((int)_header.FileSize - 8);
+            var resSize = (int) _header.FileSize - 8;
             using (var zlib = new ZlibStream(source, CompressionMode.Decompress, false))
             {
-                zlib.CopyTo(result);
+                var resultBytes = new byte[resSize];
+                zlib.Read(resultBytes, 0, resSize);
+                return new MemoryStream(resultBytes);
             }
-            result.Position = 0;
-            return result;
         }
 
         public void Dispose()

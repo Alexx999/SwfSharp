@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using System.Text;
-using SwfSharp.Utils;
+﻿using SwfSharp.Utils;
 
 namespace SwfSharp.Actions
 {

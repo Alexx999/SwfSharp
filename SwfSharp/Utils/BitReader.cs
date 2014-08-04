@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Text;
 
 namespace SwfSharp.Utils
@@ -250,7 +247,7 @@ namespace SwfSharp.Utils
         {
             var size = ReadUI8();
             var str = ReadString(size);
-            if (str.Last() == '\0')
+            if (str.Length > 0 && str[str.Length - 1] == '\0')
             {
                 return str.Substring(0, str.Length - 1);
             }
@@ -273,7 +270,7 @@ namespace SwfSharp.Utils
             _reader = null;
             if (disposing && !_keepOpen)
             {
-                reader.Dispose();
+                ((IDisposable)reader).Dispose();
             }
             GC.SuppressFinalize(this);
         }

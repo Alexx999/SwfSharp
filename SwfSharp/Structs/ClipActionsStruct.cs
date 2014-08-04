@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Xml.Serialization;
 using SwfSharp.Utils;
 
@@ -22,13 +21,22 @@ namespace SwfSharp.Structs
             var endFlagSize = (swfVersion >= 6) ? 4 : 2;
             ClipActionRecords = new List<ClipActionRecordStruct>();
             var bytes = reader.ReadBytes(endFlagSize);
-            while (bytes.Any(b => b != 0))
+            while (!AllZero(bytes))
             {
                 reader.Seek(-endFlagSize, SeekOrigin.Current);
                 ClipActionRecords.Add(ClipActionRecordStruct.CreateFromStream(reader, swfVersion));
                 bytes = reader.ReadBytes(endFlagSize);
             }
 
+        }
+
+        private bool AllZero(byte[] bytes)
+        {
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                if(bytes[i] != 0) return false;
+            }
+            return true;
         }
 
         internal static ClipActionsStruct CreateFromStream(BitReader reader, byte swfVersion)

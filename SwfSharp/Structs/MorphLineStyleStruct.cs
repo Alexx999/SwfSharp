@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml.Serialization;
-using SwfSharp.Tags;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Structs

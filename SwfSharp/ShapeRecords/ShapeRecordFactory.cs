@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using SwfSharp.Tags;
+﻿using SwfSharp.Tags;
 using SwfSharp.Utils;
 
 namespace SwfSharp.ShapeRecords

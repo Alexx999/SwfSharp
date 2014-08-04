@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
 using System.Xml.Serialization;
-using Ionic.Zlib;
-using SwfSharp.Structs;
 using SwfSharp.Utils;
 
 namespace SwfSharp.Tags
