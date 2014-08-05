@@ -17,7 +17,7 @@ namespace SwfSharp.ABC
 
         private void FromStream(BitReader reader, CpoolInfo cpool)
         {
-            var strings = cpool.ActualStrings;
+            var strings = new CpoolList<string>(null, cpool.Strings);
             Name = strings[reader.ReadEncodedS32()];
             var itemCount = reader.ReadEncodedS32();
             Items = new List<ItemInfo>(itemCount);
@@ -36,8 +36,8 @@ namespace SwfSharp.ABC
 
         internal void ToStream(BitWriter writer, CpoolInfo cpool)
         {
-            var strings = cpool.ActualStrings;
-            writer.WriteEncodedS32(strings.IndexOf(Name, 1));
+            var strings = new CpoolList<string>(null, cpool.Strings);
+            writer.WriteEncodedS32(strings.IndexOf(Name));
             writer.WriteEncodedS32(Items.Count);
             foreach (var item in Items)
             {
