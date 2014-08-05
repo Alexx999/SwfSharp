@@ -42,13 +42,13 @@ namespace SwfSharp.Tags
         DefineShape3 = 32,
         DefineText2 = 33,
         DefineButton2 = 34,
-        [Obsolete]
-        MoveObject = 34,
+        /*[Obsolete]
+        MoveObject = 34,*/
         DefineBitsJPEG3 = 35,
         DefineBitsLossless2 = 36,
         DefineEditText = 37,
-        [Obsolete]
-        DefineButtonCxform2 = 37,
+        /*[Obsolete]
+        DefineButtonCxform2 = 37,*/
         [Obsolete]
         DefineMouseTarget = 38,
         [Obsolete]
@@ -57,8 +57,8 @@ namespace SwfSharp.Tags
         [Obsolete]
         NameCharacter = 40,
         ProductInfo = 41,
-        [Obsolete]
-        NameObject = 41,
+        /*[Obsolete]
+        NameObject = 41,*/
         [Obsolete]
         DefineTextFormat = 42,
         FrameLabel = 43,
