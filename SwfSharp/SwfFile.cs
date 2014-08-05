@@ -189,7 +189,8 @@ namespace SwfSharp
         {
             var reader = new BitReader(_uncompStream);
             _header.FromStream(reader);
-            while (_uncompStream.Position < _uncompStream.Length)
+            // tag header is at least 2 bytes
+            while (_uncompStream.Length - _uncompStream.Position > 2)
             {
                 var tag = TagFactory.ReadTag(reader, _header.Version);
                 Tags.Add(tag);
