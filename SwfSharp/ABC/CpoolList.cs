@@ -59,6 +59,16 @@ namespace SwfSharp.ABC
         {
             get { return ((IList<T>) _backingList).IsReadOnly; }
         }
+
+        public int IndexOf(T item, int index)
+        {
+            if (index == 0)
+            {
+                return IndexOf(item);
+            }
+            return _backingList.IndexOf(item, index - 1) + 1;
+        }
+
         public int IndexOf(T item)
         {
             if (item == null)
@@ -134,5 +144,6 @@ namespace SwfSharp.ABC
                 get { return Current; }
             }
         }
+
     }
 }

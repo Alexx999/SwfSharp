@@ -13,7 +13,7 @@ namespace SwfSharp.ABC
         [XmlAttribute]
         public string Name { get; set; }
         [XmlElement("Item")]
-        public List<ItemInfo> Items { get; set; } 
+        public List<ItemInfo> Items { get; set; }
 
         private void FromStream(BitReader reader, CpoolInfo cpool)
         {
@@ -37,7 +37,8 @@ namespace SwfSharp.ABC
         internal void ToStream(BitWriter writer, CpoolInfo cpool)
         {
             var strings = cpool.ActualStrings;
-            writer.WriteEncodedS32(strings.IndexOf(Name));
+            writer.WriteEncodedS32(strings.IndexOf(Name, 1));
+            writer.WriteEncodedS32(Items.Count);
             foreach (var item in Items)
             {
                 writer.WriteEncodedS32(strings.IndexOf(item.Key));

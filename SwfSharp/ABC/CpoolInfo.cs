@@ -11,7 +11,7 @@ namespace SwfSharp.ABC
         [XmlArrayItem("Int")]
         public List<int> Integers { get; set; }
 
-        internal IList<int> ActualIntegers { get; set; }
+        internal CpoolList<int> ActualIntegers { get; set; }
 
         [XmlIgnore]
         public bool IntegersSpecified
@@ -22,7 +22,7 @@ namespace SwfSharp.ABC
         [XmlArrayItem("Uint")]
         public List<uint> UIntegers { get; set; }
 
-        internal IList<uint> ActualUIntegers { get; set; }
+        internal CpoolList<uint> ActualUIntegers { get; set; }
 
         [XmlIgnore]
         public bool UIntegersSpecified
@@ -33,7 +33,7 @@ namespace SwfSharp.ABC
         [XmlArrayItem("Double")]
         public List<double> Doubles { get; set; }
 
-        internal IList<double> ActualDoubles { get; set; }
+        internal CpoolList<double> ActualDoubles { get; set; }
 
         [XmlIgnore]
         public bool DoublesSpecified
@@ -44,8 +44,8 @@ namespace SwfSharp.ABC
         [XmlArrayItem("String")]
         public List<string> Strings { get; set; }
 
-        internal IList<string> ActualStrings { get; set; }
-        internal IList<string> NamespaceStrings { get; set; }
+        internal CpoolList<string> ActualStrings { get; set; }
+        internal CpoolList<string> NamespaceStrings { get; set; }
 
         [XmlIgnore]
         public bool StringsSpecified
@@ -67,7 +67,7 @@ namespace SwfSharp.ABC
         [XmlArrayItem("NsSet")]
         public List<NsSet> NsSets { get; set; }
 
-        internal IList<NsSet> ActualNsSets { get; set; }
+        internal CpoolList<NsSet> ActualNsSets { get; set; }
 
         [XmlIgnore]
         public bool NsSetsSpecified
