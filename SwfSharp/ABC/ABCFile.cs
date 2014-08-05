@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Xml.Serialization;
 using SwfSharp.Utils;
 
@@ -18,6 +19,10 @@ namespace SwfSharp.ABC
         public List<MethodInfo> Methods { get; set; }
         [XmlArrayItem("Metadata")]
         public List<MetadataInfo> Metadata { get; set; }
+        [XmlArrayItem("Instance")]
+        public List<InstanceInfo> Instances { get; set; }
+        [XmlArrayItem("Class")]
+        public List<ClassInfo> Classes { get; set; }
         [XmlElement]
         public byte[] Data { get; set; }
 
@@ -33,12 +38,24 @@ namespace SwfSharp.ABC
             {
                 Methods.Add(MethodInfo.CreateFromStream(reader, ConstantPool));
             }
-            var methadataCount = reader.ReadEncodedS32();
-            Metadata = new List<MetadataInfo>(methadataCount);
-            for (int i = 0; i < methadataCount; i++)
+            var metadataCount = reader.ReadEncodedS32();
+            Metadata = new List<MetadataInfo>(metadataCount);
+            for (int i = 0; i < metadataCount; i++)
             {
                 Metadata.Add(MetadataInfo.CreateFromStream(reader, ConstantPool));
             }
+            var classCount = reader.ReadEncodedS32();
+            Instances = new List<InstanceInfo>(classCount);
+            for (int i = 0; i < classCount; i++)
+            {
+                Instances.Add(InstanceInfo.CreateFromStream(reader, ConstantPool, Methods, Metadata));
+            }
+            Classes = new List<ClassInfo>(classCount);
+            for (int i = 0; i < classCount; i++)
+            {
+                Classes.Add(ClassInfo.CreateFromStream(reader, ConstantPool));
+            }
+
             Data = reader.ReadBytes(dataSize - (int)(reader.Position - pos));
         }
 
@@ -64,6 +81,20 @@ namespace SwfSharp.ABC
             {
                 metadataInfo.ToStream(writer, ConstantPool);
             }
+            if (Instances.Count != Classes.Count)
+            {
+                throw new InvalidDataException("Istance count must be equal to class count");
+            }
+            writer.WriteEncodedS32(Instances.Count);
+            foreach (var instance in Instances)
+            {
+                instance.ToStream(writer, ConstantPool, Methods, Metadata);
+            }
+            foreach (var classInfo in Classes)
+            {
+                classInfo.ToStream(writer, ConstantPool);
+            }
+
             writer.WriteBytes(Data);
         }
     }

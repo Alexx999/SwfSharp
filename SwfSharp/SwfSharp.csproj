@@ -44,8 +44,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ABC\ABCFile.cs" />
+    <Compile Include="ABC\ClassInfo.cs" />
     <Compile Include="ABC\CpoolInfo.cs" />
     <Compile Include="ABC\CpoolList.cs" />
+    <Compile Include="ABC\InstanceFlags.cs" />
+    <Compile Include="ABC\InstanceInfo.cs" />
     <Compile Include="ABC\MetadataInfo.cs" />
     <Compile Include="ABC\MethodInfo.cs" />
     <Compile Include="ABC\Multiname.cs" />
@@ -58,6 +61,13 @@
     <Compile Include="ABC\QName.cs" />
     <Compile Include="ABC\RTQName.cs" />
     <Compile Include="ABC\RTQNameL.cs" />
+    <Compile Include="ABC\TraitAttributes.cs" />
+    <Compile Include="ABC\TraitClass.cs" />
+    <Compile Include="ABC\TraitFunction.cs" />
+    <Compile Include="ABC\TraitKind.cs" />
+    <Compile Include="ABC\TraitMethod.cs" />
+    <Compile Include="ABC\TraitsInfo.cs" />
+    <Compile Include="ABC\TraitSlot.cs" />
     <Compile Include="ABC\TypeName.cs" />
     <Compile Include="Actions\ActionAdd.cs" />
     <Compile Include="Actions\ActionAdd2.cs" />
